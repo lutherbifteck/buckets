@@ -1,1 +1,66 @@
 // @import "{}/node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+.navbar {
+  overflow: hidden;
+  position: fixed;
+  background: #1EAEDB;
+  width: 100px;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 2em;
+}
+
+// .navbar:hover {
+//   width: 150px;
+// }
+
+.navbar a {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar a.active {
+  color: #1EAEDB;
+  background-color: #fff;
+}
+
+.main-layout-container {
+  padding: 0px 50px 50px 150px;
+}
+
+.top-nav-row {
+  padding: 25px 0;
+}
+
+.bucket-list h2 {text-align: center;}
+.bucket-list ul {
+  list-style: none;
+}
+
+.bucket-list img {
+  border-radius: 100%;
+}
+
+
+
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  height: 60px;
+}

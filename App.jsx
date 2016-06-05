@@ -43,7 +43,7 @@ export default class App extends React.Component {
             </form>
             <div>
               {res.map((res) => {
-                    return <span key={res._id}>{res.text}</span>;
+                return <span key={res._id}>{res.text}</span>;
               })}
             </div>
           </div>

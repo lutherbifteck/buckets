@@ -17,7 +17,7 @@ Meteor.publish("providerEntities", function() {
 });
 
 Meteor.publish("getSingleEntityInfo", function(entityID) {
-  return Entities.findOne({entityID});
+  return Entities.find({_id: entityID});
 });
 
 
