@@ -16,6 +16,7 @@ var TestChart = React.createClass({
         datasets: [{
             label: '# of Votes',
             data: [12, 19, 3, 5, 2, 3]
+
         }]
     };
     var chartOptions = {
@@ -89,6 +90,16 @@ export default class EntityDetails extends React.Component {
                 </div>
               </div>
             </form>
+
+            <strong>This template needs to show:</strong>
+            <ul>
+              <li>What this entity does</li>
+              <li>How long they have been working with Direct Supply</li>
+              <li>Goal of the relationship</li>
+              <li>Customer Interactions (ppl/companies they have worked with)</li>
+              <li>Form for adding user to this specific entity</li>
+            </ul>
+
             {projListing}
           </div>
         </div>

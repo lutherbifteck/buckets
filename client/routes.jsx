@@ -15,6 +15,14 @@ FlowRouter.route('/', {
   }
 });
 
+// var adminRoutes = Flowrouter.group({
+//   prefix: '/admin',
+//   name: 'admin',
+//   triggersEnter: [function(context, redirect) {
+//     console.log('running ADMIN group triggers');
+//   }]
+// });
+
 FlowRouter.route('/:entityID', {
   action(params) {
     mount(MainLayout, {
