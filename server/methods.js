@@ -18,4 +18,5 @@ Meteor.methods({
     });
   },
   //EntityDetails component
+
 });

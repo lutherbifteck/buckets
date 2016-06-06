@@ -3,6 +3,11 @@ import { Meteor } from 'meteor/meteor';
 Entities = new Mongo.Collection('entities');
 Projects = new Mongo.Collection('projects');
 
+// ROLES
+Meteor.publish(null, function (){
+  return Meteor.roles.find({})
+});
+
 // ENTITIES
 Meteor.publish("startupEntities", function() {
   return Entities.find({bucketType: "startups"});

@@ -1,36 +1,27 @@
 import React from 'react';
 
 export default class LoginForm extends React.Component {
-  handleSubmit(e) {
-    e.preventDefault();
-    // eventually do this code on the server
-    // Meteor.call();
 
+  handleSubmit(event) {
+    event.preventDefault();
+    var email = this.refs.email.value.trim();
+    var password = this.refs.password.value.trim();
+    var confirmPassword = this.refs.confirmPassword.value.trim();
+
+    var accountInfo = {
+			email: email,
+			password: password
+		};
+
+    Meteor.call('MySignupTest', accountInfo);
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div class="row">
-          <div class="six columns">
-            <label htmlFor="LoginEmailInput">Your email</label>
-            <input class="u-full-width" type="email" placeholder="test@mailbox.com" id="LoginEmailInput" />
-          </div>
-          <div class="six columns">
-            <label htmlFor="exampleRecipientInput">Reason for contacting</label>
-            <select class="u-full-width" id="exampleRecipientInput">
-              <option value="Option 1">Questions</option>
-              <option value="Option 2">Admiration</option>
-              <option value="Option 3">Can I get your number?</option>
-            </select>
-          </div>
-        </div>
-        <label htmlFor="exampleMessage">Message</label>
-        <textarea class="u-full-width" placeholder="Hi Dave …" id="exampleMessage"></textarea>
-        <label class="example-send-yourself-copy">
-          <input type="checkbox" />
-          <span class="label-body">Send a copy to yourself</span>
-        </label>
+      <form onSubmit={this.handleSubmit.bind(this)}>
+        <input class="u-full-width" type="email" placeholder="email" ref="email" />
+        <input class="u-full-width" type="password" ref="password" />
+        <input class="u-full-width" type="password" ref="confirmPassword" />
         <input class="button-primary" type="submit" value="Submit" />
       </form>
     );

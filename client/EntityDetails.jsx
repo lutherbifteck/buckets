@@ -5,7 +5,6 @@ import React from 'react';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 
-
 // test chart
 var LineChart = require("react-chartjs").Line;
 

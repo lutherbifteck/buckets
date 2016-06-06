@@ -9,8 +9,9 @@ export const MainLayout = ({content}) => (
   <div className="main-layout">
     <Nav />
     <div className="main-layout-container">
+
       <AccountsUIWrapper />
-      <LoginForm />
+
       {content}
     </div>
   </div>

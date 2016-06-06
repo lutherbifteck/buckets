@@ -22,8 +22,8 @@ meteortoys:allthings
 fourseven:scss
 ultimatejs:tracker-react
 
-accounts-ui
+alanning:roles
+
 accounts-base
 accounts-password
-useraccounts:unstyled
-alanning:roles
+accounts-ui
