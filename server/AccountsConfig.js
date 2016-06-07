@@ -1,9 +1,9 @@
 Accounts.onCreateUser(function(options, user) {
     Meteor.setTimeout(function () {
         Roles.addUsersToRoles(user._id, ['admin']);
-    },0);
+    }, 0);
 
-    console.log(Roles.getUsersInRole('admin'));
+   FlowRouter.go("/admin/dashboard")
 
    return user;
 });

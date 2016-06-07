@@ -6,7 +6,7 @@ export default class Nav extends React.Component {
       <nav className="navbar">
         <a href="/" className={FlowRouter.current().path == "/" ? 'active' : ''}><span className="lnr lnr-home"></span></a>
         <a href="grapes" className={FlowRouter.current().path == "/grapes" ? 'active' : ''}><span className="lnr lnr-users"></span></a>
-        <a href="zoo" className={FlowRouter.current().path == "/zoo" ? 'active' : ''}><span className="lnr lnr-envelope"></span></a>
+        <a href="supersecretsignup" className={FlowRouter.current().path == "/supersecretsignup" ? 'active' : ''}><span className="lnr lnr-cog"></span></a>
       </nav>
     )
   }

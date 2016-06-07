@@ -1,58 +1,17 @@
-// @import "{}/node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+$bluePrimary: #1eaedb;
+$red: #E55B46;
+$purple: #BD3CC5;
+$green: #86D040;
+$orange: #E59046;
+$yellow: #E5D046;
+$grey: #E1E1E1;
 
 html, body {
   width: 100%;
   height: 100%;
 }
 
-.navbar {
-  overflow: hidden;
-  position: fixed;
-  background: #1EAEDB;
-  width: 100px;
-  height: 100%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  font-size: 2em;
-}
-
-// .navbar:hover {
-//   width: 150px;
-// }
-
-.navbar a {
-  padding-top: 25px;
-  padding-bottom: 25px;
-  color: #fff;
-  text-decoration: none;
-}
-
-.navbar a.active {
-  color: #1EAEDB;
-  background-color: #fff;
-}
-
-.main-layout-container {
-  padding: 0px 50px 50px 150px;
-}
-
-.top-nav-row {
-  padding: 25px 0;
-}
-
-.bucket-list h2 {text-align: center;}
-.bucket-list ul {
-  list-style: none;
-}
-
-.bucket-list img {
-  border-radius: 100%;
-}
-
-
-
+input,
 input[type="email"],
 input[type="number"],
 input[type="search"],
@@ -63,4 +22,92 @@ input[type="password"],
 textarea,
 select {
   height: 60px;
+}
+
+.navbar {
+  overflow: hidden;
+  position: fixed;
+  background: $bluePrimary;
+  width: 100px;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 2em;
+  a {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    color: #fff;
+    text-decoration: none;
+  }
+  a.active {
+    color: $bluePrimary;
+    background-color: #fff;
+  }
+}
+
+/* MainLayout
+ ************************************/
+.main-layout-container {
+  padding: 25px 50px 50px 150px;
+}
+
+/* Dashboard
+ ************************************/
+.bucket-list {
+  h2 { text-align: center; }
+  ul { list-style: none; }
+  img { border-radius: 100%; }
+}
+
+/*  EntityDetails
+ ************************************/
+.entity-details-template {
+  .goal {
+    background: $green;
+    float: right;
+    padding: 5px 10px;
+  }
+  .entity-members-customers-lists {
+    ul {
+      list-style: none;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+    }
+    li {
+      width: 30%;
+      margin: auto;
+    }
+    img {
+      width: 100%;
+      border-radius: 100%;
+    }
+  }
+
+  .project-listing {
+    list-style: none;
+    a {
+      text-decoration: none;
+    }
+    li {
+      margin-bottom: 0;
+      padding: 25px 15px;
+      border: 1px solid $grey;
+      border-top: none;
+      &:hover {
+        background: #fafafa;
+      }
+    }
+    :first-child li {
+      border-top: 1px solid $grey;
+      border-radius: 4px 4px 0 0;
+    }
+    :last-child li {
+      border-radius: 0 0 4px 4px;
+    }
+  }
 }

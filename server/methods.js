@@ -1,22 +1,24 @@
 import { Meteor } from 'meteor/meteor';
 
 Meteor.methods({
-  // Dashboard component
-  AddEntity(title, bucketType) {
+  // Dashboard
+  AddEntity(title, bucketType, desc, goal) {
     Entities.insert({
       title: title,
-      logo: 'http://placehold.it/250',
-      bucketType: bucketType,
       createdAt: new Date(),
+      bucketType: bucketType,
+      goal: goal,
+      desc: desc,
+      logo: 'http://placehold.it/250'
     });
   },
+
+  // EntityDetails
   AddProject(title, entityID) {
     Projects.insert({
       title: title,
       ownerEntity: entityID,
       createdAt: new Date()
     });
-  },
-  //EntityDetails component
-
+  }
 });
