@@ -1,12 +1,10 @@
-// react stuff
 import React from 'react';
 import { mount } from 'react-mounter';
 
-//app stuff
-import App from '../App.jsx';
 import AccountsUIWrapper from './components/accounts/AccountsUIWrapper.jsx';
 import Dashboard from './Dashboard.jsx';
 import EntityDetails from './EntityDetails.jsx';
+import HomeLayout from './layouts/HomeLayout.jsx';
 import LoginForm from './components/accounts/LoginForm.jsx';
 import { MainLayout } from './layouts/MainLayout.jsx';
 import ProjectDetails from './ProjectDetails.jsx';
@@ -14,9 +12,7 @@ import RolesTester from './components/RolesTester.jsx'
 
 FlowRouter.route('/', {
   action() {
-    mount(MainLayout, {
-      content: (<Dashboard />)
-    })
+    mount(HomeLayout)
   }
 });
 
@@ -24,6 +20,36 @@ FlowRouter.route('/roles-test', {
   action() {
     mount(MainLayout, {
       content: (<RolesTester />)
+    })
+  }
+});
+
+//ADMIN ROUTES
+var adminRoutes = FlowRouter.group({
+  prefix: '/admin',
+  name: 'admin',
+  triggersEnter: [function(context, redirect) {
+    // do stuff with group routes here
+  }]
+});
+
+// /admin
+adminRoutes.route('/', {
+  action() {
+    mount(MainLayout, {
+      content: (<Dashboard />)
+    })
+  },
+  triggersEnter: [function(context, redirect) {
+    console.log('running /admin trigger');
+  }]
+});
+
+// handling /admin/manage-users
+adminRoutes.route('/manage-users', {
+  action() {
+    mount(MainLayout, {
+      content: (<h1>Manage Users Page</h1>)
     })
   }
 });

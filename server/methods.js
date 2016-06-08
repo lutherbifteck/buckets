@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 
 Meteor.methods({
   // Dashboard
@@ -20,5 +21,19 @@ Meteor.methods({
       ownerEntity: entityID,
       createdAt: new Date()
     });
+  },
+
+  addNewEntityMember(newMemberName, newMemberEmail, newMemberPassword, entityID) {
+    console.log(newMemberName, newMemberEmail, newMemberPassword, entityID);
+    var userDetails = {
+        username: newMemberName,
+        email: newMemberEmail,
+        password: newMemberPassword,
+        profile: {
+          entity: entityID
+        },
+    };
+    var userId = Accounts.createUser(userDetails);
+    Roles.addUsersToRoles(userId, ['entity-member'] );
   }
 });

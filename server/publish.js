@@ -3,6 +3,13 @@ import { Meteor } from 'meteor/meteor';
 Entities = new Mongo.Collection('entities');
 Projects = new Mongo.Collection('projects');
 
+
+Meteor.publish('MyUserData', function () {
+  if(!this._id) { return; }
+  return Meteor.users.find({_id: this._id}, {fields: {profile: 1}});
+});
+
+
 // ROLES
 Meteor.publish(null, function (){
   return Meteor.roles.find({})

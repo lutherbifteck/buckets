@@ -4,6 +4,7 @@ import React from 'react';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 
+import AddNewEntityMemberForm from './components/EntityMembers/AddNewEntityMemberForm.jsx';
 
 export default class EntityDetails extends React.Component {
   componentWillMount() {
@@ -11,7 +12,8 @@ export default class EntityDetails extends React.Component {
       subscription: {
         singleEntityInfo: Meteor.subscribe("getSingleEntityInfo", this.props.entityID),
         entityProjects: Meteor.subscribe("singleEntityProjList", this.props.entityID)
-      }
+      },
+      addNewMemberMode: false,
     })
   }
 
@@ -23,7 +25,8 @@ export default class EntityDetails extends React.Component {
   addNewProject(event) {
     event.preventDefault();
     var title = this.refs.projTitle.value.trim();
-    Meteor.call('AddProject', title, this.props.entityID, () => {
+    Meteor.call('AddProject', title, this.props.entityID, (err) => {
+      if (err) { throw new Meteor.Error('could-not-add-project', err.reason); }
       this.refs.projTitle.value = '';
     });
   }
@@ -37,10 +40,17 @@ export default class EntityDetails extends React.Component {
   }
 
   render() {
+    var currentUserId = Meteor.userId();
+    var currentUser = Meteor.user();
+    console.log(currentUser);
+    console.log(Roles.userIsInRole(currentUserId, 'admin'))
+    console.log(Roles.userIsInRole(currentUserId, 'entity-member'))
+
+
     let entity = this.getEntityInfo();
     let projectList = this.getEntityProjects();
 
-    if(!entity || !projectList) { return (<span>Loading...</span>) }
+    if (!entity || !projectList) { return (<span>Loading...</span>) }
 
     //project listing
     const projListing = projectList.length < 1 ? 'No projects yet' : <ul className="project-listing">{projectList.map((proj)=>{return (<a key={proj._id} href={this.props.entityID+"/"+proj._id}><li>{proj.title}</li></a>)})}</ul>;
@@ -62,17 +72,8 @@ export default class EntityDetails extends React.Component {
 
         <div className="row">
           <div className="three columns entity-members-customers-lists">
-            <h5>{entity.title} Members</h5>
-            <form>
-              <div className="row">
-                <div className="twelve columns">
-                  <input ref="newMember"
-                    className="u-full-width"
-                    type="text"
-                    placeholder="Add a team member..." />
-                </div>
-              </div>
-            </form>
+
+            <AddNewEntityMemberForm entityID={this.props.entityID} />
             <ul>
               <li><img src="http://placekitten.com/150" /></li>
               <li><img src="http://placekitten.com/150" /></li>
@@ -97,9 +98,9 @@ export default class EntityDetails extends React.Component {
               <div className="row">
                 <div className="twelve columns">
                   <input ref="projTitle"
-                    className="u-full-width"
-                    type="text"
-                    placeholder="Add a project..." />
+                         className="u-full-width"
+                         type="text"
+                         placeholder="Add a project..." />
                 </div>
               </div>
             </form>

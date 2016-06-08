@@ -1,9 +1,8 @@
-Accounts.onCreateUser(function(options, user) {
-    Meteor.setTimeout(function () {
-        Roles.addUsersToRoles(user._id, ['admin']);
-    }, 0);
+var myPostSignUpFunc = function(userId, info) {
+  Roles.addUsersToRoles(userId, ['admin']);
+}
 
-   FlowRouter.go("/admin/dashboard")
-
-   return user;
+AccountsTemplates.configure({
+    forbidClientAccountCreation: false,
+    postSignUpHook: myPostSignUpFunc,
 });

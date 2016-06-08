@@ -31,9 +31,6 @@ select {
   width: 100px;
   height: 100%;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
   font-size: 2em;
   a {
     padding-top: 25px;
@@ -44,6 +41,13 @@ select {
   a.active {
     color: $bluePrimary;
     background-color: #fff;
+  }
+  .navbar-inner {
+    height: inherit;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
   }
 }
 
