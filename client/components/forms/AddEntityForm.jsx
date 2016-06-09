@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 
 export default class AddEntityForm extends React.Component {
-
   addEntity(event) {
     event.preventDefault();
     var title = this.refs.entityTitle.value.trim();

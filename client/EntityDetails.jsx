@@ -1,4 +1,6 @@
-// This is the file causing the loading error. fix sub/pub
+// This is the file causing the loading error.
+// couldn't do sub/pub in class constructor for some reason?
+// had to subscribe in componentWillMount()
 
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
@@ -6,6 +8,7 @@ import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 
 import AddNewEntityMemberForm from './components/forms/AddNewEntityMemberForm.jsx';
+import AddProjectForm from './components/forms/AddProjectForm.jsx';
 
 export default class EntityDetails extends React.Component {
   componentWillMount() {
@@ -49,9 +52,7 @@ export default class EntityDetails extends React.Component {
     let entity = this.getEntityInfo();
     let projectList = this.getEntityProjects();
 
-
-    if (!entity || !projectList) { return (<span>Loading...</span>) }
-
+    if (!entity || !projectList) { return (<span>Loading...</span>); }
 
     //project listing
     const projListing = projectList.length < 1 ? 'No projects yet' : <ul className="project-listing">{projectList.map((proj)=>{return (<a key={proj._id} href={this.props.entityID+"/"+proj._id}><li>{proj.title}</li></a>)})}</ul>;
@@ -75,6 +76,7 @@ export default class EntityDetails extends React.Component {
           <div className="three columns entity-members-customers-lists">
 
             <AddNewEntityMemberForm entityID={this.props.entityID} />
+
             <ul>
               <li><img src="http://placekitten.com/150" /></li>
               <li><img src="http://placekitten.com/150" /></li>
@@ -95,16 +97,9 @@ export default class EntityDetails extends React.Component {
           </div>
           <div className="nine columns">
             <h5>Projects</h5>
-            <form onSubmit={this.addNewProject.bind(this)}>
-              <div className="row">
-                <div className="twelve columns">
-                  <input ref="projTitle"
-                         className="u-full-width"
-                         type="text"
-                         placeholder="Add a project..." />
-                </div>
-              </div>
-            </form>
+
+            <AddProjectForm />
+
             {projListing}
           </div>
         </div>
