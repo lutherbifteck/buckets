@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'react-mounter';
+import { Meteor } from 'meteor/meteor';
 
 import AccountsUIWrapper from './components/accounts/AccountsUIWrapper.jsx';
 import Dashboard from './Dashboard.jsx';
@@ -29,13 +30,11 @@ var adminRoutes = FlowRouter.group({
   prefix: '/admin',
   name: 'admin',
   triggersEnter: [function(context, redirect) {
-    // Redirect if not admin
+    // Redirect if NOT admin
     if ( !Roles.userIsInRole(Meteor.userId(), ['admin']) ) {
-      Meteor.call('getUserEntity', Meteor.userId(), function(err, res) {
-        if (err) { throw new Meteor.Error('could-not-do-permissions') }
-        var userEntityId = res;
-        console.log(userEntityId);
-          FlowRouter.go("/"+ userEntityId);
+      Meteor.call('getMyUserEntityId', Meteor.userId(), function(err, res) {
+        if (err) { throw new Meteor.Error('could-not-get-permissions', err.reason); }
+        FlowRouter.go("/"+ res);
       });
     }
   }]

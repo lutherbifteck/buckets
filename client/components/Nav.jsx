@@ -4,11 +4,23 @@ import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 
 export default class Nav extends React.Component {
+
   _logOut() {
     Meteor.logout(function(err){
       if(err) { throw new Meteor.Error('cannot-log-out', err.reason); }
       FlowRouter.go("/");
     });
+  }
+
+  _getEntityId() {
+    if ( !Roles.userIsInRole(Meteor.userId(), ['admin']) ) {
+      Meteor.call('getMyUserEntityId', Meteor.userId(), (err, res) => {
+        if (err) { throw new Meteor.Error('could-not-get-permissions', err.reason); }
+        console.log(res)
+        Session.set('homeBtnUrl', res);
+      });
+      return Session.get('homeBtnUrl');
+    }
   }
 
   //handles which options show up for a certain type of user
@@ -30,14 +42,12 @@ export default class Nav extends React.Component {
     } else {
       return (
         <div className="navbar-inner">
-          <a href="/" className={FlowRouter.current().path == "/admin" ? 'active' : ''}>
+          <a href={"/"+ this._getEntityId()}>
             <span className="lnr lnr-home"></span>
           </a>
-
           <a href="/admin" className={FlowRouter.current().path == "/admin" ? 'active' : ''}>
-            admin
+            test admin route
           </a>
-
           <a href="#" onClick={this._logOut.bind(this)}>
             <span className="lnr lnr-cross-circle"></span>
           </a>

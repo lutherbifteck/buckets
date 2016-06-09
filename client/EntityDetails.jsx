@@ -1,10 +1,11 @@
 // This is the file causing the loading error. fix sub/pub
+
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 
-import AddNewEntityMemberForm from './components/EntityMembers/AddNewEntityMemberForm.jsx';
+import AddNewEntityMemberForm from './components/forms/AddNewEntityMemberForm.jsx';
 
 export default class EntityDetails extends React.Component {
   componentWillMount() {
@@ -13,8 +14,7 @@ export default class EntityDetails extends React.Component {
         MyUserData: Meteor.subscribe("MyUserData"),
         singleEntityInfo: Meteor.subscribe("getSingleEntityInfo", this.props.entityID),
         entityProjects: Meteor.subscribe("singleEntityProjList", this.props.entityID)
-      },
-      addNewMemberMode: false,
+      }
     })
   }
 

@@ -1,13 +1,21 @@
 import { Meteor } from 'meteor/meteor';
 
 Meteor.methods({
-  getUserEntity(userId) {
+  logMeOut() {
+    console.log('logging out...');
+  },
+  getMyUserEntityId(userId) {
     var user = Meteor.users.findOne(userId);
-    var userEntity = user.profile.entity;
-
-    if(userEntity) {
-      console.log(userEntity);
-      return userEntity;
+    try {
+      var userEntity = user.profile.entity;
+      if(userEntity) {
+        return userEntity;
+      } else {
+        return "admin";
+      }
+    }
+    catch (error) {
+      console.log('Error from "GetUserEntity" Method: ', error);
     }
   }
 });

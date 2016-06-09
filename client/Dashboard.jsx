@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 
+import AddEntityForm from './components/forms/AddEntityForm.jsx';
+
 Entities = new Mongo.Collection('entities');
 Projects = new Mongo.Collection('projects');
 
@@ -78,16 +80,6 @@ export default class Dashboard extends React.Component {
     this.state.subscription.providers.stop();
   }
 
-  addEntity(event) {
-    event.preventDefault();
-    var title = this.refs.entityTitle.value.trim();
-    var bucketType = this.refs.entBucketType.value;
-
-    Meteor.call('AddEntity', title, bucketType, () => {
-      this.refs.entityTitle.value = '';
-    });
-  }
-
   getStartups() {
     return Entities.find({bucketType: "startups"}).fetch();
   }
@@ -116,27 +108,7 @@ export default class Dashboard extends React.Component {
     return (
       <div>
 
-      <form className="form-inline"
-            onSubmit={this.addEntity.bind(this)} >
-        <div className="row">
-          <div className="eight columns">
-              <div className="form-group">
-                <input type="text"
-                       ref="entityTitle"
-                       className="u-full-width"
-                       placeholder="Add new entity..." />
-              </div>
-          </div>
-          <div className="four columns">
-              <select className="u-full-width"
-                      ref="entBucketType">
-                <option value="startups">startups</option>
-                <option value="universities">universities</option>
-                <option value="providers">providers</option>
-              </select>
-            </div>
-          </div>
-        </form>
+      <AddEntityForm />
 
         <div className="row bucket-list">
           <div className="one-third column">

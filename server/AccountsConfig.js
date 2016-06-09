@@ -1,5 +1,6 @@
 var myPostSignUpFunc = function(userId, info) {
   Roles.addUsersToRoles(userId, ['admin']);
+  FlowRouter.go("/admin")
 }
 
 AccountsTemplates.configure({

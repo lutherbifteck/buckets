@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
 Meteor.methods({
-
   // Dashboard
   AddEntity(title, bucketType, desc, goal) {
     Entities.insert({
