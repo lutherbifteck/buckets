@@ -10,6 +10,7 @@ export default class EntityDetails extends React.Component {
   componentWillMount() {
     this.setState({
       subscription: {
+        MyUserData: Meteor.subscribe("MyUserData"),
         singleEntityInfo: Meteor.subscribe("getSingleEntityInfo", this.props.entityID),
         entityProjects: Meteor.subscribe("singleEntityProjList", this.props.entityID)
       },
@@ -18,6 +19,7 @@ export default class EntityDetails extends React.Component {
   }
 
   componentWillUnmount() {
+    this.state.subscription.MyUserData.stop();
     this.state.subscription.singleEntityInfo.stop();
     this.state.subscription.entityProjects.stop();
   }
@@ -39,18 +41,17 @@ export default class EntityDetails extends React.Component {
     return Projects.find({ownerEntity: this.props.entityID});
   }
 
+  getMyUserData() {
+    return Meteor.users.find({_id: Meteor.userId()}).fetch();
+  }
+
   render() {
-    var currentUserId = Meteor.userId();
-    var currentUser = Meteor.user();
-    console.log(currentUser);
-    console.log(Roles.userIsInRole(currentUserId, 'admin'))
-    console.log(Roles.userIsInRole(currentUserId, 'entity-member'))
-
-
     let entity = this.getEntityInfo();
     let projectList = this.getEntityProjects();
 
+
     if (!entity || !projectList) { return (<span>Loading...</span>) }
+
 
     //project listing
     const projListing = projectList.length < 1 ? 'No projects yet' : <ul className="project-listing">{projectList.map((proj)=>{return (<a key={proj._id} href={this.props.entityID+"/"+proj._id}><li>{proj.title}</li></a>)})}</ul>;

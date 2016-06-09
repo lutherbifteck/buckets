@@ -6,7 +6,7 @@ Projects = new Mongo.Collection('projects');
 
 Meteor.publish('MyUserData', function () {
   if(!this._id) { return; }
-  return Meteor.users.find({_id: this._id}, {fields: {profile: 1}});
+  return Meteor.users.find({_id: this._id});
 });
 
 

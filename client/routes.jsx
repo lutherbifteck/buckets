@@ -29,7 +29,15 @@ var adminRoutes = FlowRouter.group({
   prefix: '/admin',
   name: 'admin',
   triggersEnter: [function(context, redirect) {
-    // do stuff with group routes here
+    // Redirect if not admin
+    if ( !Roles.userIsInRole(Meteor.userId(), ['admin']) ) {
+      Meteor.call('getUserEntity', Meteor.userId(), function(err, res) {
+        if (err) { throw new Meteor.Error('could-not-do-permissions') }
+        var userEntityId = res;
+        console.log(userEntityId);
+          FlowRouter.go("/"+ userEntityId);
+      });
+    }
   }]
 });
 
