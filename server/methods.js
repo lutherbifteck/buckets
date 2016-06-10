@@ -24,7 +24,6 @@ Meteor.methods({
   },
 
   addNewEntityMember(newMemberName, newMemberEmail, newMemberPassword, entityID) {
-    console.log(newMemberName, newMemberEmail, newMemberPassword, entityID);
     var userDetails = {
         username: newMemberName,
         email: newMemberEmail,

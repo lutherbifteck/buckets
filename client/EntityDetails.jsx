@@ -54,7 +54,7 @@ export default class EntityDetails extends React.Component {
 
     if (!entity || !projectList) { return (<span>Loading...</span>); }
 
-    //project listing
+    //the project listing
     const projListing = projectList.length < 1 ? 'No projects yet' : <ul className="project-listing">{projectList.map((proj)=>{return (<a key={proj._id} href={this.props.entityID+"/"+proj._id}><li>{proj.title}</li></a>)})}</ul>;
 
     return (

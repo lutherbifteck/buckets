@@ -9,7 +9,16 @@ export default class AddEntityForm extends React.Component {
     var desc = this.refs.entityDesc.value.trim();
     var goal = this.refs.goal.value.trim();
 
-    Meteor.call('AddEntity', title, bucketType, desc, goal, () => {
+    Meteor.call('AddEntity', title, bucketType, desc, goal, (err) => {
+      if (err) throw new Meteor.Error('cannot-add-entity', err.reason);
+
+      Bert.alert({
+        title: 'Entity Added to ' + bucketType + "!",
+        type: 'success',
+        style: 'growl-top-right',
+        icon: 'fa-thumbs-up'
+      });
+
       this.refs.entityTitle.value = '';
       this.refs.entityDesc.value = '';
       this.refs.goal.value = '';

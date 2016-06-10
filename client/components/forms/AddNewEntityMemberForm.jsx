@@ -16,15 +16,23 @@ export default class AddNewEntityMemberForm extends React.Component {
       newMemberEmail,
       newMemberPassword,
       entityID,
-      function(err) {
+      (err) => {
         if (err) throw new Meteor.Error('cannot-add-member', err.reason);
+
+        Bert.alert({
+          title: `${newMemberName} added!`,
+          message: 'Don\'t forget to tell them their password is ' + newMemberPassword,
+          type: 'success',
+          style: 'growl-top-right',
+          icon: 'fa-thumbs-up'
+        });
+
+        //clear the form
+        this.refs.newMemberName.value = '';
+        this.refs.newMemberEmail.value ='';
+        this.refs.newMemberPassword.value ='';
       }
     );
-
-    //clear the form
-    this.refs.newMemberName.value = '';
-    this.refs.newMemberEmail.value ='';
-    this.refs.newMemberPassword.value ='';
   }
 
   render() {

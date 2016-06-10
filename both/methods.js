@@ -7,9 +7,8 @@ Meteor.methods({
   getMyUserEntityId(userId) {
     var user = Meteor.users.findOne(userId);
     try {
-      var userEntity = user.profile.entity;
-      if(userEntity) {
-        return userEntity;
+      if(user && user.profile && user.profile.entity) {
+        return user.profile.entity;
       } else {
         return "admin";
       }
@@ -17,5 +16,19 @@ Meteor.methods({
     catch (error) {
       console.log('Error from "GetUserEntity" Method: ', error);
     }
-  }
+  },
+  // getMyUserEntityId(userId) {
+  //   var user = Meteor.users.findOne(userId);
+  //   try {
+  //     var userEntity = user.profile.entity;
+  //     if(userEntity) {
+  //       return userEntity;
+  //     } else {
+  //       return "admin";
+  //     }
+  //   }
+  //   catch (error) {
+  //     console.log('Error from "GetUserEntity" Method: ', error);
+  //   }
+  // }
 });

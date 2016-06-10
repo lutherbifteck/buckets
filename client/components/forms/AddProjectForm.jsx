@@ -8,6 +8,12 @@ export default class AddProjectForm extends React.Component {
     Meteor.call('AddProject', title, this.props.entityID, (err) => {
       if (err) { throw new Meteor.Error('could-not-add-project', err.reason); }
       this.refs.projTitle.value = '';
+      Bert.alert({
+        title: 'Project Added!',
+        type: 'success',
+        style: 'growl-top-right',
+        icon: 'fa-thumbs-up'
+      });
     });
   }
 

@@ -9,19 +9,10 @@ import HomeLayout from './layouts/HomeLayout.jsx';
 import LoginForm from './components/accounts/LoginForm.jsx';
 import { MainLayout } from './layouts/MainLayout.jsx';
 import ProjectDetails from './ProjectDetails.jsx';
-import RolesTester from './components/RolesTester.jsx'
 
 FlowRouter.route('/', {
   action() {
     mount(HomeLayout)
-  }
-});
-
-FlowRouter.route('/roles-test', {
-  action() {
-    mount(MainLayout, {
-      content: (<RolesTester />)
-    })
   }
 });
 
@@ -47,9 +38,9 @@ adminRoutes.route('/', {
       content: (<Dashboard />)
     })
   },
-  triggersEnter: [function(context, redirect) {
-    console.log('running /admin trigger');
-  }]
+  // triggersEnter: [function(context, redirect) {
+  //   console.log('running /admin trigger');
+  // }]
 });
 
 // handling /admin/manage-users
@@ -61,6 +52,7 @@ adminRoutes.route('/manage-users', {
   }
 });
 
+// Entity routes (admins can see this too)
 FlowRouter.route('/:entityID', {
   action(params) {
     mount(MainLayout, {
