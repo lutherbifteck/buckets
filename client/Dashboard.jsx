@@ -6,9 +6,6 @@ import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 
 import AddEntityForm from './components/forms/AddEntityForm.jsx';
 
-Entities = new Mongo.Collection('entities');
-Projects = new Mongo.Collection('projects');
-
 //test chart
 var DoughnutChart = require("react-chartjs").Doughnut;
 

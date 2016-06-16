@@ -2,6 +2,22 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
 Meteor.methods({
+ AddInteraction(customer, type, details) {
+
+   var interactionDetails = {
+     customer: customer,
+     type: type,
+     details: details,
+     createdAt: new Date(),
+     createdBy: this.userId
+   }
+
+   console.log(interactionDetails)
+
+   Interactions.insert(interactionDetails);
+ },
+
+
   // Dashboard
   AddEntity(title, bucketType, desc, goal) {
     Entities.insert({

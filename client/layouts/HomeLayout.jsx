@@ -3,19 +3,17 @@ import { Meteor } from 'meteor/meteor';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 import AccountsUIWrapper from '../components/accounts/AccountsUIWrapper.jsx';
+import CRMEntryForm from '../components/forms/CRMEntryForm.jsx';
 
 export default class HomeLayout extends React.Component {
-
-  _renderLogin() {
+   _renderPage() {
     var userId = Meteor.userId();
 
     if(userId) {
       if(Roles.userIsInRole(userId, 'admin')) {
         FlowRouter.go("/admin");
       } else {
-        Meteor.call('getMyUserEntityId', userId, function(err, res) {
-          FlowRouter.go("/" + res);
-        });
+        return <CRMEntryForm userId={userId} />
       }
     } else {
       return <AccountsUIWrapper />
@@ -24,13 +22,8 @@ export default class HomeLayout extends React.Component {
 
   render() {
     return (
-      <div className="main-layout">
-        <div className="main-layout-container">
-          <div className="four columns offset-by-four">
-            <h1>bUcKeTs</h1>
-            {this._renderLogin()}
-          </div>
-        </div>
+      <div className="six columns offset-by-three">
+        {this._renderPage()}
       </div>
     );
   }
