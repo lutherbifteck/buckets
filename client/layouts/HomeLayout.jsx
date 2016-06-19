@@ -1,5 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
+
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 import AccountsUIWrapper from '../components/accounts/AccountsUIWrapper.jsx';
