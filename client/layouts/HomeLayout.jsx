@@ -13,7 +13,11 @@ export default class HomeLayout extends React.Component {
       if(Roles.userIsInRole(userId, 'admin')) {
         FlowRouter.go("/admin");
       } else {
-        return <CRMEntryForm userId={userId} />
+        Meteor.call("getMyUserEntityId", Meteor.userId(), (err, res) => {
+          if(err) throw new Meteor.Error("could-not-get-entityId", err);
+          Session.set("userEntityId", res);
+        });
+        return <CRMEntryForm userId={userId} userEntityId={Session.get("userEntityId")} />
       }
     } else {
       return <AccountsUIWrapper />

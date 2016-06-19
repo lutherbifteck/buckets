@@ -4,13 +4,17 @@ Entities = new Mongo.Collection('entities');
 Projects = new Mongo.Collection('projects');
 Interactions = new Mongo.Collection('interactions');
 
-
-
+//Interactions
 Meteor.publish('interactions', function() {
   return Interactions.find({});
 });
 
+Meteor.publish('myPastInteractions', function() {
+  return Interactions.find({createdBy: this.userId});
+});
 
+
+//For editing My Account
 Meteor.publish('MyUserData', function () {
   if(!this._id) { return; }
   return Meteor.users.find({_id: this._id});
@@ -39,9 +43,9 @@ Meteor.publish("getSingleEntityInfo", function(entityID) {
 
 
 // PROJECTS
-// Meteor.publish("AllProjects", function() {
-//   return Projects.find();
-// });
+Meteor.publish("AllProjects", function() {
+  return Projects.find();
+});
 
 Meteor.publish("singleEntityProjList", function(entityID) {
   return Projects.find({ownerEntity: entityID});

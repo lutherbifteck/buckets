@@ -30,6 +30,7 @@ export default class EntityDetails extends React.Component {
   addNewProject(event) {
     event.preventDefault();
     var title = this.refs.projTitle.value.trim();
+
     Meteor.call('AddProject', title, this.props.entityID, (err) => {
       if (err) { throw new Meteor.Error('could-not-add-project', err.reason); }
       this.refs.projTitle.value = '';

@@ -2,21 +2,18 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
 Meteor.methods({
- AddInteraction(customer, type, details) {
-
+ AddInteraction(dateOfInteraction, userEntityId, customer, type, details) {
    var interactionDetails = {
+     dateOfInteraction: dateOfInteraction,
+     entityId: userEntityId,
      customer: customer,
      type: type,
      details: details,
      createdAt: new Date(),
      createdBy: this.userId
    }
-
-   console.log(interactionDetails)
-
    Interactions.insert(interactionDetails);
  },
-
 
   // Dashboard
   AddEntity(title, bucketType, desc, goal) {
@@ -30,7 +27,7 @@ Meteor.methods({
     });
   },
 
-  // EntityDetails
+  // EntityDetails Component
   AddProject(title, entityID) {
     Projects.insert({
       title: title,

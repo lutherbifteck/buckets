@@ -3,8 +3,39 @@ import React from 'react';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 
-export default class IncubatorCRM extends React.Component {
+//import CRMEntryForm from './forms/CRMEntryForm.jsx';
+import Spinner from './Spinner.jsx';
 
+
+class IncubatorCRMList extends React.Component {
+	render() {
+		if (this.props.list.length < 1) return (<div><Spinner></Spinner><br />Loading entities...</div>)
+
+		return (
+			<div className="incubator-crm-list">
+				<div className="row">
+					<div className="three columns"><strong>Startup</strong></div>
+					<div className="three columns"><strong>Customer</strong></div>
+					<div className="three columns"><strong>Interaction Type</strong></div>
+					<div className="three columns"><strong>Date of Interaction</strong></div>
+				</div>
+				{this.props.list.map((ent) => {
+					return (
+						<div key={ent._id} className="row">
+							<div className="three columns">{ent.entityId}</div>
+							<div className="three columns">{ent.customer}</div>
+							<div className="three columns">{ent.type}</div>
+							<div className="three columns">{ent.dateOfInteraction}</div>
+						</div>
+					)
+				})}
+			</div>
+		);
+	}
+}
+
+
+export default class IncubatorCRM extends React.Component {
 	componentWillMount() {
 		this.state = {
 			subscription: {
@@ -17,35 +48,24 @@ export default class IncubatorCRM extends React.Component {
 		this.state.subscription.interactions.stop()
 	}
 
-	getStartups() {
+	getInteractions() {
 		return Interactions.find().fetch();
 	}
 
 	render() {
-		var startupList = this.getStartups();
-		var incTable = startupList.length < 1 ? <div>'No entities'</div> :
-			<div>
-				<div className="row">
-					<div className="three columns">Startup</div>
-					<div className="three columns">Customer</div>
-					<div className="three columns">Type</div>
-					<div className="three columns">Date</div>
-				</div>
-				{startupList.map((ent)=>{return (
-			 	<div key={ent._id} className="row">
-			 		<div className="three columns">{ent.customer}</div>
-			 	</div>
-			 )})}
-			</div>
+		var interactionList = this.getInteractions();
 
 		return (
-			<div className="IncubatorCRM">
-				<h2>Incubator CRM</h2>
-				{incTable}
-				Click on a row detailed information.
+			<div className="incubator-crm">
+        <h2>Incubator CRM</h2>
+				<small>Click on a row for more detailed information.</small>
+        <div className="row">
+          <div className="twelve columns">
+            <IncubatorCRMList list={interactionList} />
+          </div>
+        </div>
 			</div>
 		)
 	}
 }
-
 ReactMixin(IncubatorCRM.prototype, TrackerReactMixin);

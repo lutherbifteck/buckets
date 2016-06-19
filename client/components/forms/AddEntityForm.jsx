@@ -27,42 +27,45 @@ export default class AddEntityForm extends React.Component {
 
   render() {
     return (
-      <form className="form-inline"
-      onSubmit={this.addEntity.bind(this)} >
-        <div className="row">
-          <div className="eight columns">
-            <input type="text"
-                   ref="entityTitle"
-                   className="u-full-width"
-                   placeholder="Add new entity..." />
+      <div>
+        <h3>Add Entity</h3>
+        <form className="form-inline"
+        onSubmit={this.addEntity.bind(this)} >
+          <div className="row">
+            <div className="eight columns">
+              <input type="text"
+                     ref="entityTitle"
+                     className="u-full-width"
+                     placeholder="Add new entity..." />
+            </div>
+            <div className="four columns">
+              <select className="u-full-width"
+                      ref="entBucketType">
+                <option value="startups">startups</option>
+                <option value="universities">universities</option>
+                <option value="providers">providers</option>
+              </select>
+            </div>
           </div>
-          <div className="four columns">
-            <select className="u-full-width"
-                    ref="entBucketType">
-              <option value="startups">startups</option>
-              <option value="universities">universities</option>
-              <option value="providers">providers</option>
-            </select>
+          <div className="row">
+            <div className="six columns">
+              <input className="u-full-width"
+                     type="text"
+                     ref="entityDesc"
+                     placeholder="Description" />
+            </div>
+            <div className="six columns">
+              <input className="u-full-width"
+                     type="text"
+                     ref="goal"
+                     placeholder="Goal" />
+            </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="six columns">
-            <input className="u-full-width"
-                   type="text"
-                   ref="entityDesc"
-                   placeholder="Description" />
+          <div className="row">
+            <input type="submit" className="button-success" value="Add Entity" />
           </div>
-          <div className="six columns">
-            <input className="u-full-width"
-                   type="text"
-                   ref="goal"
-                   placeholder="Goal" />
-          </div>
-        </div>
-        <div className="row">
-          <input type="submit" value="Add Entity" />
-        </div>
-      </form>
+        </form>
+      </div>
     )
   }
 }

@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
-
 import AddEntityForm from './components/forms/AddEntityForm.jsx';
 
 //test chart
@@ -63,6 +62,7 @@ export default class Dashboard extends React.Component {
   constructor() {
     super();
     this.state = {
+      showAddEntityForm: false,
       subscription: {
         startups: Meteor.subscribe("startupEntities"),
         universities: Meteor.subscribe("universityEntities"),
@@ -97,6 +97,10 @@ export default class Dashboard extends React.Component {
     return Entities.find({bucketType: "providers"}).count();
   }
 
+  formDisplay() {
+    this.setState({showAddEntityForm: !this.state.showAddEntityForm});
+  }
+
   render() {
     let startupList = this.getStartups();
     let universityList = this.getUniversities();
@@ -105,13 +109,20 @@ export default class Dashboard extends React.Component {
     return (
       <div>
 
-      <AddEntityForm />
+        <div className="row">
+          <button onClick={this.formDisplay.bind(this)}
+                  className="button pull-right"
+                  type="button">
+              {this.state.showAddEntityForm ? 'Hide form' : 'Add Entity'}
+          </button>
+        </div>
+
+        {this.state.showAddEntityForm ? <AddEntityForm /> : null}
 
         <div className="row bucket-list">
           <div className="one-third column">
 
             <TestDonutChart></TestDonutChart>
-
             <h2>Startups</h2>
             <p>Entity count: <small>{this.countStartups()}</small></p>
             <ul>

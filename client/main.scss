@@ -1,10 +1,11 @@
 $bluePrimary: #1eaedb;
+$blueLight: rgba($bluePrimary, .05);
 $red: #E55B46;
 $purple: #BD3CC5;
 $green: #86D040;
 $orange: #E59046;
 $yellow: #E5D046;
-$grey: #E1E1E1;
+$grey: #d1d1d1;
 
 html, body {
   width: 100%;
@@ -21,7 +22,18 @@ input[type="url"],
 input[type="password"],
 textarea,
 select {
-  height: 60px;
+  min-height: 60px;
+  font-size: 2rem;
+}
+
+.button-success {
+  background: $green !important;
+  color: #fff !important;
+  border-color: #fff !important;
+
+  &:hover {
+    background: $green - 20;
+  }
 }
 
 .navbar {
@@ -31,12 +43,20 @@ select {
   width: 100px;
   height: 100%;
   text-align: center;
-  font-size: 2em;
+  // font-size: 2em;
+  font-size: 1em;
+
+  .lnr { font-size: 2em; }
+
   a {
     padding-top: 25px;
     padding-bottom: 25px;
     color: #fff;
     text-decoration: none;
+
+    &:hover {
+      color: $bluePrimary - 40;
+    }
   }
   a.active {
     color: $bluePrimary;
@@ -56,6 +76,25 @@ select {
 .main-layout-container {
   padding: 25px 50px 50px 150px;
 }
+
+
+/* .incubator-crm
+ ************************************/
+.past-interactions-list,
+.incubator-crm-list {
+  .row {
+    border-bottom: 1px solid $grey;
+
+    .columns {
+      padding-top: 25px;
+      padding-bottom: 25px;
+    }
+    &:hover:not(:first-child) {
+        background: $blueLight;
+    }
+  }
+}
+
 
 /* Dashboard
  ************************************/
