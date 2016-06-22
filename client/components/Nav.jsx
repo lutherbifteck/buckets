@@ -21,10 +21,11 @@ export default class Nav extends React.Component {
         return (
           <div className="navbar-inner">
             <a href="/admin" className={FlowRouter.current().path == "/admin" ? 'active' : ''}>
-              <span className="lnr lnr-pie-chart"></span> <br />Stats
+              <span className="lnr lnr-pie-chart"></span> <br />Dashboard
             </a>
             <a href="/admin/incubator" className={FlowRouter.current().path == "/admin/incubator" ? 'active' : ''}>
-              <span className="lnr lnr-list"></span> <br />Incubator
+              <span className="lnr lnr-list"></span>
+              <br /> Incubator CRM
             </a>
             <a href="/admin/manage-users" className={FlowRouter.current().path == "/admin/manage-users" ? 'active' : ''}>
               <span className="lnr lnr-users"></span>
