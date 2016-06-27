@@ -39,6 +39,7 @@ $ meteor
 
 ### Entity Members
 * Add entries to the CRM List
+* Make CRM list sortable/searchable
 * Add new customers (in CRM List form)
 
 ### Add Honeypot to sign in form
