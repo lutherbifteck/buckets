@@ -8,11 +8,19 @@ import Spinner from './Spinner.jsx';
 
 
 class IncubatorCRMList extends React.Component {
+	constuctor() {
+		this.state = {
+			direction: ASC
+		}
+	}
+
 	render() {
 		if (this.props.list.length < 1) return (<div><Spinner></Spinner><br />Loading entities...</div>)
-
 		return (
 			<div className="incubator-crm-list">
+
+
+
 				<div className="row">
 					<div className="three columns"><strong>Startup</strong></div>
 					<div className="three columns"><strong>Customer</strong></div>

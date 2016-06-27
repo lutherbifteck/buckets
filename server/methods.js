@@ -16,24 +16,16 @@ Meteor.methods({
  },
 
   // Dashboard
-  AddEntity(title, bucketType, desc, goal) {
-    Entities.insert({
-      title: title,
-      createdAt: new Date(),
-      bucketType: bucketType,
-      goal: goal,
-      desc: desc,
-      logo: 'http://placehold.it/250'
-    });
-  },
+  AddEntity(entityData, newUserData) {
+    // add more properties to entityData
+    entityData.logo = 'http://placehold.it/250';
+    entityData.createdAt = new Date();
+    
+    var newEntityId = Entities.insert(entityData); // returns new Entity's ID.
+    var newUserId = Accounts.createUser(newUserData); // Note: Account.createUser returns the new user's ID.
 
-  // EntityDetails Component
-  AddProject(title, entityID) {
-    Projects.insert({
-      title: title,
-      ownerEntity: entityID,
-      createdAt: new Date()
-    });
+    Meteor.users.update(newUserId, {$set: {profile: {myEntity: newEntityId} }});
+    Roles.addUsersToRoles(newUserId, ['entity-member'] );
   },
 
   addNewEntityMember(newMemberName, newMemberEmail, newMemberPassword, entityID) {
@@ -45,7 +37,8 @@ Meteor.methods({
           entity: entityID
         },
     };
-    var userId = Accounts.createUser(userDetails);
+    var userId = Accounts.createUser(userDetails); // Account.createUser returns the new user's ID.
+
     Roles.addUsersToRoles(userId, ['entity-member'] );
   }
 });
