@@ -43,3 +43,7 @@ $ meteor
 
 ### Add Honeypot to sign in form
 ### How to do image/file uploads? (Try using Cloudinary)
+
+## ToDos for a later date
+* Figure out how to do Android/iOS builds
+* Push Notifications
