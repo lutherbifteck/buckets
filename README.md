@@ -33,6 +33,10 @@ $ meteor
 
 * Create __ManageUsers__. So admins can C.R.U.D. other Admins, Execs, and Entity-Members
 
+### CRM
+* show notification of Unread Entries in Nav
+* Archive updates
+
 ### Entity Members
 * Add entries to the CRM List
 * Add new customers (in CRM List form)
