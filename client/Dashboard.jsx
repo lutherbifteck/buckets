@@ -113,7 +113,7 @@ export default class Dashboard extends React.Component {
           <button onClick={this.formDisplay.bind(this)}
                   className="button pull-right"
                   type="button">
-              {this.state.showAddEntityForm ? 'Hide form' : 'Add Entity'}
+              {this.state.showAddEntityForm ? 'Hide form' : '+ Add Entity'}
           </button>
         </div>
 

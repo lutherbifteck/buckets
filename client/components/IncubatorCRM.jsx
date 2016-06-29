@@ -1,40 +1,63 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactMixin from 'react-mixin';
+import Spinner from './Spinner.jsx';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 
-//import CRMEntryForm from './forms/CRMEntryForm.jsx';
-import Spinner from './Spinner.jsx';
+const styles = {
+	active: {
+		display: 'inherit'
+	},
+	inactive: {
+		display: 'none'
+	}
+}
 
-
-class IncubatorCRMList extends React.Component {
-	constuctor() {
+class SingleCRMEntry extends React.Component {
+	constructor() {
+		super();
 		this.state = {
-			direction: ASC
+			active: false
 		}
+		this._toggleActive = this._toggleActive.bind(this);
 	}
 
+	_toggleActive() {
+		this.setState({active: !this.state.active});
+	}
+	render() {
+		const stateStyle = this.state.active ? styles.active : styles.inactive;
+
+		return (
+			<div className="single-crm-entry" onClick={this._toggleActive}>
+				<div className="row">
+					<div className="three columns">Entit ID: {this.props.data.entityId}</div>
+					<div className="three columns">{this.props.data.customer}</div>
+					<div className="three columns">{this.props.data.type}</div>
+					<div className="three columns">{this.props.data.dateOfInteraction}</div>
+				</div>
+				<div style={stateStyle}>
+					{this.props.data.details}
+				</div>
+			</div>
+		);
+	}
+}
+
+class IncubatorCRMList extends React.Component {
 	render() {
 		if (this.props.list.length < 1) return (<div><Spinner></Spinner><br />Loading entities...</div>)
 		return (
 			<div className="incubator-crm-list">
-
-
-
 				<div className="row">
-					<div className="three columns"><strong>Startup</strong></div>
+					<div className="three columns"><strong>Entity</strong></div>
 					<div className="three columns"><strong>Customer</strong></div>
 					<div className="three columns"><strong>Interaction Type</strong></div>
 					<div className="three columns"><strong>Date of Interaction</strong></div>
 				</div>
 				{this.props.list.map((ent) => {
 					return (
-						<div key={ent._id} className="row">
-							<div className="three columns">{ent.entityId}</div>
-							<div className="three columns">{ent.customer}</div>
-							<div className="three columns">{ent.type}</div>
-							<div className="three columns">{ent.dateOfInteraction}</div>
-						</div>
+						<SingleCRMEntry key={ent._id} data={ent} />
 					)
 				})}
 			</div>
@@ -48,6 +71,7 @@ export default class IncubatorCRM extends React.Component {
 		this.state = {
 			subscription: {
 				interactions: Meteor.subscribe("interactions")
+
 			}
 		};
 	}

@@ -1,9 +1,12 @@
 import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
 
 Meteor.startup(function() {
-  var countdownText =["3!", "2!", "1!", "Firing up Buckets..."];
+  if(Meteor.isClient) {
 
-  for (var i = 0; i < countdownText.length; i++) {
-    console.log(countdownText[i]);
+    var countdownText =["3!", "2!", "1!", "Firing up Buckets..."];
+    for (var i = 0; i < countdownText.length; i++) {
+      console.log(countdownText[i]);
+    }
   }
 });

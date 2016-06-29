@@ -77,13 +77,15 @@ export default class AddEntityForm extends React.Component {
 
           <div className="row">
             <div className="eight columns">
-              <h3>Entity Info</h3>
+              <h4>Entity Info</h4>
+              <label>Title</label>
               <input type="text"
                      ref="entityTitle"
                      value={this.state.message}
                      onChange={this._handleTitleChange.bind(this)}
                      className="u-full-width"
                      placeholder="Add new entity..." />
+               <label>Bucket Type</label>
                <select className="u-full-width"
                        ref="entBucketType"
                        onChange={this._handleBucketTypeChange.bind(this)} >
@@ -91,23 +93,27 @@ export default class AddEntityForm extends React.Component {
                  <option value="universities">universities</option>
                  <option value="providers">providers</option>
                </select>
+               <label>Goal</label>
                <input className="u-full-width"
                       type="text"
                       ref="goal"
                       placeholder="Goal" />
-                <input className="u-full-width"
-                       type="text"
-                       ref="entityDesc"
-                       placeholder="Description" />
+               <label>Description</label>
+               <input className="u-full-width"
+                      type="text"
+                      ref="entityDesc"
+                      placeholder="Description" />
 
-  <h3>Add fields for</h3>
-  <ul>
-    <li>Phone</li>
-      <li>Address</li>
-      <li>name</li>
-      <li>email</li>
-      <li>password</li>
-    </ul>
+
+
+        <h3>Add fields for</h3>
+            <ul>
+              <li>Phone</li>
+                <li>Address</li>
+                <li>name</li>
+                <li>email</li>
+                <li>password</li>
+              </ul>
 
 
 

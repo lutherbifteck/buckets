@@ -1,20 +1,44 @@
 import React from 'react';
 import { mount, withOptions } from 'react-mounter';
 import { Meteor } from 'meteor/meteor';
-
 import AccountsUIWrapper from './components/accounts/AccountsUIWrapper.jsx';
 import Dashboard from './Dashboard.jsx';
 import EntityDetails from './EntityDetails.jsx';
 import HomeLayout from './layouts/HomeLayout.jsx';
 import IncubatorCRM from './components/IncubatorCRM.jsx';
 import { MainLayout } from './layouts/MainLayout.jsx';
-import PastInteractions from './components/PastInteractions.jsx'
-import ProjectDetails from './ProjectDetails.jsx';
+import PastInteractions from './components/PastInteractions.jsx';
+import { createContainer } from 'meteor/react-meteor-data';
+import { Session } from 'meteor/session';
+
+
+const HomeLayoutDataWrap = createContainer(() => {
+
+  // Do all your reactive data access in this method.
+  // Note that this subscription will get cleaned up when your component is unmounted
+
+  const currentUser = Meteor.user();
+
+  const subscription = Meteor.subscribe("myEntityData", () => {
+    return Entities.find({_id: currentUser.profile.entity}).fetch();
+  });
+  const loadingEntityData = !subscription.ready();
+  // //const entity = Entities.find({}).fetch();
+  // const entity = Entities.find({_id : '4RrTAegQS9xGsPCKR'}).fetch();
+
+  //
+  // return {
+  //   subscription, loadingEntityData, entity
+  // };
+
+  return {currentUser, subscription, loadingEntityData};
+}, HomeLayout);
+
 
 FlowRouter.route('/', {
   action() {
     mount(MainLayout, {
-      content: (<HomeLayout />)
+      content: (<HomeLayoutDataWrap />)
     })
   }
 });
@@ -65,19 +89,10 @@ adminRoutes.route('/manage-users', {
   }
 });
 
-// Entity routes (admins can see this too)
 FlowRouter.route('/:entityID', {
   action(params) {
     mount(MainLayout, {
       content: (<EntityDetails entityID={params.entityID} />)
-    })
-  }
-});
-
-FlowRouter.route('/:entityID/:projID', {
-  action(params) {
-    mount(MainLayout, {
-      content: (<ProjectDetails entityID={params.entityID} projectID={params.projID} />)
     })
   }
 });

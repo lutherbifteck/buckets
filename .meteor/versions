@@ -2,6 +2,7 @@ accounts-base@1.2.7
 accounts-password@1.1.8
 alanning:roles@1.2.15
 allow-deny@1.0.4
+amplify@1.0.0
 autoupdate@1.2.9
 babel-compiler@6.6.4
 babel-runtime@0.1.8
@@ -78,6 +79,7 @@ ordered-dict@1.0.7
 promise@0.6.7
 random@1.0.9
 rate-limit@1.0.4
+react-meteor-data@0.2.9
 reactive-dict@1.1.7
 reactive-var@1.0.9
 reload@1.1.8
@@ -95,9 +97,11 @@ standard-minifier-js@1.0.6
 templating@1.1.9
 templating-tools@1.0.4
 themeteorchef:bert@2.1.0
+tmeasday:check-npm-versions@0.2.0
 tracker@1.0.13
+u2622:persistent-session@0.4.4
 ui@1.0.11
-ultimatejs:tracker-react@1.0.2
+ultimatejs:tracker-react@1.0.4
 underscore@1.0.8
 url@1.0.9
 useraccounts:core@1.14.2

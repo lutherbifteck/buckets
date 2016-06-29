@@ -3,8 +3,8 @@ import { Meteor } from 'meteor/meteor';
 import Nav from '../components/Nav.jsx';
 
 Entities = new Mongo.Collection('entities');
-Projects = new Mongo.Collection('projects');
 Interactions = new Mongo.Collection('interactions');
+EntityUpdates = new Mongo.Collection('entityUpdates');
 
 export const MainLayout = ({content}) => (
   <div className="main-layout">

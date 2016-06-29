@@ -1,8 +1,31 @@
 import { Meteor } from 'meteor/meteor';
 
 Entities = new Mongo.Collection('entities');
-Projects = new Mongo.Collection('projects');
 Interactions = new Mongo.Collection('interactions');
+EntityUpdates = new Mongo.Collection('entityUpdates');
+
+
+//For editing My Account
+Meteor.publish('MyUserData', function () {
+  if( !this._id ) { return this.ready(); }
+  return Meteor.users.find({_id: this._id});
+});
+
+Meteor.publish('myEntityData', function() {
+  var user = Meteor.users.findOne(this.userId);
+  var entity = Entities.find({_id: user.profile.entity});
+
+  if(!entity) return this.ready()
+  return Entities.find({_id: user.profile.entity});
+});
+
+Meteor.publish("getSingleEntityInfo", function(entityID) {
+  return Entities.find({_id: entityID});
+});
+
+Meteor.publish('entityUpdates', function(entityID) {
+  return EntityUpdates.find({ownerEntity: entityID});
+});
 
 //Interactions
 Meteor.publish('interactions', function() {
@@ -14,18 +37,10 @@ Meteor.publish('myPastInteractions', function() {
 });
 
 
-//For editing My Account
-Meteor.publish('MyUserData', function () {
-  if(!this._id) { return; }
-  return Meteor.users.find({_id: this._id});
-});
-
-
 // ROLES
 Meteor.publish(null, function (){
-  return Meteor.roles.find({})
+  return Meteor.roles.find({});
 });
-
 
 // ENTITIES
 Meteor.publish("startupEntities", function() {
@@ -34,19 +49,7 @@ Meteor.publish("startupEntities", function() {
 Meteor.publish("universityEntities", function() {
   return Entities.find({bucketType: "universities"});
 });
+
 Meteor.publish("providerEntities", function() {
   return Entities.find({bucketType: "providers"});
 });
-Meteor.publish("getSingleEntityInfo", function(entityID) {
-  return Entities.find({_id: entityID});
-});
-
-
-// PROJECTS
-Meteor.publish("AllProjects", function() {
-  return Projects.find();
-});
-
-Meteor.publish("singleEntityProjList", function(entityID) {
-  return Projects.find({ownerEntity: entityID});
-})
