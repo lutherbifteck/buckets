@@ -33,6 +33,33 @@ export default class EntityDetails extends React.Component {
     this.setState({showAddUpdatesForm: !this.state.showAddUpdatesForm});
   }
 
+  _deleteEntity() {
+    Meteor.call('deleteEntity', this.props.entityID, (err, res)=>{
+      if(err) throw new Meteor.Error("Error Deleting Entity", err);
+      console.log("ent deleted")
+      FlowRouter.go("/admin");
+    });
+  }
+
+  _editEntity() {
+    console.log("editing entity...")
+  }
+
+  _showAdminControls() {
+    if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
+      return (
+        <div className="row">
+          <button onClick={this._editEntity.bind(this)}>
+            <span className="lnr lnr-pencil"></span> Edit
+          </button>
+          <button onClick={this._deleteEntity.bind(this)} className="button-danger">
+            <span className="lnr lnr-cross"></span> Delete
+          </button>
+        </div>
+      )
+    }
+  }
+
   render() {
     let entity = this.getEntityInfo();
     let updateList = this._getEntityUpdates();
@@ -49,6 +76,9 @@ export default class EntityDetails extends React.Component {
 
     return (
       <div className="entity-details-template">
+
+        {this._showAdminControls()}
+
         <div className="row">
           <div className="nine columns">
             <h1>{entity.title}</h1>

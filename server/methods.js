@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
 Meteor.methods({
-
  AddInteraction(dateOfInteraction, myEntID, customer, type, details) {
    var interactionDetails = {
      dateOfInteraction: dateOfInteraction,
@@ -29,7 +28,7 @@ Meteor.methods({
 
     var newEntityId = Entities.insert(entityData); // returns new Entity's ID.
     var newUserId = Accounts.createUser(newUserData); // Note: Account.createUser returns the new user's ID.
-        
+
     Meteor.users.update(newUserId, {$set: {profile: {entity: newEntityId} }});
     Roles.addUsersToRoles(newUserId, ['entity-member'] );
   },

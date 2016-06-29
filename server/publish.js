@@ -11,13 +11,21 @@ Meteor.publish('MyUserData', function () {
   return Meteor.users.find({_id: this._id});
 });
 
+// used in HomeLayoutDataWrap
 Meteor.publish('myEntityData', function() {
-  var user = Meteor.users.findOne(this.userId);
-  var entity = Entities.find({_id: user.profile.entity});
-
-  if(!entity) return this.ready()
-  return Entities.find({_id: user.profile.entity});
+  if(this.userId) {
+    var user = Meteor.users.findOne(this.userId);
+    try {
+      var entity = Entities.find({_id: user.profile.entity});
+      if(!entity) { return this.ready(); }
+      return Entities.find({_id: user.profile.entity});
+    }
+    catch(e) {
+      console.log("No entity found", e);
+    }
+  }
 });
+
 
 Meteor.publish("getSingleEntityInfo", function(entityID) {
   return Entities.find({_id: entityID});

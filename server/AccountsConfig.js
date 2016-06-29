@@ -4,7 +4,7 @@ var myPostSignUpFunc = function(userId, info) {
 }
 
 AccountsTemplates.configure({
-    forbidClientAccountCreation: true,
+    forbidClientAccountCreation: false,
     postSignUpHook: myPostSignUpFunc,
 });
 

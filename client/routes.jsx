@@ -12,24 +12,12 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
 
 
-const HomeLayoutDataWrap = createContainer(() => {
-
+let HomeLayoutDataWrap = createContainer(() => {
   // Do all your reactive data access in this method.
   // Note that this subscription will get cleaned up when your component is unmounted
-
   const currentUser = Meteor.user();
-
-  const subscription = Meteor.subscribe("myEntityData", () => {
-    // return Entities.find({_id: currentUser.profile.entity}).fetch();
-  });
+  const subscription = Meteor.subscribe("myEntityData");
   const loadingEntityData = !subscription.ready();
-  // //const entity = Entities.find({}).fetch();
-  // const entity = Entities.find({_id : '4RrTAegQS9xGsPCKR'}).fetch();
-
-  //
-  // return {
-  //   subscription, loadingEntityData, entity
-  // };
 
   return {currentUser, subscription, loadingEntityData};
 }, HomeLayout);

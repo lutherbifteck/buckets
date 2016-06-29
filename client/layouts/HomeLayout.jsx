@@ -14,19 +14,21 @@ export default class HomeLayout extends React.Component {
     }
   }
 
-  componentWillReceiveProps() {
-    if(this.props.loadingEntityData && this.props.currentUser && this.props.currentUser.profile && this.props.currentUser.profile.entity) {
-      if(Roles.userIsInRole(Meteor.userId(), 'entity-member')) {
-        let data = this._getEntData();
 
-        if (data[0].customers && data[0].customers.length > 1) {
+  componentWillReceiveProps() {
+    // let isEntMember = Meteor.userId() && this.props.loadingEntityData && this.props.currentUser && this.props.currentUser.profile && this.props.currentUser.profile.entity;
+    //
+    // console.log(isEntMember);
+    if( Meteor.userId() && Roles.userIsInRole(Meteor.userId(), 'entity-member') && this.props.loadingEntityData && this.props.currentUser && this.props.currentUser.profile && this.props.currentUser.profile.entity ) {
+        let data = this._getEntData();
+        if (data[0].customers && data[0].customers.length > 0) {
           this.setState({entityCustomers: data[0].customers})
         } else {
           this.setState({entityCustomers: "no customers yet"})
         };
-      }
     }
   }
+
 
   _getEntData() {
     return Entities.find({_id: this.props.currentUser.profile.entity}).fetch();
@@ -37,11 +39,11 @@ export default class HomeLayout extends React.Component {
     const user = Meteor.user();
 
     if(userId && user) {
-      if(Roles.userIsInRole(userId, 'admin') || Roles.userIsInRole(userId, 'exec')  ) {
+      if( Roles.userIsInRole(userId, 'admin') || Roles.userIsInRole(userId, 'exec') ) {
         FlowRouter.go("/admin");
       } else {
-        if ( !this.state.entityCustomers ) return "Loading customers...";
-        return <CRMEntryForm userData={user} customers={this.state.entityCustomers} />
+        if ( this.state.entityCustomers ) return <CRMEntryForm userData={user} customers={this.state.entityCustomers} />
+        // return <CRMEntryForm userData={user} customers={this.state.entityCustomers} />
       }
     } else {
       return <AccountsUIWrapper />
@@ -51,7 +53,6 @@ export default class HomeLayout extends React.Component {
   render() {
     return (
       <div className="six columns offset-by-three">
-
         {this._renderPageContent()}
       </div>
     );

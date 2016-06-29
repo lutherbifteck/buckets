@@ -24,7 +24,8 @@ export default class AddEntityForm extends React.Component {
     var title = this.refs.entityTitle.value.trim();
     var bucketType = this.refs.entBucketType.value;
     var desc = this.refs.entityDesc.value.trim();
-    var goal = this.refs.goal.value.trim();
+    // var goal = this.refs.goal.value.trim();
+    var goal = "The goal"
     var tel = this.refs.entTel.value.trim();
     var address = this.refs.entAddress.value.trim();
     var web = this.refs.entWeb.value.trim();
@@ -138,33 +139,31 @@ export default class AddEntityForm extends React.Component {
           <div className="six columns">
             <label>Partnership Type</label>
             <select ref="stage" className="u-full-width">
-              <option value="">Alpha</option>
-              <option value="">Pilot</option>
+              <option value="">Co-Develop</option>
+              <option value="">Test Solutions</option>
+              <option value="">In-Kind Services</option>
               <option value="">Exploratory</option>
-              <option value="">Commercialization</option>
-              <option value="">Ready to be Built</option>
-              <option value="">Negotiating</option>
-              <option value="">Proof-of-concept</option>
-              <option value="">Build-in-progress</option>
-              <option value="">Building Model</option>
               <option value="">Paused</option>
-              <option value="">Others (Allows user to type in)</option>
+              <option value="">Others</option>
+
             </select>
           </div>
           <div className="six columns">
             <label>Goal</label>
             <select ref="stage" className="u-full-width">
-              <option value="">Alpha</option>
-              <option value="">Pilot</option>
-              <option value="">Exploratory</option>
-              <option value="">Commercialization</option>
-              <option value="">Ready to be Built</option>
-              <option value="">Negotiating</option>
-              <option value="">Proof-of-concept</option>
-              <option value="">Build-in-progress</option>
-              <option value="">Building Model</option>
-              <option value="">Paused</option>
-              <option value="">Others (Allows user to type in)</option>
+              <option value="">Recruitment</option>
+              <option value="">DS Branded Products</option>
+              <option value="">Exclusive Distribution</option>
+              <option value="">Marketing Play</option>
+              <option value="">E-Commerce</option>
+              <option value="">Selling Products to New Market</option>
+              <option value="">Capability Building</option>
+              <option value="">Adapted Technology</option>
+              <option value="">Resale</option>
+              <option value="">Integration into Offering</option>
+              <option value="">In-kind Services</option>
+              <option value="">Co-Development</option>
+              <option value="">Others (Allows User to Type in)</option>
             </select>
           </div>
         </div>
@@ -175,33 +174,29 @@ export default class AddEntityForm extends React.Component {
           <div className="six columns">
             <label>Partnership Type</label>
             <select ref="stage" className="u-full-width">
-              <option value="">Alpha</option>
-              <option value="">Pilot</option>
+              <option value="">Co-Develop</option>
+              <option value="">Test Solutions</option>
+              <option value="">In-Kind Services</option>
               <option value="">Exploratory</option>
-              <option value="">Commercialization</option>
-              <option value="">Ready to be Built</option>
-              <option value="">Negotiating</option>
-              <option value="">Proof-of-concept</option>
-              <option value="">Build-in-progress</option>
-              <option value="">Building Model</option>
               <option value="">Paused</option>
-              <option value="">Others (Allows user to type in)</option>
+              <option value="">Others</option>
             </select>
           </div>
           <div className="six columns">
             <label>Goal</label>
             <select ref="stage" className="u-full-width">
-              <option value="">Alpha</option>
-              <option value="">Pilot</option>
-              <option value="">Exploratory</option>
-              <option value="">Commercialization</option>
-              <option value="">Ready to be Built</option>
-              <option value="">Negotiating</option>
-              <option value="">Proof-of-concept</option>
-              <option value="">Build-in-progress</option>
-              <option value="">Building Model</option>
-              <option value="">Paused</option>
-              <option value="">Others (Allows user to type in)</option>
+              <option value="">DS Branded Products</option>
+              <option value="">Exclusive Distribution</option>
+              <option value="">Marketing Play</option>
+              <option value="">E-Commerce</option>
+              <option value="">Selling Products to New Market</option>
+              <option value="">Capability Building</option>
+              <option value="">Adapted Technology</option>
+              <option value="">Resale</option>
+              <option value="">Integration into Offering</option>
+              <option value="">In-kind Services</option>
+              <option value="">Co-Development</option>
+              <option value="">Others (Allows User to Type in)</option>
             </select>
           </div>
         </div>
