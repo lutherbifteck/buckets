@@ -57,25 +57,29 @@ export default class CRMEntryForm extends React.Component {
   }
 
   _renderCustomers() {
-    return this.props.customers.map((cust)=>{
+    console.log('render customers', this.props.customers)
+    if(this.props.customers === "no customers yet") {
       return (
-        <option key={cust} value={cust}>{cust}</option>
+        <option>Choose customer</option>
       );
-    });
+    } {
+      return this.props.customers.map((cust)=>{
+        return (
+          <option key={cust} value={cust}>{cust}</option>
+        );
+      });
+    }
   }
 
   render() {
     let myUserId = this.props.userData ? this.props.userData.username : '';
     let myEntID = this.props.userData ? this.props.userData.profile.entity : '';
 
-
     return (
       <div>
         <h3>Add an Interaction</h3>
         <p><strong>User:</strong> {myUserId}</p>
         <p><strong>User Entity:</strong> {myEntID}</p>
-
-
 
         <form onSubmit={this.handleSubmit.bind(this, myEntID)}>
           <label>Date of Interaction</label>
@@ -85,9 +89,8 @@ export default class CRMEntryForm extends React.Component {
           <select ref="customer"
                 className="u-full-width"
                 onChange={this._toggleNewCustField.bind(this)} >
-
             { this._renderCustomers() }
-            <option onClick={this._toggleNewCustField} value="other">Other</option>
+            <option onClick={this._toggleNewCustField} value="other">Add New...</option>
           </select>
 
           {this.state.showNewCustField ? <div><label>Add New Customer</label><input type="text" ref="newCustomer" className="u-full-width" placeholder="New Customer..." /></div> : null}

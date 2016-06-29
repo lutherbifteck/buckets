@@ -5,7 +5,7 @@ export default class AddEntityForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      entTitle: 'Ron Ronson',
+      entTitle: 'Bob Belcher',
       bucketType: 'startups'
     }
   }
@@ -25,6 +25,9 @@ export default class AddEntityForm extends React.Component {
     var bucketType = this.refs.entBucketType.value;
     var desc = this.refs.entityDesc.value.trim();
     var goal = this.refs.goal.value.trim();
+    var tel = this.refs.entTel.value.trim();
+    var address = this.refs.entAddress.value.trim();
+    var web = this.refs.entWeb.value.trim();
 
     // user vars
     var newMemberName = title;
@@ -36,6 +39,9 @@ export default class AddEntityForm extends React.Component {
       bucketType: bucketType,
       desc: desc,
       goal: goal,
+      tel: tel,
+      address: address,
+      web: web,
       createdBy: Meteor.userId()
     },
     newUserData = {
@@ -62,12 +68,147 @@ export default class AddEntityForm extends React.Component {
       this.refs.goal.value = '';
       this.refs.newMemberEmail.value = '';
       this.refs.newMemberPassword.value ='';
+      this.refs.entTel.value ='';
+      var address = this.refs.entAddress.value ='';
+      var web = this.refs.entWeb.value ='';
     });
   }
 
   _updateNewEntityTitle() {
     this.setState({entityTitle: this.refs.entityTitle.value})
   }
+
+
+  _renderFields() {
+    if(this.state.bucketType==="startups") {
+      return (
+        <div className="row">
+          <div className="four columns">
+            <label>Goal</label>
+            <select ref="goal" className="u-full-width">
+              <option value="ds">DS Branded Products</option>
+              <option value="">Exclusive Distribution</option>
+              <option value="">Marketing Play</option>
+              <option value="">E-Commerce</option>
+              <option value="">Selling Products to New Market</option>
+              <option value="">Capability Building</option>
+              <option value="">Adapted Technology</option>
+              <option value="">Resale</option>
+              <option value="">Integration into Offering</option>
+              <option value="">In-kind Services</option>
+              <option value="">Co-Development</option>
+              <option value="">Others (Allows User to Type in)</option>
+            </select>
+          </div>
+          <div className="four columns">
+            <label>LOB</label>
+            <select ref="lob" className="u-full-width">
+              <option value="">TELS</option>
+              <option value="">Aptura</option>
+              <option value="">DSSI</option>
+              <option value="">Products</option>
+              <option value="">Technology</option>
+              <option value="">DSMI</option>
+              <option value="">Marketing</option>
+              <option value="">DSI</option>
+              <option value="">Others (Allows User to Type in)</option>
+            </select>
+          </div>
+          <div className="four columns">
+            <label>Stage</label>
+            <select ref="stage" className="u-full-width">
+              <option value="">Alpha</option>
+              <option value="">Pilot</option>
+              <option value="">Exploratory</option>
+              <option value="">Commercialization</option>
+              <option value="">Ready to be Built</option>
+              <option value="">Negotiating</option>
+              <option value="">Proof-of-concept</option>
+              <option value="">Build-in-progress</option>
+              <option value="">Building Model</option>
+              <option value="">Paused</option>
+              <option value="">Others (Allows user to type in)</option>
+            </select>
+          </div>
+        </div>
+      )
+    } else if (this.state.bucketType === "universities") {
+      return (
+        <div className="row">
+          <div className="six columns">
+            <label>Partnership Type</label>
+            <select ref="stage" className="u-full-width">
+              <option value="">Alpha</option>
+              <option value="">Pilot</option>
+              <option value="">Exploratory</option>
+              <option value="">Commercialization</option>
+              <option value="">Ready to be Built</option>
+              <option value="">Negotiating</option>
+              <option value="">Proof-of-concept</option>
+              <option value="">Build-in-progress</option>
+              <option value="">Building Model</option>
+              <option value="">Paused</option>
+              <option value="">Others (Allows user to type in)</option>
+            </select>
+          </div>
+          <div className="six columns">
+            <label>Goal</label>
+            <select ref="stage" className="u-full-width">
+              <option value="">Alpha</option>
+              <option value="">Pilot</option>
+              <option value="">Exploratory</option>
+              <option value="">Commercialization</option>
+              <option value="">Ready to be Built</option>
+              <option value="">Negotiating</option>
+              <option value="">Proof-of-concept</option>
+              <option value="">Build-in-progress</option>
+              <option value="">Building Model</option>
+              <option value="">Paused</option>
+              <option value="">Others (Allows user to type in)</option>
+            </select>
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div className="row">
+          <div className="six columns">
+            <label>Partnership Type</label>
+            <select ref="stage" className="u-full-width">
+              <option value="">Alpha</option>
+              <option value="">Pilot</option>
+              <option value="">Exploratory</option>
+              <option value="">Commercialization</option>
+              <option value="">Ready to be Built</option>
+              <option value="">Negotiating</option>
+              <option value="">Proof-of-concept</option>
+              <option value="">Build-in-progress</option>
+              <option value="">Building Model</option>
+              <option value="">Paused</option>
+              <option value="">Others (Allows user to type in)</option>
+            </select>
+          </div>
+          <div className="six columns">
+            <label>Goal</label>
+            <select ref="stage" className="u-full-width">
+              <option value="">Alpha</option>
+              <option value="">Pilot</option>
+              <option value="">Exploratory</option>
+              <option value="">Commercialization</option>
+              <option value="">Ready to be Built</option>
+              <option value="">Negotiating</option>
+              <option value="">Proof-of-concept</option>
+              <option value="">Build-in-progress</option>
+              <option value="">Building Model</option>
+              <option value="">Paused</option>
+              <option value="">Others (Allows user to type in)</option>
+            </select>
+          </div>
+        </div>
+      )
+    }
+  }
+
 
   render() {
     return (
@@ -93,33 +234,36 @@ export default class AddEntityForm extends React.Component {
                  <option value="universities">universities</option>
                  <option value="providers">providers</option>
                </select>
-               <label>Goal</label>
-               <input className="u-full-width"
-                      type="text"
-                      ref="goal"
-                      placeholder="Goal" />
+
+               {this._renderFields()}
+
                <label>Description</label>
                <input className="u-full-width"
                       type="text"
                       ref="entityDesc"
                       placeholder="Description" />
 
+              <label>Phone</label>
+              <input type="tel"
+                     ref="entTel"
+                     className="u-full-width"
+                     placeholder="000.000.0000"/>
 
+              <label>Address</label>
+              <input type="text"
+                       ref="entAddress"
+                       placeholder="123 Main St, Somewhere, Planet Earth"
+                       className="u-full-width"/>
 
-        <h3>Add fields for</h3>
-            <ul>
-              <li>Phone</li>
-                <li>Address</li>
-                <li>name</li>
-                <li>email</li>
-                <li>password</li>
-              </ul>
-
-
+              <label>Website</label>
+              <input type="url"
+                     ref="entWeb"
+                     className="u-full-width"
+                     placeholder="http://bobsburgers.com"/>
 
             </div>
             <div className="four columns">
-              <h4>New User Account Info</h4>
+              <h4>User Info</h4>
               <label>Username</label>
               <h5>{this.state.entTitle}</h5>
 

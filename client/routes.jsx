@@ -20,7 +20,7 @@ const HomeLayoutDataWrap = createContainer(() => {
   const currentUser = Meteor.user();
 
   const subscription = Meteor.subscribe("myEntityData", () => {
-    return Entities.find({_id: currentUser.profile.entity}).fetch();
+    // return Entities.find({_id: currentUser.profile.entity}).fetch();
   });
   const loadingEntityData = !subscription.ready();
   // //const entity = Entities.find({}).fetch();

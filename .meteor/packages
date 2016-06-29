@@ -20,7 +20,6 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 react-meteor-data
 ultimatejs:tracker-react
 fourseven:scss
-meteortoys:allthings
 kadira:flow-router
 fortawesome:fontawesome
 themeteorchef:bert
@@ -32,3 +31,4 @@ accounts-password
 alanning:roles
 session
 u2622:persistent-session
+meteortoys:allthings

@@ -29,7 +29,7 @@ Meteor.methods({
 
     var newEntityId = Entities.insert(entityData); // returns new Entity's ID.
     var newUserId = Accounts.createUser(newUserData); // Note: Account.createUser returns the new user's ID.
-
+        
     Meteor.users.update(newUserId, {$set: {profile: {entity: newEntityId} }});
     Roles.addUsersToRoles(newUserId, ['entity-member'] );
   },
