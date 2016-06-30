@@ -1,47 +1,63 @@
-import React from 'react';
-import { mount, withOptions } from 'react-mounter';
 import { Meteor } from 'meteor/meteor';
+import { mount, withOptions } from 'react-mounter';
+import React from 'react';
+import { Session } from 'meteor/session';
+
 import AccountsUIWrapper from './components/accounts/AccountsUIWrapper.jsx';
+import CRMEntryForm from './components/forms/CRMEntryForm.jsx';
 import Dashboard from './Dashboard.jsx';
 import EntityDetails from './EntityDetails.jsx';
-import HomeLayout from './layouts/HomeLayout.jsx';
+import CRMEntryDataContainer from './containers/CRMEntryDataContainer.jsx';
 import IncubatorCRM from './components/IncubatorCRM.jsx';
 import { MainLayout } from './layouts/MainLayout.jsx';
 import PastInteractions from './components/PastInteractions.jsx';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Session } from 'meteor/session';
 
+FlowRouter.triggers.enter([function(context, redirect){
+  if(!Meteor.userId()) { FlowRouter.go('home'); }
+}]);
 
-let HomeLayoutDataWrap = createContainer(() => {
-  // Do all your reactive data access in this method.
-  // Note that this subscription will get cleaned up when your component is unmounted
-  const currentUser = Meteor.user();
-  const subscription = Meteor.subscribe("myEntityData");
-  const loadingEntityData = !subscription.ready();
+Accounts.onLogin(function() {
+  console.log("I just logged in.");
+  if(Roles.userIsInRole(Meteor.userId(), 'admin') || Roles.userIsInRole(Meteor.userId(), 'exec')) {
+    FlowRouter.go('dashboard');
+  } else {
+    FlowRouter.go('crmEntry');
+  }
+});
 
-  return {currentUser, subscription, loadingEntityData};
-}, HomeLayout);
-
+Accounts.onLogout(function() {
+  FlowRouter.go('home')
+});
 
 FlowRouter.route('/', {
+  name: 'home',
   action() {
     mount(MainLayout, {
-      content: (<HomeLayoutDataWrap />)
+      content: (<AccountsUIWrapper />)
     })
   }
 });
 
+FlowRouter.route('/crm-entry', {
+  name: 'crmEntry',
+  action() {
+    mount(MainLayout, {
+      content: (<CRMEntryDataContainer />)
+    });
+  }
+});
+
 FlowRouter.route('/past-interactions', {
+  name: 'past-interactions',
   action() {
     mount(MainLayout, {
       content: (<PastInteractions />)
     })
   }
-})
+});
 
 var adminRoutes = FlowRouter.group({
   prefix: '/admin',
-  name: 'admin',
   triggersEnter: [function(context, redirect) {
     if ( !Roles.userIsInRole(Meteor.userId(), ['admin']) ) {
       FlowRouter.go("/");
@@ -49,6 +65,7 @@ var adminRoutes = FlowRouter.group({
   }]
 });
 adminRoutes.route('/', {
+  name: 'dashboard',
   action() {
     mount(MainLayout, {
       content: (<Dashboard />)
@@ -58,7 +75,8 @@ adminRoutes.route('/', {
 
   }]
 });
-adminRoutes.route('/incubator', {
+adminRoutes.route('/crm', {
+  name: 'crm',
   action() {
     mount(MainLayout, {
       content: (<IncubatorCRM />)
@@ -66,6 +84,7 @@ adminRoutes.route('/incubator', {
   }
 });
 adminRoutes.route('/manage-users', {
+  name: 'manage-users',
   action() {
     mount(MainLayout, {
       content: (

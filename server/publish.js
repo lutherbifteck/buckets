@@ -8,7 +8,7 @@ EntityUpdates = new Mongo.Collection('entityUpdates');
 //For editing My Account
 Meteor.publish('MyUserData', function () {
   if( !this._id ) { return this.ready(); }
-  return Meteor.users.find({_id: this._id});
+  return Meteor.users.findOne(this._id);
 });
 
 // used in HomeLayoutDataWrap
@@ -54,6 +54,7 @@ Meteor.publish(null, function (){
 Meteor.publish("startupEntities", function() {
   return Entities.find({bucketType: "startups"});
 });
+
 Meteor.publish("universityEntities", function() {
   return Entities.find({bucketType: "universities"});
 });

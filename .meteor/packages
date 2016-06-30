@@ -32,3 +32,4 @@ alanning:roles
 session
 u2622:persistent-session
 meteortoys:allthings
+gwendall:auth-client-callbacks

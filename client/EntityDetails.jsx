@@ -9,6 +9,7 @@ export default class EntityDetails extends React.Component {
     super(props);
     this.state = {
       showAddUpdatesForm: false,
+      showEditEntityForm: false,
       subscription: {
         singleEntityInfo: Meteor.subscribe("getSingleEntityInfo", this.props.entityID),
         entityUpdates: Meteor.subscribe('entityUpdates', this.props.entityID)
@@ -42,19 +43,22 @@ export default class EntityDetails extends React.Component {
   }
 
   _editEntity() {
-    console.log("editing entity...")
+    this.setState({'showEditEntityForm' : !this.state.showEditEntityForm});
   }
 
   _showAdminControls() {
     if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
       return (
-        <div className="row">
-          <button onClick={this._editEntity.bind(this)}>
-            <span className="lnr lnr-pencil"></span> Edit
-          </button>
-          <button onClick={this._deleteEntity.bind(this)} className="button-danger">
-            <span className="lnr lnr-cross"></span> Delete
-          </button>
+        <div>
+          <div className="row">
+            <button onClick={this._editEntity.bind(this)}>
+              <span className="lnr lnr-pencil"></span> Edit
+            </button>
+            <button onClick={this._deleteEntity.bind(this)} className="button-danger">
+              <span className="lnr lnr-cross"></span> Delete
+            </button>
+          </div>
+          {this.state.showEditEntityForm ? <div>edit form shown</div> : ""}
         </div>
       )
     }

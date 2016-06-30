@@ -14,19 +14,19 @@ html, body {
 
 .at-input input {width: 100%;}
 
-input,
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="text"],
-input[type="tel"],
-input[type="url"],
-input[type="password"],
-textarea,
-select {
-  min-height: 60px;
-  font-size: 2rem;
-}
+// input,
+// input[type="email"],
+// input[type="number"],
+// input[type="search"],
+// input[type="text"],
+// input[type="tel"],
+// input[type="url"],
+// input[type="password"],
+// textarea,
+// select {
+//   min-height: 60px;
+//   font-size: 2rem;
+// }
 
 .button-success {
   background: $green !important;

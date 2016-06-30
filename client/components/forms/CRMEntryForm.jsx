@@ -8,6 +8,26 @@ export default class CRMEntryForm extends React.Component {
     this.state = {
       showNewCustField: false,
     };
+    console.log(this.state)
+    console.log(this.props)
+  }
+
+  componentWillReceiveProps() {
+    var conditionsPass = this.props.currentUser && Roles.userIsInRole(Meteor.userId(), 'entity-member') && this.props.loadingEntityData && this.props.currentUser && this.props.currentUser.profile && this.props.currentUser.profile.entity;
+
+    if( conditionsPass ) {
+        let data = this._getEntData();
+        if (data[0].customers && data[0].customers.length > 0) {
+          this.setState({customers: data[0].customers})
+        } else {
+          this.setState({customers: false})
+          this.setState({showNewCustField: true})
+        };
+    }
+  }
+
+  _getEntData() {
+    return Entities.find({_id: this.props.currentUser.profile.entity}).fetch();
   }
 
   _toggleNewCustField() {
@@ -44,6 +64,7 @@ export default class CRMEntryForm extends React.Component {
 
         // clear newCustomer field if it is rendered
         if (this.refs.newCustomer) this.refs.newCustomer.value = "";
+
         this.setState({showNewCustField: false});
 
         Bert.alert({
@@ -57,13 +78,8 @@ export default class CRMEntryForm extends React.Component {
   }
 
   _renderCustomers() {
-    console.log('render customers', this.props.customers)
-    if(this.props.customers === "no customers yet") {
-      return (
-        <option>Choose customer</option>
-      );
-    } {
-      return this.props.customers.map((cust)=>{
+    if(this.state.customers) {
+      return this.state.customers.map((cust)=>{
         return (
           <option key={cust} value={cust}>{cust}</option>
         );
@@ -88,12 +104,15 @@ export default class CRMEntryForm extends React.Component {
           <label>Customer (Todo: loop through Entity's customers and populate select box)</label>
           <select ref="customer"
                 className="u-full-width"
-                onChange={this._toggleNewCustField.bind(this)} >
+                onChange={this._toggleNewCustField.bind(this)}
+                value = "">
+
             { this._renderCustomers() }
-            <option onClick={this._toggleNewCustField} value="other">Add New...</option>
+
+            <option onClick={this._toggleNewCustField} value="other">Other</option>
           </select>
 
-          {this.state.showNewCustField ? <div><label>Add New Customer</label><input type="text" ref="newCustomer" className="u-full-width" placeholder="New Customer..." /></div> : null}
+          {this.state.showNewCustField || this.state.customers && this.state.customers.length < 0 ? <div><label>Add New Customer</label><input type="text" ref="newCustomer" className="u-full-width" placeholder="New Customer..." /></div> : null}
 
           <label>Interaction Type</label>
           <select ref="interactionType" className="u-full-width" >

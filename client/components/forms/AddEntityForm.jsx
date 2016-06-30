@@ -81,124 +81,145 @@ export default class AddEntityForm extends React.Component {
 
 
   _renderFields() {
+    var keyCount;
     if(this.state.bucketType==="startups") {
+      keyCount = 0;
+      let startupCategories = {
+        "Goal": [
+          "DS Branded Products",
+          "Exclusive Distribution",
+          "Marketing Play",
+          "E-Commerce",
+          "Selling Products to New Market",
+          "Capability Building",
+          "Adapted Technology",
+          "Resale",
+          "Integration into Offering",
+          "In-kind Services",
+          "Co-Development"
+        ],
+        "LOB": [
+          "TELS",
+          "Aptura",
+          "DSSI",
+          "Products",
+          "Technology",
+          "DSMI",
+          "Marketing",
+          "DSI"
+        ],
+        "Stage": [
+          "Alpha",
+          "Pilot",
+          "Exploratory",
+          "Commercialization",
+          "Ready to be Built",
+          "Negotiating",
+          "Proof-of-concept",
+          "Build-in-progress",
+          "Building Model",
+          "Paused"
+        ]
+      }
+
       return (
-        <div className="row">
-          <div className="four columns">
-            <label>Goal</label>
-            <select ref="goal" className="u-full-width">
-              <option value="ds">DS Branded Products</option>
-              <option value="">Exclusive Distribution</option>
-              <option value="">Marketing Play</option>
-              <option value="">E-Commerce</option>
-              <option value="">Selling Products to New Market</option>
-              <option value="">Capability Building</option>
-              <option value="">Adapted Technology</option>
-              <option value="">Resale</option>
-              <option value="">Integration into Offering</option>
-              <option value="">In-kind Services</option>
-              <option value="">Co-Development</option>
-              <option value="">Others (Allows User to Type in)</option>
-            </select>
-          </div>
-          <div className="four columns">
-            <label>LOB</label>
-            <select ref="lob" className="u-full-width">
-              <option value="">TELS</option>
-              <option value="">Aptura</option>
-              <option value="">DSSI</option>
-              <option value="">Products</option>
-              <option value="">Technology</option>
-              <option value="">DSMI</option>
-              <option value="">Marketing</option>
-              <option value="">DSI</option>
-              <option value="">Others (Allows User to Type in)</option>
-            </select>
-          </div>
-          <div className="four columns">
-            <label>Stage</label>
-            <select ref="stage" className="u-full-width">
-              <option value="">Alpha</option>
-              <option value="">Pilot</option>
-              <option value="">Exploratory</option>
-              <option value="">Commercialization</option>
-              <option value="">Ready to be Built</option>
-              <option value="">Negotiating</option>
-              <option value="">Proof-of-concept</option>
-              <option value="">Build-in-progress</option>
-              <option value="">Building Model</option>
-              <option value="">Paused</option>
-              <option value="">Others (Allows user to type in)</option>
-            </select>
-          </div>
+        <div key="startCats" className="row">
+          {Object.keys(startupCategories).map((key)=> {
+            return (
+              <div className="four columns">
+                <label>{key}</label>
+                <select ref="interaction{key}" className="u-full-width">
+                {startupCategories[key].map((ent) => {
+                  return <option key={"startOptions"+ent+keyCount++} value="{ent}">{ent}</option>
+                })}
+                </select>
+              </div>
+            )
+          })}
         </div>
       )
     } else if (this.state.bucketType === "universities") {
-      return (
-        <div className="row">
-          <div className="six columns">
-            <label>Partnership Type</label>
-            <select ref="stage" className="u-full-width">
-              <option value="">Co-Develop</option>
-              <option value="">Test Solutions</option>
-              <option value="">In-Kind Services</option>
-              <option value="">Exploratory</option>
-              <option value="">Paused</option>
-              <option value="">Others</option>
+      keyCount = 0;
+      let universityCategories = {
+        "Partnership Type": [
+          "Co-Develop",
+          "Test Solutions",
+          "In-Kind Services",
+          "Exploratory",
+          "Paused"
+        ],
+        "Goal": [
+          "Recruitment",
+          "DS Branded Products",
+          "Exclusive Distribution",
+          "Marketing Play",
+          "E-Commerce",
+          "Selling Products to New Market",
+          "Capability Building",
+          "Adapted Technology",
+          "Resale",
+          "Integration into Offering",
+          "In-kind Services",
+          "Co-Development"
+        ]
+      };
 
-            </select>
-          </div>
-          <div className="six columns">
-            <label>Goal</label>
-            <select ref="stage" className="u-full-width">
-              <option value="">Recruitment</option>
-              <option value="">DS Branded Products</option>
-              <option value="">Exclusive Distribution</option>
-              <option value="">Marketing Play</option>
-              <option value="">E-Commerce</option>
-              <option value="">Selling Products to New Market</option>
-              <option value="">Capability Building</option>
-              <option value="">Adapted Technology</option>
-              <option value="">Resale</option>
-              <option value="">Integration into Offering</option>
-              <option value="">In-kind Services</option>
-              <option value="">Co-Development</option>
-              <option value="">Others (Allows User to Type in)</option>
-            </select>
-          </div>
+      return (
+        <div key="uniCats" className="row">
+          {Object.keys(universityCategories).map((key)=> {
+            keyCount = 0;
+            return (
+              <div className="six columns">
+                <label>{key}</label>
+                <select ref="interaction{key}" className="u-full-width">
+                {universityCategories[key].map((ent) => {
+                  let keyCount = 0;
+                  return <option key={"uniOptions" + ent + keyCount++} value="{ent}">{ent}</option>
+                })}
+                </select>
+              </div>
+            )
+          })}
         </div>
       )
     } else {
+      let providerCategories = {
+        "Partnership Type": [
+          "Co-Develop",
+          "Test Solutions",
+          "In-Kind Services",
+          "Exploratory",
+          "Paused"
+        ],
+        "Goal": [
+          "DS Branded Products",
+          "Exclusive Distribution",
+          "Marketing Play",
+          "E-Commerce",
+          "Selling Products to New Market",
+          "Capability Building",
+          "Adapted Technology",
+          "Resale",
+          "Integration into Offering",
+          "In-kind Services",
+          "Co-Development"
+        ]
+      };
+
       return (
-        <div className="row">
-          <div className="six columns">
-            <label>Partnership Type</label>
-            <select ref="stage" className="u-full-width">
-              <option value="">Co-Develop</option>
-              <option value="">Test Solutions</option>
-              <option value="">In-Kind Services</option>
-              <option value="">Exploratory</option>
-              <option value="">Paused</option>
-              <option value="">Others</option>
-            </select>
-          </div>
-          <div className="six columns">
-            <label>Goal</label>
-            <select ref="stage" className="u-full-width">
-              <option value="">DS Branded Products</option>
-              <option value="">Exclusive Distribution</option>
-              <option value="">Marketing Play</option>
-              <option value="">E-Commerce</option>
-              <option value="">Selling Products to New Market</option>
-              <option value="">Capability Building</option>
-              <option value="">Adapted Technology</option>
-              <option value="">Resale</option>
-              <option value="">Integration into Offering</option>
-              <option value="">In-kind Services</option>
-              <option value="">Co-Development</option>
-              <option value="">Others (Allows User to Type in)</option>
-            </select>
-          </div>
+        <div key="proCats" className="row">
+          {Object.keys(providerCategories).map((key)=> {
+            return (
+              <div className="six columns">
+                <label>{key}</label>
+                <select ref="interaction{key}" className="u-full-width">
+                {providerCategories[key].map((ent) => {
+                  return <option key={"proOptions" + ent + keyCount++} value="{ent}" >{ent}</option>
+                })}
+                </select>
+              </div>
+            )
+          })}
         </div>
       )
     }

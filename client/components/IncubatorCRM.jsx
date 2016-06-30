@@ -46,7 +46,7 @@ class SingleCRMEntry extends React.Component {
 
 class IncubatorCRMList extends React.Component {
 	render() {
-		if (this.props.list.length < 1) return (<div><Spinner></Spinner><br />Loading entities...</div>)
+		if (this.props.list.length < 1) return (<div>Loading entities...<Spinner></Spinner></div>)
 		return (
 			<div className="incubator-crm-list">
 				<div className="row">

@@ -6,10 +6,7 @@ import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 export default class Nav extends React.Component {
 
   _logOut() {
-    Meteor.logout(function(err){
-      if(err) { throw new Meteor.Error('cannot-log-out', err.reason); }
-      FlowRouter.go("/");
-    });
+    Meteor.logout();
   }
 
   //handles which options show up for a certain type of user
@@ -23,7 +20,7 @@ export default class Nav extends React.Component {
             <a href="/admin" className={FlowRouter.current().path == "/admin" ? 'active' : ''}>
               <span className="lnr lnr-pie-chart"></span> <br />Dashboard
             </a>
-            <a href="/admin/incubator" className={FlowRouter.current().path == "/admin/incubator" ? 'active' : ''}>
+            <a href="/admin/crm" className={FlowRouter.current().path == "/admin/crm" ? 'active' : ''}>
               <span className="lnr lnr-list"></span>
               <br /> Incubator CRM
             </a>
@@ -40,7 +37,7 @@ export default class Nav extends React.Component {
       } else {
         return (
           <div className="navbar-inner">
-            <a href={"/"} className={FlowRouter.current().path == "/" ? 'active' : ''}>
+            <a href={"/crm-entry"} className={FlowRouter.current().path == "/crm-entry" ? 'active' : ''}>
               <span className="lnr lnr-plus-circle"></span>
               <br /> Add Interaction
             </a>
