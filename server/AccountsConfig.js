@@ -1,5 +1,4 @@
 var myPostSignUpFunc = function(userId, info) {
-    console.log("myPostSignUpFunc logging...", userId, info)
   Roles.addUsersToRoles(userId, ['admin']);
   FlowRouter.go("admin")
 }

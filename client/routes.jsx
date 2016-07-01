@@ -8,18 +8,13 @@ import CRMEntryForm from './components/forms/CRMEntryForm.jsx';
 import Dashboard from './Dashboard.jsx';
 import EntityDetails from './EntityDetails.jsx';
 import CRMEntryDataContainer from './containers/CRMEntryDataContainer.jsx';
-import IncubatorCRM from './components/IncubatorCRM.jsx';
-import ManageUsers from './ManageUsers.jsx';
+import IncubatorCRM from './IncubatorCRM.jsx';
+import ManageUsers from './ManageUsers.jsx'
 import { MainLayout } from './layouts/MainLayout.jsx';
 import PastInteractions from './components/PastInteractions.jsx';
 
-Meteor.subscribe('roles');
-
 FlowRouter.triggers.enter([function(context, redirect){
   if(!Meteor.userId()) { FlowRouter.go('home'); }
-
-  var roles = Roles.subscription.ready()
-  console.log(Meteor.user(), roles)
 }]);
 
 Accounts.onLogin(function() {

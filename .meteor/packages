@@ -20,7 +20,6 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 react-meteor-data
 ultimatejs:tracker-react
 fourseven:scss
-kadira:flow-router
 fortawesome:fontawesome
 themeteorchef:bert
 
@@ -33,3 +32,4 @@ session
 u2622:persistent-session
 meteortoys:allthings
 gwendall:auth-client-callbacks
+kadira:flow-router

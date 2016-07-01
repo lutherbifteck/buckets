@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactMixin from 'react-mixin';
-import Spinner from './Spinner.jsx';
+import Spinner from './components/Spinner.jsx';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 
 const styles = {
