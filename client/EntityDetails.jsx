@@ -3,6 +3,7 @@ import React from 'react';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 import AddEntityForm from './components/forms/AddEntityForm.jsx';
+import AddEntityUpdateForm from './components/forms/AddEntityUpdateForm.jsx';
 
 export default class EntityDetails extends React.Component {
   constructor(props) {
@@ -27,7 +28,7 @@ export default class EntityDetails extends React.Component {
   }
 
   _getEntityUpdates() {
-    return EntityUpdates.find({ ownerEntity: this.props.entityID }, {sort: {createdAt: -1}});
+    return EntityUpdates.find({ ownerEntity: this.props.entityID }, {sort: {createdAt: -1}}).fetch();
   }
 
   _entityUpdatesFormDisplay() {
@@ -55,10 +56,10 @@ export default class EntityDetails extends React.Component {
     this.setState({'showEditEntityForm' : !this.state.showEditEntityForm});
   }
 
-  _showAdminControls() {
+  _showEntityEditControls() {
     if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
       return (
-        <div>
+        <span>
           <div className="row">
             <button onClick={this._deleteEntity.bind(this)}
                     className="pull-right button-danger-o">
@@ -70,7 +71,19 @@ export default class EntityDetails extends React.Component {
             </button>
           </div>
           {this.state.showEditEntityForm ? <AddEntityForm /> : ""}
-        </div>
+        </span>
+      )
+    }
+  }
+
+  _showUpdatesControls() {
+    if(Roles.userIsInRole(Meteor.userId(), 'admin')) {
+      return (
+        <button onClick={this._entityUpdatesFormDisplay.bind(this)}
+                className="button pull-right"
+                type="button">
+            {this.state.showAddUpdatesForm ? 'Hide form' : '+ Add update'}
+        </button>
       )
     }
   }
@@ -79,20 +92,22 @@ export default class EntityDetails extends React.Component {
     let entity = this.getEntityInfo();
     let updateList = this._getEntityUpdates();
 
+    console.log(updateList)
+
     if (!entity) { return (<span>Entity does not exist</span>); }
 
     // customer listing
     const customerList = entity.customers.length < 1 ? "No customers yet..." : <ul>{entity.customers.map((customer)=>{return <li key={customer}>{customer}</li>})}</ul>;
 
     //the update listing
-    const updateListing = updateList.length < 1 ? 'No Updates yet...' : <ul className="update-listing">{updateList.map((update)=>{ return (
+    const updateListing = updateList.length > 0 ? <ul className="update-listing">{updateList.map((update)=>{ return (
       <li key={update._id}><h5>{update.title}</h5>{update.createdAt.toDateString()}<br />{update.desc}</li>
-    )})}</ul>;
+    )})}</ul> : <p>No Updates yet...</p>;
 
     return (
       <div className="entity-details-template">
 
-        { this._showAdminControls() }
+        { this._showEntityEditControls() }
 
         <div className="row">
           <div className="nine columns">
@@ -101,12 +116,16 @@ export default class EntityDetails extends React.Component {
             <p>{entity.desc}</p>
             <small>Working with Direct Supply Since: {entity.createdAt.toDateString()}</small>
             <ul>
-              <li>{entity.phone}</li>
-              <li>{entity.address}</li>
-              <li>{entity.web}</li>
-              <li>email: {entity.email}</li>
+              <li>Type: {entity.bucketType}</li>
+              <li>Phone: {entity.phone}</li>
+              <li>Address: {entity.address}</li>
+              <li>Web: {entity.web}</li>
+              {entity.lob ? <li>L.O.B.: {entity.lob}</li> : null}
+              {entity.stage ? <li>Stage: {entity.stage}</li> : null}
+              {entity.partnershipType ? <li>partnershipType: {entity.partnershipType}</li> : null}
+              <li>User: {entity.entityUser}</li>
+              <li>Email: {entity.email}</li>
             </ul>
-            { customerList }
           </div>
           <div className="three columns">
             <img src={entity.logo} className="u-max-full-width" />
@@ -114,22 +133,19 @@ export default class EntityDetails extends React.Component {
         </div>
 
         <hr />
-        <div className="row">
-          <div className="twelve columns">
-            <div className="row">
-              <button onClick={this._entityUpdatesFormDisplay.bind(this)}
-                      className="button pull-right"
-                      type="button">
-                  {this.state.showAddUpdatesForm ? 'Hide form' : '+ Add update'}
-              </button>
-            </div>
 
-            {this.state.showAddUpdatesForm ? <AddEntityUpdateForm entityID={this.props.entityID} /> : null}
+        <div className="row">
+          <div className="nine columns">
+            {this._showUpdatesControls()}
             <h3>Updates</h3>
+            {this.state.showAddUpdatesForm ? <AddEntityUpdateForm entityID={this.props.entityID} /> : ""}
             {updateListing}
           </div>
+          <div className="three columns">
+            <h3>Customers</h3>
+            { customerList }
+          </div>
         </div>
-
       </div>
     )
   }

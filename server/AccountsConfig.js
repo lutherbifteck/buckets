@@ -9,7 +9,6 @@ AccountsTemplates.configure({
 });
 
 Accounts.onCreateUser(function(options, user) {
-  console.log("on create user log...", options, user)
    user.profile = options.profile || {};
    return user;
 });

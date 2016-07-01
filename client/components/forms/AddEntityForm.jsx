@@ -45,7 +45,7 @@ export default class AddEntityForm extends React.Component {
       createdBy: Meteor.userId()
     }
     // add the dynamic values to entityData
-    if (this.refs.lob.value) {
+    if (this.refs.lob) {
       entityData.lob = this.refs.lob.value
     }
     if (this.refs.stage) {
@@ -90,12 +90,9 @@ export default class AddEntityForm extends React.Component {
     this.setState({entityTitle: this.refs.entityTitle.value})
   }
 
-
   _renderFields() {
-
     let formatRef = function(key) {
       let lowerCaseKey = key.toLowerCase();
-
       if( /\s/g.test(lowerCaseKey) ) {
         return lowerCaseKey.replace(/\s/g, '');
       }
