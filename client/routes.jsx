@@ -32,7 +32,6 @@ Accounts.onLogout(function() {
 FlowRouter.route('/', {
   name: 'home',
   action() {
-    console.log(Roles.userIsInRole(Meteor.userId(), ['admin']))
     mount(MainLayout, {
       content: (<AccountsUIWrapper />)
     })
@@ -104,7 +103,12 @@ FlowRouter.route('/:entityID', {
 FlowRouter.notFound = {
   action() {
     mount(MainLayout, {
-      content: (<h1>Not Found</h1>)
+      content: (
+        <div>
+          <h1>CONGRATS! <span className="lnr lnr-poop"></span></h1>
+          <p>You've found the secret page nobody was supposed to find if all the routes worked properly...</p>
+        </div>
+      )
     })
   }
 };

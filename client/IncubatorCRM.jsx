@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactMixin from 'react-mixin';
-import Spinner from './components/Spinner.jsx';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 
 const styles = {
@@ -46,9 +45,10 @@ class SingleCRMEntry extends React.Component {
 
 class IncubatorCRMList extends React.Component {
 	render() {
-		if (this.props.list.length < 1) return (<div>Loading entities...<Spinner></Spinner></div>)
+		if (this.props.list.length < 1) return (<div>No Interactions yet.</div>)
 		return (
 			<div className="incubator-crm-list">
+				<small>Click on a row for more detailed information.</small>
 				<div className="row">
 					<div className="three columns"><strong>Entity</strong></div>
 					<div className="three columns"><strong>Customer</strong></div>
@@ -71,7 +71,6 @@ export default class IncubatorCRM extends React.Component {
 		this.state = {
 			subscription: {
 				interactions: Meteor.subscribe("interactions")
-
 			}
 		};
 	}
@@ -90,7 +89,6 @@ export default class IncubatorCRM extends React.Component {
 		return (
 			<div className="incubator-crm">
         <h2>Incubator CRM</h2>
-				<small>Click on a row for more detailed information.</small>
         <div className="row">
           <div className="twelve columns">
             <IncubatorCRMList list={interactionList} />
