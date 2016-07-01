@@ -23,14 +23,34 @@ export default class ManageUsers extends React.Component {
     return Meteor.users.find({});
   }
 
+  _editUser() {
+    console.log("Editing user...")
+  }
+
+
+  _deleteUser() {
+    console.log("Deleting user...")
+  }
+
   render() {
     let allUsers = this._getAllUsers();
 
     let userList = allUsers.map((user)=>{
       return (
-        <div key={user._id}>
-          <h3>{user.username}</h3>
-          {user.emails[0].address}
+        <div key={user._id} className="row">
+          <div className="nine columns">
+            <h3>{user.username}</h3>
+            {user.emails[0].address}
+          </div>
+          <div className="three columns">
+            <button onClick={this._editUser}>
+              <span className="lnr lnr-pencil"></span>
+            </button>
+            <button onClick={this._deleteUser}
+                    className="button-danger-o">
+              <span className="lnr lnr-cross"></span>
+            </button>
+          </div>
         </div>
       )
     });
