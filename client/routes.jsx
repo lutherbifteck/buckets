@@ -18,7 +18,7 @@ FlowRouter.triggers.enter([function(context, redirect){
 }]);
 
 Accounts.onLogin(function() {
-  if(Roles.userIsInRole(Meteor.userId(), 'admin') || Roles.userIsInRole(Meteor.userId(), 'exec')) {
+  if(Roles.userIsInRole(Meteor.userId(), ['admin', 'exec'])) {
     FlowRouter.go('dashboard');
   } else {
     FlowRouter.go('crmEntry');
@@ -59,7 +59,7 @@ FlowRouter.route('/past-interactions', {
 var adminRoutes = FlowRouter.group({
   prefix: '/admin',
   triggersEnter: [function(context, redirect) {
-    if ( !Roles.userIsInRole(Meteor.userId(), ['admin']) ) {
+    if ( !Roles.userIsInRole(Meteor.userId(), ['admin', 'exec']) ) {
       FlowRouter.go("/");
     }
   }]
@@ -71,9 +71,6 @@ adminRoutes.route('/', {
       content: (<Dashboard />)
     })
   },
-  triggersEnter: [function(context, redirect) {
-
-  }]
 });
 adminRoutes.route('/crm', {
   name: 'crm',
@@ -85,6 +82,9 @@ adminRoutes.route('/crm', {
 });
 adminRoutes.route('/manage-users', {
   name: 'manage-users',
+  triggersEnter: [function(context, redirect) {
+
+  }],
   action() {
     mount(MainLayout, {
       content: (<ManageUsers />)

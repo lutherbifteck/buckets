@@ -39,17 +39,11 @@ Meteor.methods({
     });
   },
 
-  addNewEntityMember(newMemberName, newMemberEmail, newMemberPassword, entityID) {
-    var userDetails = {
-        username: newMemberName,
-        email: newMemberEmail,
-        password: newMemberPassword,
-        profile: {
-          entity: entityID
-        },
-    };
-    var userId = Accounts.createUser(userDetails); // Account.createUser returns the new user's ID.
-    Roles.addUsersToRoles(userId, ['entity-member'] );
+  addAdminOrExec(newUserData, accountType) {
+    var userId = Accounts.createUser(newUserData); // Account.createUser returns the new user's ID.
+    if (accountType === "admin") Roles.addUsersToRoles(userId, ['admin']);
+
+    Roles.addUsersToRoles(userId, ['exec']);
   },
 
 });

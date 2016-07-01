@@ -14,7 +14,7 @@ export default class Nav extends React.Component {
     // check if user is logged in
     if(Meteor.userId()) {
       //check if they are an admin
-      if ( Roles.userIsInRole(Meteor.userId(), 'admin') ) {
+      if ( Roles.userIsInRole(Meteor.userId(), ['admin', 'exec'])) {
         return (
           <div className="navbar-inner">
             <a href="/admin" className={FlowRouter.current().path == "/admin" ? 'active' : ''}>
@@ -24,6 +24,7 @@ export default class Nav extends React.Component {
               <span className="lnr lnr-list"></span>
               <br /> Incubator CRM
             </a>
+            
             <a href="/admin/manage-users" className={FlowRouter.current().path == "/admin/manage-users" ? 'active' : ''}>
               <span className="lnr lnr-users"></span>
               <br /> Manage <br /> Users

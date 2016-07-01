@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
+import AddAdminExecForm from './components/forms/AddAdminExecForm.jsx';
 
 export default class ManageUsers extends React.Component {
   constructor() {
@@ -36,6 +37,7 @@ export default class ManageUsers extends React.Component {
 
     return (
       <div className="manage-users">
+        <AddAdminExecForm />
         <h1>Manage Users</h1>
         <p># of users: {allUsers.length}</p>
         { userList }
