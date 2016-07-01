@@ -18,16 +18,6 @@ export default class EntityForm extends React.Component {
     this.setState({bucketType: event.target.value});
   }
 
-  _populateFields(event) {
-    this.refs.entityTitle.value = this.props.entityInfo.title;
-    this.refs.entityDesc.value = this.props.entityInfo.desc;
-    this.refs.newMemberEmail.value = this.props.entityInfo.email;
-    this.refs.newMemberPassword.value = '';
-    this.refs.entTel.value = this.props.entityInfo.phone;
-    this.refs.entAddress.value = this.props.entityInfo.address;
-    this.refs.entWeb.value = this.props.entityInfo.web;
-  }
-
   _addEntity(event) {
     event.preventDefault();
     var entityData = {},
@@ -43,6 +33,13 @@ export default class EntityForm extends React.Component {
     var newMemberEmail = this.refs.newMemberEmail.value.trim();
     var newMemberPassword = this.refs.newMemberPassword.value.trim();
 
+    var files;
+    files = this.refs.logo.files;
+    return Cloudinary.upload(files,{}, function(err, res) {
+      console.log("Upload Error: ", err);
+      return console.log("Upload Result: ", res);
+    });
+
     var entityID = this.props.mode == "edit" ? this.props.editID : '';
 
     entityData = {
@@ -56,8 +53,8 @@ export default class EntityForm extends React.Component {
       email: newMemberEmail
     }
 
-    if(this.props.mode == "add") {
-      this.entityData["createdBy"] = Meteor.userId();
+    if(this.props.mode == "add" && entityData) {
+      entityData.createdBy = Meteor.userId();
     }
 
     // add the dynamic values to entityData
@@ -77,7 +74,7 @@ export default class EntityForm extends React.Component {
         password: newMemberPassword,
     };
 
-    if (this.props.mode == "add") { 
+    if (this.props.mode == "add") {
       Meteor.call('AddEntity',
                   entityData,
                   newUserData,
@@ -279,10 +276,15 @@ export default class EntityForm extends React.Component {
       <div>
         <form className="form-inline"
         onSubmit={this._addEntity.bind(this)} >
-
           <div className="row">
             <div className="eight columns">
               <h4>Entity Info</h4>
+
+              <label>Logo</label>
+              <input ref="logo"
+                     type="file"
+                     className="u-full-width" />
+
               <label>Title</label>
               <input type="text"
                      ref="entityTitle"

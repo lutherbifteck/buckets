@@ -128,6 +128,7 @@ export default class EntityDetails extends React.Component {
             </ul>
           </div>
           <div className="three columns">
+            <img src={Cloudinary._helpers.url("zfwyscszgge0f3ynnfez", {}) } />
             <img src={entity.logo} className="u-max-full-width" />
           </div>
         </div>
