@@ -18,8 +18,8 @@ Meteor.methods({
     Roles.addUsersToRoles(newUserId, ['entity-member'] );
   },
 
-  editEntity(entityID) {
-    console.log('editing entity: ', entityID)
+  EditEntity(entityID, newData) {
+    Entities.update(entityID, {$set: newData})
   },
 
   deleteEntity(entityID) {

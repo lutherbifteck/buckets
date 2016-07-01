@@ -27,7 +27,6 @@ export default class ManageUsers extends React.Component {
     console.log("Editing user...")
   }
 
-
   _deleteUser() {
     console.log("Deleting user...")
   }

@@ -117,7 +117,7 @@ export default class Dashboard extends React.Component {
           </button>
         </div>
 
-        {this.state.showEntityForm ? <EntityForm /> : null}
+        {this.state.showEntityForm ? <EntityForm mode="add" /> : null}
 
         <div className="row bucket-list">
           <div className="one-third column">

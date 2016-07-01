@@ -70,7 +70,7 @@ export default class EntityDetails extends React.Component {
               <span className="lnr lnr-pencil"></span> Edit
             </button>
           </div>
-          {this.state.showEditEntityForm ? <EntityForm /> : ""}
+          {this.state.showEditEntityForm ? <EntityForm mode="edit" entityInfo={this.getEntityInfo()} /> : ""}
         </span>
       )
     }

@@ -18,15 +18,8 @@ $ npm install
 $ meteor
 </code>
 
-
 # ToDo:
-+ ADMIN (Execs see all the same stuff, except ManageUsers)
-+ ONLY ADMINS CAN EDIT THINGS
-+ In __Dashboard__, Admins can:
-+ view, filter stats (chart.js)
-
-* In __EntityDetails__, Admins can:
-* C.R.U.D. the entity
++ In __Dashboard__, filter charts (chart.js)
 
 * Create __ManageUsers__. So admins can C.R.U.D. other Admins, Execs, and Entity-Members
 
@@ -34,9 +27,6 @@ $ meteor
 * show notification of Unread Entries in Nav
 * ability to Archive updates
 * Make CRM list sortable/searchable
-
-### CRM Entry form
-* Populate "Customers" field with that user's entity's Customers
 
 #### Add Honeypot to sign in form
 #### How to do image/file uploads? (Try using Cloudinary)
