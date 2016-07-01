@@ -55,9 +55,9 @@ class IncubatorCRMList extends React.Component {
 					<div className="three columns"><strong>Interaction Type</strong></div>
 					<div className="three columns"><strong>Date of Interaction</strong></div>
 				</div>
-				{this.props.list.map((ent) => {
+				{this.props.list.map((int) => {
 					return (
-						<SingleCRMEntry key={ent._id} data={ent} />
+						<SingleCRMEntry key={int._id} data={int} />
 					)
 				})}
 			</div>

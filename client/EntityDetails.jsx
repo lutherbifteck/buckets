@@ -15,7 +15,6 @@ export default class EntityDetails extends React.Component {
         entityUpdates: Meteor.subscribe('entityUpdates', this.props.entityID)
       }
     };
-    console.log(this.state, Roles.userIsInRole(Meteor.userId(), ['admin']))
   }
 
   componentWillUnmount() {
@@ -93,7 +92,7 @@ export default class EntityDetails extends React.Component {
     return (
       <div className="entity-details-template">
 
-        {this._showAdminControls()}
+        { this._showAdminControls() }
 
         <div className="row">
           <div className="nine columns">
@@ -102,10 +101,10 @@ export default class EntityDetails extends React.Component {
             <p>{entity.desc}</p>
             <small>Working with Direct Supply Since: {entity.createdAt.toDateString()}</small>
             <ul>
-              <li>Phone: {entity.phone}</li>
-              <li>Address: {entity.phone}</li>
-              <li>name: {entity.phone}</li>
-              <li>email: {entity.phone}</li>
+              <li>{entity.phone}</li>
+              <li>{entity.address}</li>
+              <li>{entity.web}</li>
+              <li>email: {entity.email}</li>
             </ul>
             { customerList }
           </div>

@@ -20,22 +20,20 @@ export default class AddEntityForm extends React.Component {
 
   _addEntity(event) {
     event.preventDefault();
-    // entity vars
+    var entityData = {},
+        newUserData = {};
     var title = this.refs.entityTitle.value.trim();
     var bucketType = this.refs.entBucketType.value;
     var desc = this.refs.entityDesc.value.trim();
-    // var goal = this.refs.goal.value.trim();
-    var goal = "The goal"
     var tel = this.refs.entTel.value.trim();
     var address = this.refs.entAddress.value.trim();
     var web = this.refs.entWeb.value.trim();
-
-    // user vars
+    var goal = this.refs.goal.value.trim();
     var newMemberName = title;
     var newMemberEmail = this.refs.newMemberEmail.value.trim();
     var newMemberPassword = this.refs.newMemberPassword.value.trim();
 
-    var entityData = {
+    entityData = {
       title: title,
       bucketType: bucketType,
       desc: desc,
@@ -43,13 +41,27 @@ export default class AddEntityForm extends React.Component {
       phone: tel,
       address: address,
       web: web,
+      email: newMemberEmail,
       createdBy: Meteor.userId()
-    },
+    }
+    // add the dynamic values to entityData
+    if (this.refs.lob.value) {
+      entityData.lob = this.refs.lob.value
+    }
+    if (this.refs.stage) {
+      entityData.stage = this.refs.stage.value;
+    }
+    if (this.refs.partnershiptype) {
+      entityData.partnershipType = this.refs.partnershiptype.value;
+    }
+
     newUserData = {
         username: newMemberName,
         email: newMemberEmail,
         password: newMemberPassword,
     };
+
+    console.log(entityData, newUserData)
 
     Meteor.call('AddEntity',
                 entityData,
@@ -80,9 +92,17 @@ export default class AddEntityForm extends React.Component {
 
 
   _renderFields() {
-    var keyCount;
+
+    let formatRef = function(key) {
+      let lowerCaseKey = key.toLowerCase();
+
+      if( /\s/g.test(lowerCaseKey) ) {
+        return lowerCaseKey.replace(/\s/g, '');
+      }
+      return lowerCaseKey;
+    }
+
     if(this.state.bucketType==="startups") {
-      keyCount = 0;
       let startupCategories = {
         "Goal": [
           "DS Branded Products",
@@ -120,16 +140,15 @@ export default class AddEntityForm extends React.Component {
           "Paused"
         ]
       }
-
       return (
         <div key="startCats" className="row">
           {Object.keys(startupCategories).map((key)=> {
             return (
-              <div className="four columns">
+              <div key={key + "SelectboxContainer"} className="four columns">
                 <label>{key}</label>
-                <select ref="interaction{key}" className="u-full-width">
-                {startupCategories[key].map((ent) => {
-                  return <option key={"startOptions"+ent+keyCount++} value="{ent}">{ent}</option>
+                <select ref={formatRef(key)} className="u-full-width">
+                {startupCategories[key].map((value) => {
+                  return <option key={"startOptions" + value} value={value}>{value}</option>
                 })}
                 </select>
               </div>
@@ -138,7 +157,6 @@ export default class AddEntityForm extends React.Component {
         </div>
       )
     } else if (this.state.bucketType === "universities") {
-      keyCount = 0;
       let universityCategories = {
         "Partnership Type": [
           "Co-Develop",
@@ -166,14 +184,12 @@ export default class AddEntityForm extends React.Component {
       return (
         <div key="uniCats" className="row">
           {Object.keys(universityCategories).map((key)=> {
-            keyCount = 0;
             return (
-              <div className="six columns">
+              <div key={key + "SelectboxContainer"} className="six columns">
                 <label>{key}</label>
-                <select ref="interaction{key}" className="u-full-width">
-                {universityCategories[key].map((ent) => {
-                  let keyCount = 0;
-                  return <option key={"uniOptions" + ent + keyCount++} value="{ent}">{ent}</option>
+                <select ref={formatRef(key)} className="u-full-width">
+                {universityCategories[key].map((value) => {
+                  return <option key={"uniOptions" + value} value={value}>{value}</option>
                 })}
                 </select>
               </div>
@@ -209,11 +225,11 @@ export default class AddEntityForm extends React.Component {
         <div key="proCats" className="row">
           {Object.keys(providerCategories).map((key)=> {
             return (
-              <div className="six columns">
+              <div key={key + "SelectboxContainer"} className="six columns">
                 <label>{key}</label>
-                <select ref="interaction{key}" className="u-full-width">
-                {providerCategories[key].map((ent) => {
-                  return <option key={"proOptions" + ent + keyCount++} value="{ent}" >{ent}</option>
+                <select ref={formatRef(key)} className="u-full-width">
+                {providerCategories[key].map((value) => {
+                  return <option key={"proOptions" + value} value={value}>{value}</option>
                 })}
                 </select>
               </div>
