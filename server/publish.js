@@ -4,11 +4,14 @@ Entities = new Mongo.Collection('entities');
 Interactions = new Mongo.Collection('interactions');
 EntityUpdates = new Mongo.Collection('entityUpdates');
 
+// ROLES
+Meteor.publish('roles', function (){
+    return Meteor.roles.find({});
+});
 
-//For editing My Account
-Meteor.publish('MyUserData', function () {
-  if( !this._id ) { return this.ready(); }
-  return Meteor.users.findOne(this._id);
+//For editing accounts
+Meteor.publish('allUsers', function () {
+  return Meteor.users.find({});
 });
 
 // used in HomeLayoutDataWrap
@@ -42,12 +45,6 @@ Meteor.publish('interactions', function() {
 
 Meteor.publish('myPastInteractions', function() {
   return Interactions.find({createdBy: this.userId});
-});
-
-
-// ROLES
-Meteor.publish(null, function (){
-  return Meteor.roles.find({});
 });
 
 // ENTITIES

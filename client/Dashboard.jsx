@@ -123,8 +123,7 @@ export default class Dashboard extends React.Component {
           <div className="one-third column">
 
             <TestDonutChart></TestDonutChart>
-            <h2>Startups</h2>
-            <p>Entity count: <small>{this.countStartups()}</small></p>
+            <h2>Startups <small>({this.countStartups()})</small></h2>
             <ul>
               {startupList.map((ent) => {
                 return (
@@ -148,8 +147,7 @@ export default class Dashboard extends React.Component {
 
             <TestDonutChart></TestDonutChart>
 
-            <h2>Universities</h2>
-            <p>Entity count: <small>{this.countUniversities()}</small></p>
+            <h2>Universities <small>({this.countUniversities()})</small></h2>
             <ul>
               {universityList.map((ent) => {
                 return (
@@ -173,8 +171,8 @@ export default class Dashboard extends React.Component {
 
             <TestDonutChart></TestDonutChart>
 
-            <h2>Providers</h2>
-            <p>Entity count: <small>{this.countProviders()}</small></p>
+            <h2>Providers <small>({this.countProviders()})</small></h2>
+
             <ul>
               {providersList.map((ent) => {
                 return (

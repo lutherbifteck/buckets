@@ -64,7 +64,6 @@ export default class CRMEntryForm extends React.Component {
 
         // clear newCustomer field if it is rendered
         if (this.refs.newCustomer) this.refs.newCustomer.value = "";
-
         this.setState({showNewCustField: false});
 
         Bert.alert({

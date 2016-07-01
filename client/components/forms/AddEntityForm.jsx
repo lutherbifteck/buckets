@@ -40,7 +40,7 @@ export default class AddEntityForm extends React.Component {
       bucketType: bucketType,
       desc: desc,
       goal: goal,
-      tel: tel,
+      phone: tel,
       address: address,
       web: web,
       createdBy: Meteor.userId()
@@ -66,12 +66,11 @@ export default class AddEntityForm extends React.Component {
 
       this.refs.entityTitle.value = '';
       this.refs.entityDesc.value = '';
-      this.refs.goal.value = '';
       this.refs.newMemberEmail.value = '';
       this.refs.newMemberPassword.value ='';
       this.refs.entTel.value ='';
-      var address = this.refs.entAddress.value ='';
-      var web = this.refs.entWeb.value ='';
+      this.refs.entAddress.value ='';
+      this.refs.entWeb.value ='';
     });
   }
 

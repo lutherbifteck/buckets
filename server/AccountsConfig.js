@@ -1,6 +1,7 @@
 var myPostSignUpFunc = function(userId, info) {
+    console.log("myPostSignUpFunc logging...", userId, info)
   Roles.addUsersToRoles(userId, ['admin']);
-  FlowRouter.go("/admin/crm")
+  FlowRouter.go("admin")
 }
 
 AccountsTemplates.configure({
@@ -9,6 +10,7 @@ AccountsTemplates.configure({
 });
 
 Accounts.onCreateUser(function(options, user) {
+  console.log("on create user log...", options, user)
    user.profile = options.profile || {};
    return user;
 });

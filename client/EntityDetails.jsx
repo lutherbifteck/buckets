@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
-import AddEntityUpdateForm from './components/forms/AddEntityUpdateForm.jsx';
+import AddEntityForm from './components/forms/AddEntityForm.jsx';
 
 export default class EntityDetails extends React.Component {
   constructor(props) {
@@ -15,6 +15,7 @@ export default class EntityDetails extends React.Component {
         entityUpdates: Meteor.subscribe('entityUpdates', this.props.entityID)
       }
     };
+    console.log(this.state, Roles.userIsInRole(Meteor.userId(), ['admin']))
   }
 
   componentWillUnmount() {
@@ -35,11 +36,20 @@ export default class EntityDetails extends React.Component {
   }
 
   _deleteEntity() {
-    Meteor.call('deleteEntity', this.props.entityID, (err, res)=>{
-      if(err) throw new Meteor.Error("Error Deleting Entity", err);
-      console.log("ent deleted")
-      FlowRouter.go("/admin");
-    });
+    let entity = this.getEntityInfo();
+    let entityName = entity.title;
+    let confirmation = confirm("Are you sure you want to delete " + entityName + "?");
+    if(confirmation) {
+      Meteor.call('deleteEntity', this.props.entityID, (err, res)=>{
+        if(err) throw new Meteor.Error("Error Deleting Entity", err);
+        FlowRouter.go("/admin");
+        Bert.alert({
+          title: entityName + ' Deleted!',
+          type: 'success',
+          style: 'growl-top-right'
+        });
+      });
+    }
   }
 
   _editEntity() {
@@ -51,14 +61,16 @@ export default class EntityDetails extends React.Component {
       return (
         <div>
           <div className="row">
-            <button onClick={this._editEntity.bind(this)}>
-              <span className="lnr lnr-pencil"></span> Edit
-            </button>
-            <button onClick={this._deleteEntity.bind(this)} className="button-danger">
+            <button onClick={this._deleteEntity.bind(this)}
+                    className="pull-right button-danger-o">
               <span className="lnr lnr-cross"></span> Delete
             </button>
+            <button onClick={this._editEntity.bind(this)}
+                    className="pull-right">
+              <span className="lnr lnr-pencil"></span> Edit
+            </button>
           </div>
-          {this.state.showEditEntityForm ? <div>edit form shown</div> : ""}
+          {this.state.showEditEntityForm ? <AddEntityForm /> : ""}
         </div>
       )
     }
@@ -90,10 +102,10 @@ export default class EntityDetails extends React.Component {
             <p>{entity.desc}</p>
             <small>Working with Direct Supply Since: {entity.createdAt.toDateString()}</small>
             <ul>
-              <li>Phone</li>
-              <li>Address</li>
-              <li>name</li>
-              <li>email</li>
+              <li>Phone: {entity.phone}</li>
+              <li>Address: {entity.phone}</li>
+              <li>name: {entity.phone}</li>
+              <li>email: {entity.phone}</li>
             </ul>
             { customerList }
           </div>

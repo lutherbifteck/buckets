@@ -6,6 +6,7 @@ Entities = new Mongo.Collection('entities');
 Interactions = new Mongo.Collection('interactions');
 EntityUpdates = new Mongo.Collection('entityUpdates');
 
+
 export const MainLayout = ({content}) => (
   <div className="main-layout">
     <Nav />
