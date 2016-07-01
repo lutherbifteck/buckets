@@ -1,11 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 
-export default class AddEntityForm extends React.Component {
+export default class EntityForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      entTitle: 'Bob Belcher',
+      entTitle: '',
       bucketType: 'startups'
     }
   }
@@ -60,8 +60,6 @@ export default class AddEntityForm extends React.Component {
         email: newMemberEmail,
         password: newMemberPassword,
     };
-
-    console.log(entityData, newUserData)
 
     Meteor.call('AddEntity',
                 entityData,
@@ -294,9 +292,6 @@ export default class AddEntityForm extends React.Component {
               <h4>User Info</h4>
               <label>Username</label>
               <h5>{this.state.entTitle}</h5>
-
-              <label>Bucket Type</label>
-              <h5>{this.state.bucketType}</h5>
 
               <label>Email</label>
               <input ref="newMemberEmail"

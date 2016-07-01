@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
-import AddEntityForm from './components/forms/AddEntityForm.jsx';
+import EntityForm from './components/forms/EntityForm.jsx';
 
 //test chart
 var DoughnutChart = require("react-chartjs").Doughnut;
@@ -62,7 +62,7 @@ export default class Dashboard extends React.Component {
   constructor() {
     super();
     this.state = {
-      showAddEntityForm: false,
+      showEntityForm: false,
       subscription: {
         startups: Meteor.subscribe("startupEntities"),
         universities: Meteor.subscribe("universityEntities"),
@@ -98,7 +98,7 @@ export default class Dashboard extends React.Component {
   }
 
   formDisplay() {
-    this.setState({showAddEntityForm: !this.state.showAddEntityForm});
+    this.setState({showEntityForm: !this.state.showEntityForm});
   }
 
   render() {
@@ -113,11 +113,11 @@ export default class Dashboard extends React.Component {
           <button onClick={this.formDisplay.bind(this)}
                   className="button pull-right"
                   type="button">
-              {this.state.showAddEntityForm ? 'Hide form' : '+ Add Entity'}
+              {this.state.showEntityForm ? 'Hide form' : '+ Add Entity'}
           </button>
         </div>
 
-        {this.state.showAddEntityForm ? <AddEntityForm /> : null}
+        {this.state.showEntityForm ? <EntityForm /> : null}
 
         <div className="row bucket-list">
           <div className="one-third column">

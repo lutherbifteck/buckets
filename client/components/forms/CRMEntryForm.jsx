@@ -8,8 +8,6 @@ export default class CRMEntryForm extends React.Component {
     this.state = {
       showNewCustField: false,
     };
-    console.log(this.state)
-    console.log(this.props)
   }
 
   componentWillReceiveProps() {
@@ -100,14 +98,12 @@ export default class CRMEntryForm extends React.Component {
           <label>Date of Interaction</label>
           <input ref="dateOfInteraction" type="date" className="u-full-width" />
 
-          <label>Customer (Todo: loop through Entity's customers and populate select box)</label>
+          <label>Customer</label>
           <select ref="customer"
                 className="u-full-width"
                 onChange={this._toggleNewCustField.bind(this)}
                 value = "">
-
             { this._renderCustomers() }
-
             <option onClick={this._toggleNewCustField} value="other">Other</option>
           </select>
 

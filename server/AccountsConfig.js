@@ -8,6 +8,7 @@ if(Meteor.users.find({}).count() < 1) {
   }
   var firstUserId = Accounts.createUser(firstUserData); // Account.createUser returns the new user's ID.
   Roles.addUsersToRoles(firstUserId, ['admin']);
+//  console.log(Meteor.users.findOne(firstUserId));
 }
 
 var myPostSignUpFunc = function(userId, info) {

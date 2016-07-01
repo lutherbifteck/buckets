@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
-import AddEntityForm from './components/forms/AddEntityForm.jsx';
+import EntityForm from './components/forms/EntityForm.jsx';
 import AddEntityUpdateForm from './components/forms/AddEntityUpdateForm.jsx';
 
 export default class EntityDetails extends React.Component {
@@ -70,7 +70,7 @@ export default class EntityDetails extends React.Component {
               <span className="lnr lnr-pencil"></span> Edit
             </button>
           </div>
-          {this.state.showEditEntityForm ? <AddEntityForm /> : ""}
+          {this.state.showEditEntityForm ? <EntityForm /> : ""}
         </span>
       )
     }

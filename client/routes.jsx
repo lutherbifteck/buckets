@@ -14,7 +14,7 @@ import { MainLayout } from './layouts/MainLayout.jsx';
 import PastInteractions from './components/PastInteractions.jsx';
 
 FlowRouter.triggers.enter([function(context, redirect){
-  if(!Meteor.userId()) { FlowRouter.go('home'); }
+  if (!Meteor.userId()) { FlowRouter.go('home'); }
 }]);
 
 Accounts.onLogin(function() {
