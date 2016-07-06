@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
+import Reactable from 'reactable';
 
 const styles = {
 	active: {
@@ -44,7 +45,7 @@ class SingleCRMEntry extends React.Component {
 }
 
 class IncubatorCRMList extends React.Component {
-	render() {
+	/*render() {
 		if (this.props.list.length < 1) return (<div>No Interactions yet.</div>)
 		return (
 			<div className="incubator-crm-list">
@@ -62,6 +63,47 @@ class IncubatorCRMList extends React.Component {
 				})}
 			</div>
 		);
+	}*/
+	_intToRow(inter) {
+		var unsafe = Reactable.unsafe;
+
+		var row = {
+			customer: inter.customer,
+			type: inter.type,
+			date: inter.dateOfInteraction,
+			description: inter.details,
+			created: inter.createdAt.toString()
+		}
+		return row;
+	}
+
+
+	render() {
+		var Table = Reactable.Table,
+			Tr = Reactable.Tr;
+
+		//var data = this.props.list.map((inter) => this._intToRow(inter));
+
+		if (this.props.list.length < 1)
+			return (<div>No Interactions yet.</div>)
+
+		else {
+			var data = this.props.list;
+			var data2 = data.map((inter) => this._intToRow(inter));
+
+			console.log(data);
+
+			console.log(data2);
+
+			return <Table className="table" sortable={true} data={data2} />
+		}
+
+
+
+		//for each element inter of this.props.list
+
+
+	/*	return <Table className="table" data={this.props.list} />*/
 	}
 }
 
@@ -88,12 +130,12 @@ export default class IncubatorCRM extends React.Component {
 
 		return (
 			<div className="incubator-crm">
-        <h2>Incubator CRM</h2>
-        <div className="row">
-          <div className="twelve columns">
-            <IncubatorCRMList list={interactionList} />
-          </div>
-        </div>
+		        <h2>Incubator CRM</h2>
+		        <div className="row">
+		          <div className="twelve columns">
+		            <IncubatorCRMList list={interactionList} />
+		          </div>
+		        </div>
 			</div>
 		)
 	}

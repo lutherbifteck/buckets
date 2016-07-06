@@ -39,6 +39,9 @@ export default class ManageUsers extends React.Component {
         <div key={user._id} className="row">
           <div className="nine columns">
             <h3>{user.username}</h3>
+
+            {user.roles.map((role) => { return role; })}
+
             {user.emails[0].address}
           </div>
           <div className="three columns">
@@ -56,10 +59,18 @@ export default class ManageUsers extends React.Component {
 
     return (
       <div className="manage-users">
-        <AddAdminExecForm />
         <h1>Manage Users</h1>
-        <p># of users: {allUsers.length}</p>
-        { userList }
+        <div className="row">
+            <div className="eight columns">
+              <div className="userlist">
+                { userList }
+              </div>
+            </div>
+            <div className="four columns">
+              <AddAdminExecForm />
+              <p># of users: {allUsers.count()}</p>
+            </div>
+        </div>
       </div>
     )
   }

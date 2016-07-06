@@ -18,19 +18,28 @@ $ npm install
 $ meteor
 </code>
 
+---
+
 # ToDo:
-+ In __Dashboard__, filter charts (chart.js)
 
-* Create __ManageUsers__. So admins can C.R.U.D. other Admins, Execs, and Entity-Members
+### GENERAL
+* fully integrate Cloudinary (Save IDs of uploaded images in collection, we need to find out what the final hosting situation will be.)
+* Implement checks(https://docs.meteor.com/api/check.html) and Roles permissions in Meteor.methods (server)
+* Add Honeypot to sign in form
+* improve page layouts
 
-### CRM
-* show notification of Unread Entries in Nav
-* ability to Archive updates
-* Make CRM list sortable/searchable
+### Dashboard
+* populate DoughnutChart with Startup, Uni, and Provider data (chart.js)
+* create filters
 
-#### Add Honeypot to sign in form
-#### How to do image/file uploads? (Try using Cloudinary)
+### ManageUsers
+* Admins can C.R.U.D. other Admins, Execs, and Entity-Members. Can change account types
 
 ## ToDos for a later date
-* Figure out how to do Android/iOS builds
+* page transitions https://leveluptutorials.com/tutorials/meteor-react-for-everyone/page-transitions
+* make a line chart (using chartjs) that tracks # of interactions over time
+* Figure out how to do Android/iOS builds and how to distribute
 * Push Notifications
+* Paginate data
+* show notification of Unread Entries in Nav
+* ability to archive interactions

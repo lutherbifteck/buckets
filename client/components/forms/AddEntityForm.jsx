@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 
-export default class EntityForm extends React.Component {
+export default class AddEntityForm extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -20,10 +20,8 @@ export default class EntityForm extends React.Component {
 
   _addEntity(event) {
     event.preventDefault();
-
     var entityData = {},
-        newUserData = {},
-        files;
+        newUserData = {};
     var title = this.refs.entityTitle.value.trim();
     var bucketType = this.refs.entBucketType.value;
     var desc = this.refs.entityDesc.value.trim();
@@ -35,8 +33,6 @@ export default class EntityForm extends React.Component {
     var newMemberEmail = this.refs.newMemberEmail.value.trim();
     var newMemberPassword = this.refs.newMemberPassword.value.trim();
 
-    var entityID = this.props.mode == "edit" ? this.props.editID : '';
-
     entityData = {
       title: title,
       bucketType: bucketType,
@@ -45,21 +41,9 @@ export default class EntityForm extends React.Component {
       phone: tel,
       address: address,
       web: web,
-      email: newMemberEmail
+      email: newMemberEmail,
+      createdBy: Meteor.userId()
     }
-
-    if(this.props.mode == "add" && entityData) {
-      entityData.createdBy = Meteor.userId();
-    }
-
-    // if(this.refs.logo.files) {
-    //   files = this.refs.logo.files;
-    //   return Cloudinary.upload(files,{}, function(err, res) {
-    //     console.log("Upload Error: ", err);
-    //     return console.log("Upload Result: ", res);
-    //   });
-    // }
-
     // add the dynamic values to entityData
     if (this.refs.lob) {
       entityData.lob = this.refs.lob.value
@@ -77,51 +61,33 @@ export default class EntityForm extends React.Component {
         password: newMemberPassword,
     };
 
-    if (this.props.mode == "add") {
-      Meteor.call('AddEntity',
-                  entityData,
-                  newUserData,
-                  (err) => {
-        if (err) throw new Meteor.Error('cannot-add-entity', err.reason);
+    console.log(entityData, newUserData)
 
-        Bert.alert({
-          title: 'Entity Added to ' + bucketType + "!",
-          type: 'success',
-          style: 'growl-top-right',
-          icon: 'fa-thumbs-up'
-        });
+    Meteor.call('AddEntity',
+                entityData,
+                newUserData,
+                (err) => {
+      if (err) throw new Meteor.Error('cannot-add-entity', err.reason);
 
-        this.refs.entityTitle.value = '';
-        this.refs.entityDesc.value = '';
-        this.refs.newMemberEmail.value = '';
-        this.refs.newMemberPassword.value ='';
-        this.refs.entTel.value ='';
-        this.refs.entAddress.value ='';
-        this.refs.entWeb.value ='';
+      Bert.alert({
+        title: 'Entity Added to ' + bucketType + "!",
+        type: 'success',
+        style: 'growl-top-right',
+        icon: 'fa-thumbs-up'
       });
-    }
-    else {
-      console.log(this.props.entityInfo)
-      Meteor.call('EditEntity',
-                  entityID,
-                  entityData,
-                  (err) => {
-        if (err) throw new Meteor.Error('cannot-add-entity', err.reason);
 
-        Bert.alert({
-          title: 'Entity Edited!',
-          type: 'success',
-          style: 'growl-top-right',
-          icon: 'fa-thumbs-up'
-        });
-      });
-    }
+      this.refs.entityTitle.value = '';
+      this.refs.entityDesc.value = '';
+      this.refs.newMemberEmail.value = '';
+      this.refs.newMemberPassword.value ='';
+      this.refs.entTel.value ='';
+      this.refs.entAddress.value ='';
+      this.refs.entWeb.value ='';
+    });
   }
 
-
-
   _updateNewEntityTitle() {
-    this.setState({entityTitle: this.refs.entityTitle.value});
+    this.setState({entityTitle: this.refs.entityTitle.value})
   }
 
   _renderFields() {
@@ -273,34 +239,28 @@ export default class EntityForm extends React.Component {
 
 
   render() {
-    var buttonMsg = this.props.mode == "add" ? "Create Entity + User Account" : "Edit Entity";
-
     return (
       <div>
         <form className="form-inline"
         onSubmit={this._addEntity.bind(this)} >
+
           <div className="row">
             <div className="eight columns">
               <h4>Entity Info</h4>
-
-              <label>Logo</label>
-              <input ref="logo"
-                     type="file"
-                     className="u-full-width" />
-
               <label>Title</label>
               <input type="text"
                      ref="entityTitle"
-                     defaultValue={this.props.mode == "edit" ? this.props.entityInfo.title : ''}
+                     value={this.state.message}
                      onChange={this._handleTitleChange.bind(this)}
-                     className="u-full-width"/>
+                     className="u-full-width"
+                     placeholder="Add new entity..." />
                <label>Bucket Type</label>
                <select className="u-full-width"
                        ref="entBucketType"
                        onChange={this._handleBucketTypeChange.bind(this)} >
-                 <option defaultValue="startups">startups</option>
-                 <option defaultValue="universities">universities</option>
-                 <option defaultValue="providers">providers</option>
+                 <option value="startups">startups</option>
+                 <option value="universities">universities</option>
+                 <option value="providers">providers</option>
                </select>
 
                {this._renderFields()}
@@ -309,25 +269,25 @@ export default class EntityForm extends React.Component {
                <input className="u-full-width"
                       type="text"
                       ref="entityDesc"
-                      defaultValue={this.props.mode == "edit" ? this.props.entityInfo.desc : ''}/>
+                      placeholder="Description" />
 
               <label>Phone</label>
               <input type="tel"
                      ref="entTel"
                      className="u-full-width"
-                     defaultValue={this.props.mode == "edit" ? this.props.entityInfo.phone : ''}/>
+                     placeholder="000.000.0000"/>
 
               <label>Address</label>
               <input type="text"
                        ref="entAddress"
-                       defaultValue={this.props.mode == "edit" ? this.props.entityInfo.address : ''}
+                       placeholder="123 Main St, Somewhere, Planet Earth"
                        className="u-full-width"/>
 
               <label>Website</label>
               <input type="url"
                      ref="entWeb"
                      className="u-full-width"
-                     defaultValue={this.props.mode == "edit" ? this.props.entityInfo.web : ''}/>
+                     placeholder="http://bobsburgers.com"/>
 
             </div>
             <div className="four columns">
@@ -342,16 +302,16 @@ export default class EntityForm extends React.Component {
               <input ref="newMemberEmail"
                      type="email"
                      className="u-full-width"
-                     defaultValue={this.props.mode == "edit" ? this.props.entityInfo.email : ''}/>
+                     placeholder="Email" />
 
               <label>Password</label>
               <input ref="newMemberPassword"
                      type="password"
-                     className="u-full-width"/>
+                     className="u-full-width"
+                     placeholder="Password" />
             </div>
-            <input type="submit" className="button-success u-full-width" defaultValue={buttonMsg}/>
+            <input type="submit" className="button-success u-full-width" value="Create Entity + User Account" />
           </div>
-
         </form>
         <hr />
       </div>

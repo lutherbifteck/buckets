@@ -3,9 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
-import EntityForm from './components/forms/EntityForm.jsx';
-
-//test chart
+import AddEntityForm from './components/forms/AddEntityForm.jsx';
 var DoughnutChart = require("react-chartjs").Doughnut;
 
 var TestDonutChart = React.createClass({
@@ -52,9 +50,18 @@ var TestDonutChart = React.createClass({
     }
     ];
     var chartOptions = {
-        animation: true
+        animation: true,
+        responsive: true
     };
-    return <DoughnutChart data={chartData} options={chartOptions}/>
+    return (
+      <div>
+        <DoughnutChart data={chartData} options={chartOptions}/>
+        <select>
+          <option value="goal">Goal</option>
+          <option value="partnershipType">Partnership Type</option>
+        </select>
+      </div>
+    )
   }
 });
 
@@ -62,8 +69,10 @@ export default class Dashboard extends React.Component {
   constructor() {
     super();
     this.state = {
+      filterEntityList: 'all',
       showEntityForm: false,
       subscription: {
+        allEntities: Meteor.subscribe('allEntities'),
         startups: Meteor.subscribe("startupEntities"),
         universities: Meteor.subscribe("universityEntities"),
         providers: Meteor.subscribe("providerEntities")
@@ -72,18 +81,22 @@ export default class Dashboard extends React.Component {
   }
 
   componentWillUnmount() {
+    this.state.subscription.allEntities.stop();
     this.state.subscription.startups.stop();
     this.state.subscription.universities.stop();
     this.state.subscription.providers.stop();
   }
 
-  getStartups() {
+  _getAllEntities() {
+    return Entities.find({}).fetch()
+  }
+  _getStartups() {
     return Entities.find({bucketType: "startups"}).fetch();
   }
-  getUniversities() {
+  _getUniversities() {
     return Entities.find({bucketType: "universities"}).fetch();
   }
-  getProviders() {
+  _getProviders() {
     return Entities.find({bucketType: "providers"}).fetch();
   }
 
@@ -97,18 +110,9 @@ export default class Dashboard extends React.Component {
     return Entities.find({bucketType: "providers"}).count();
   }
 
-  formDisplay() {
-    this.setState({showEntityForm: !this.state.showEntityForm});
-  }
-
-  render() {
-    let startupList = this.getStartups();
-    let universityList = this.getUniversities();
-    let providersList = this.getProviders();
-
-    return (
-      <div>
-
+  _renderAdminCntrls() {
+    if(Roles.userIsInRole(Meteor.userId(), 'admin')) {
+      return (
         <div className="row">
           <button onClick={this.formDisplay.bind(this)}
                   className="button pull-right"
@@ -116,82 +120,95 @@ export default class Dashboard extends React.Component {
               {this.state.showEntityForm ? 'Hide form' : '+ Add Entity'}
           </button>
         </div>
+      );
+    }
+  }
 
-        {this.state.showEntityForm ? <EntityForm mode="add" /> : null}
+  formDisplay() {
+    this.setState({showEntityForm: !this.state.showEntityForm});
+  }
 
-        <div className="row bucket-list">
+  _changeListState() {
+    this.setState({filterEntityList: this.refs.filterEntityList.value})
+  }
+
+  render() {
+    let allEntities = this._getAllEntities();
+    let startupData = this._getStartups();
+    let uniData = this._getUniversities();
+    let proData = this._getProviders();
+    let filterResult;
+
+    switch(this.state.filterEntityList) {
+        case "all":
+            filterResult = allEntities;
+            break;
+        case "startups":
+            filterResult = startupData;
+            break;
+        case "universities":
+            filterResult = uniData;
+            break;
+        case "providers":
+            filterResult = proData;
+            break;
+        default:
+            filterResult = allEntities;
+    }
+
+    return (
+      <div>
+        { this._renderAdminCntrls() }
+        {this.state.showEntityForm ? <AddEntityForm /> : null}
+
+        <div className="row doughnutchart-row">
           <div className="one-third column">
-
-            <TestDonutChart></TestDonutChart>
-            <h2>Startups <small>({this.countStartups()})</small></h2>
-            <ul>
-              {startupList.map((ent) => {
-                return (
-                  <a key={ent._id} href={ent._id}>
-                    <li>
-                      <div className="row">
-                        <div className="three columns">
-                          <img src={ent.logo} className="u-max-full-width" />
-                        </div>
-                        <div className="nine columns">
-                          {ent.title}
-                        </div>
-                      </div>
-                    </li>
-                  </a>
-                )
-              })}
-            </ul>
+            <TestDonutChart chartData="test" />
+            <h3>Startups <small>({this.countStartups()})</small></h3>
           </div>
           <div className="one-third column">
-
-            <TestDonutChart></TestDonutChart>
-
-            <h2>Universities <small>({this.countUniversities()})</small></h2>
-            <ul>
-              {universityList.map((ent) => {
-                return (
-                  <a key={ent._id} href={ent._id}>
-                    <li>
-                      <div className="row">
-                        <div className="three columns">
-                          <img src={ent.logo} className="u-max-full-width" />
-                        </div>
-                        <div className="nine columns">
-                          {ent.title}
-                        </div>
-                      </div>
-                    </li>
-                  </a>
-                )
-              })}
-            </ul>
+            <TestDonutChart chartData="test" />
+            <h3>Universities <small>({this.countUniversities()})</small></h3>
           </div>
           <div className="one-third column">
-
-            <TestDonutChart></TestDonutChart>
-
-            <h2>Providers <small>({this.countProviders()})</small></h2>
-
-            <ul>
-              {providersList.map((ent) => {
-                return (
-                  <a key={ent._id} href={ent._id}>
-                    <li>
-                      <div className="row">
-                        <div className="three columns">
-                          <img src={ent.logo} className="u-max-full-width" />
-                        </div>
-                        <div className="nine columns">
-                          {ent.title}
-                        </div>
-                      </div>
-                    </li>
-                  </a>
-                )
-              })}
-            </ul>
+            <TestDonutChart chartData={proData} />
+            <h3>Providers <small>({this.countProviders()})</small></h3>
           </div>
+        </div>
+
+        <div className="entity-list">
+          <hr />
+
+          <select ref="filterEntityList"
+                  onChange={this._changeListState.bind(this)}
+                  className="pull-right">
+            <option value="showall">All</option>
+            <option value="startups">Startups</option>
+            <option value="universities">Universities</option>
+            <option value="providers">Providers</option>
+          </select>
+
+          <h2>Entities</h2>
+
+          <ul>
+            {filterResult.map((ent) => {
+              return (
+                <a key={ent._id} href={ent._id}>
+                  <li>
+                    <div className="row">
+                      <div className="three columns">
+                        <img src={ent.logo} className="u-max-full-width" />
+                      </div>
+                      <div className="nine columns">
+                        <h3>{ent.title}</h3>
+                        {ent.bucketType}
+                      </div>
+                    </div>
+                  </li>
+                </a>
+              )
+            })}
+          </ul>
         </div>
       </div>
     )

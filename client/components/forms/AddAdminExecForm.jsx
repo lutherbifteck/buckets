@@ -1,7 +1,7 @@
-import { Accounts } from 'meteor/accounts-base';
+// import { Accounts } from 'meteor/accounts-base';
 import React from 'react';
-import ReactMixin from 'react-mixin';
-import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
+// import ReactMixin from 'react-mixin';
+// import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 
 export default class AddAdminExecForm extends React.Component {
   addNewEntityMember(event) {
@@ -22,6 +22,7 @@ export default class AddAdminExecForm extends React.Component {
 
     Meteor.call('addAdminOrExec', newUserData, accountType, (err) => {
         if (err) throw new Meteor.Error('cannot-add-member', err.reason);
+
         Bert.alert({
           title: `${name} added!`,
           message: 'Don\'t forget to tell them their password is ' + password,
@@ -42,26 +43,40 @@ export default class AddAdminExecForm extends React.Component {
   render() {
     return (
       <div>
-        <h5>Add New Member</h5>
+        <h5>Add New User</h5>
+
         <form id="newMemberForm" onSubmit={this.addNewEntityMember.bind(this)} >
+          <label>Username</label>
           <input ref="name"
                  className="u-full-width"
                  type="text"
-                 placeholder="Name" />
-         <select ref="accountType">
+                 placeholder="Username" />
+
+         <label>Account Type</label>
+         <select ref="accountType"
+                 className="u-full-width" >
            <option value="exec">Exec</option>
            <option value="admin">Admin</option>
          </select>
+
+         <label>Email</label>
          <input ref="email"
                  type="email"
-                 placeholder="Email" />
+                 placeholder="Email"
+                 className="u-full-width" />
+
+         <label>Password</label>
          <input ref="password"
                  type="password"
-                 placeholder="Password" />
-          <input type="submit" value="submit" />
+                 placeholder="Password"
+                 className="u-full-width" />
+
+          <input type="submit"
+                 className="u-full-width button-success"
+                 value="submit" />
         </form>
       </div>
     );
   }
 }
-ReactMixin(AddAdminExecForm.prototype, TrackerReactMixin);
+// ReactMixin(AddAdminExecForm.prototype, TrackerReactMixin);

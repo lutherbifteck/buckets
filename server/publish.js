@@ -29,10 +29,6 @@ Meteor.publish('myEntityData', function() {
   }
 });
 
-Meteor.publish("getSingleEntityInfo", function(entityID) {
-  return Entities.find({_id: entityID});
-});
-
 Meteor.publish('entityUpdates', function(entityID) {
   return EntityUpdates.find({ownerEntity: entityID});
 });
@@ -47,6 +43,14 @@ Meteor.publish('myPastInteractions', function() {
 });
 
 // ENTITIES
+Meteor.publish('allEntities', function() {
+  return Entities.find({});
+});
+
+Meteor.publish("getSingleEntityInfo", function(entityID) {
+  return Entities.find({_id: entityID});
+});
+
 Meteor.publish("startupEntities", function() {
   return Entities.find({bucketType: "startups"});
 });

@@ -8,13 +8,6 @@ export default class AccountsUIWrapper extends Component {
     super();
   }
   componentDidMount() {
-    if(Meteor.userId()) {
-      if (Roles.userIsInRole(Meteor.userId(), ['admin', 'exec'])) {
-        FlowRouter.go('dashboard');
-      } else {
-        FlowRouter.go('crmEntry');
-      }
-    }
     // Use Meteor Blaze to render login buttons
     this.view = Blaze.render(Template.atForm, ReactDOM.findDOMNode(this.refs.container));
   }

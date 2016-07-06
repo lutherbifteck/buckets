@@ -1,3 +1,5 @@
+
+
 $bluePrimary: #1eaedb;
 $blueLight: rgba($bluePrimary, .05);
 $red: #E55B46;
@@ -28,6 +30,13 @@ html, body {
 //   font-size: 2rem;
 // }
 
+/* MainLayout
+ ************************************/
+.main-layout-container {
+  padding: 25px 50px 50px 150px;
+}
+
+
 .navbar {
   overflow: hidden;
   position: fixed;
@@ -38,11 +47,13 @@ html, body {
   // font-size: 2em;
   font-size: 1em;
 
-  .lnr { font-size: 2em; }
+  .lnr {
+    display: block;
+    font-size: 2em;
+  }
 
   a {
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding: 25px 0;
     color: #fff;
     text-decoration: none;
 
@@ -60,6 +71,30 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+  }
+}
+
+@media (max-width: 495px) {
+  .main-layout-container {
+    padding: 50px 25px 120px;
+  }
+  .navbar {
+    bottom: 0;
+    width: 100%;
+    height: auto;
+
+    .nav-label {display: none;}
+
+    a {
+      padding: 10px;
+    }
+
+    .navbar-inner {
+      height: inherit;
+      width: 100%;
+      height: 100%;
+      flex-direction: row;
+    }
   }
 }
 
@@ -83,13 +118,6 @@ html, body {
 }
 
 
-/* MainLayout
- ************************************/
-.main-layout-container {
-  padding: 25px 50px 50px 150px;
-}
-
-
 /* .incubator-crm
  ************************************/
 .past-interactions-list,
@@ -110,10 +138,22 @@ html, body {
 
 /* Dashboard
  ************************************/
-.bucket-list {
-  h2 { text-align: center; }
-  ul { list-style: none; }
+.doughnutchart-row {
+   text-align: center;
+}
+
+.entity-list {
   img { border-radius: 100%; }
+
+  ul {
+    list-style: none;
+    border: 1px solid $grey;
+
+    li {
+      padding: 25px;
+      border-bottom: 1px solid $grey;
+    }
+  }
 }
 
 /*  EntityDetails
@@ -165,5 +205,12 @@ html, body {
     :last-child li {
       border-radius: 0 0 4px 4px;
     }
+  }
+}
+
+/* ManageUsers */
+.userlist {
+  .row {
+    margin-bottom: 50px;
   }
 }

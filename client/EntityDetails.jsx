@@ -2,8 +2,11 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
-import EntityForm from './components/forms/EntityForm.jsx';
+import EditEntityForm from './components/forms/EditEntityForm.jsx';
 import AddEntityUpdateForm from './components/forms/AddEntityUpdateForm.jsx';
+
+// import 'sweetalert/dist/sweetalert.css';
+// import sweetalert from 'sweetalert';
 
 export default class EntityDetails extends React.Component {
   constructor(props) {
@@ -70,7 +73,7 @@ export default class EntityDetails extends React.Component {
               <span className="lnr lnr-pencil"></span> Edit
             </button>
           </div>
-          {this.state.showEditEntityForm ? <EntityForm mode="edit" entityInfo={this.getEntityInfo()} /> : ""}
+          {this.state.showEditEntityForm ? <EditEntityForm entityInfo={this.getEntityInfo()} /> : ""}
         </span>
       )
     }
@@ -114,7 +117,7 @@ export default class EntityDetails extends React.Component {
             <h1>{entity.title}</h1>
             <span className="goal">{entity.goal}</span>
             <p>{entity.desc}</p>
-            <small>Working with Direct Supply Since: {entity.createdAt.toDateString()}</small>
+            <small>Working together since: {entity.createdAt.toDateString()}</small>
             <ul>
               <li>Type: {entity.bucketType}</li>
               <li>Phone: {entity.phone}</li>
