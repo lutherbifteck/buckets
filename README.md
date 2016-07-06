@@ -28,6 +28,9 @@ $ meteor
 * Add Honeypot to sign in form
 * improve page layouts
 
+### Entities
+* fix customers
+
 ### Dashboard
 * populate DoughnutChart with Startup, Uni, and Provider data (chart.js)
 * create filters
