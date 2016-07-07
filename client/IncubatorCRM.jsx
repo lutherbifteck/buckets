@@ -68,11 +68,12 @@ class IncubatorCRMList extends React.Component {
 		var unsafe = Reactable.unsafe;
 
 		var row = {
+			entity: inter.entityName,
 			customer: inter.customer,
 			type: inter.type,
 			date: inter.dateOfInteraction,
 			description: inter.details,
-			created: inter.createdAt.toString()
+			created: inter.createdAt.toDateString()
 		}
 		return row;
 	}
@@ -95,14 +96,18 @@ class IncubatorCRMList extends React.Component {
 
 			console.log(data2);
 
-			return <Table className="table" sortable={true} data={data2} />
+			return (
+				<Table className="table" sortable={true}>
+					{this.props.list.map((int)=>{
+						return (
+							<Tr key={int._id} data={this._intToRow(int)}></Tr>
+						)
+					})}
+				</Table>
+			)
 		}
 
-
-
 		//for each element inter of this.props.list
-
-
 	/*	return <Table className="table" data={this.props.list} />*/
 	}
 }
@@ -113,6 +118,7 @@ export default class IncubatorCRM extends React.Component {
 		this.state = {
 			subscription: {
 				interactions: Meteor.subscribe("interactions")
+
 			}
 		};
 	}

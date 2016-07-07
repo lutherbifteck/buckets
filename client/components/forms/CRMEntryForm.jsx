@@ -85,8 +85,8 @@ export default class CRMEntryForm extends React.Component {
   }
 
   render() {
-    let myUserId = this.props.userData ? this.props.userData.username : '';
-    let myEntID = this.props.userData ? this.props.userData.profile.entity : '';
+    let myUserId = this.props.currentUser ? this.props.currentUser.username : '';
+    let myEntID = this.props.currentUser ? this.props.currentUser.profile.entity : '';
 
     return (
       <div>

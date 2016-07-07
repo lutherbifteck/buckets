@@ -1,5 +1,3 @@
-
-
 $bluePrimary: #1eaedb;
 $blueLight: rgba($bluePrimary, .05);
 $red: #E55B46;
@@ -8,6 +6,7 @@ $green: #86D040;
 $orange: #E59046;
 $yellow: #E5D046;
 $grey: #d1d1d1;
+$lightGrey: lighten($grey, 14%);
 
 html, body {
   width: 100%;
@@ -16,19 +15,6 @@ html, body {
 
 .at-input input {width: 100%;}
 
-// input,
-// input[type="email"],
-// input[type="number"],
-// input[type="search"],
-// input[type="text"],
-// input[type="tel"],
-// input[type="url"],
-// input[type="password"],
-// textarea,
-// select {
-//   min-height: 60px;
-//   font-size: 2rem;
-// }
 
 /* MainLayout
  ************************************/
@@ -44,7 +30,6 @@ html, body {
   width: 100px;
   height: 100%;
   text-align: center;
-  // font-size: 2em;
   font-size: 1em;
 
   .lnr {
@@ -98,6 +83,8 @@ html, body {
   }
 }
 
+/* General
+ ****************************/
 .button-success {
   background: $green !important;
   color: #fff !important;
@@ -114,6 +101,15 @@ html, body {
 
   &:hover {
     border-color: darken($red, 10%) !important;
+  }
+}
+
+.well {
+  padding: 25px;
+  border:1px solid $grey;
+
+  &.dark-bg {
+    background-color: $lightGrey;
   }
 }
 
@@ -184,25 +180,45 @@ html, body {
     }
   }
 
+  .entity-contact-info {
+    list-style: none;
+  }
+
+  .entity-details {
+    margin-top: 50px;
+    list-style: none;
+    display: block;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+
+    li {
+      text-align: center;
+      padding:5px;
+      width: 25%;
+      border:1px solid $grey;
+      background-color: $lightGrey;
+    }
+  }
+
   .update-listing {
     list-style: none;
     a {
       text-decoration: none;
     }
     li {
+      background: #fff;
       margin-bottom: 0;
       padding: 25px 15px;
       border: 1px solid $grey;
       border-top: none;
-      &:hover {
-        background: #fafafa;
-      }
     }
-    :first-child li {
+    &:first-child {
       border-top: 1px solid $grey;
       border-radius: 4px 4px 0 0;
     }
-    :last-child li {
+    &:last-child {
       border-radius: 0 0 4px 4px;
     }
   }
@@ -213,4 +229,9 @@ html, body {
   .row {
     margin-bottom: 50px;
   }
+}
+
+.table {
+  width: 100%;
+  overflow-x: auto;
 }

@@ -112,27 +112,35 @@ export default class EntityDetails extends React.Component {
 
         { this._showEntityEditControls() }
 
+        <h1>{entity.title}</h1>
+
         <div className="row">
           <div className="nine columns">
-            <h1>{entity.title}</h1>
-            <span className="goal">{entity.goal}</span>
-            <p>{entity.desc}</p>
-            <small>Working together since: {entity.createdAt.toDateString()}</small>
-            <ul>
-              <li>Type: {entity.bucketType}</li>
-              <li>Phone: {entity.phone}</li>
-              <li>Address: {entity.address}</li>
-              <li>Web: {entity.web}</li>
-              {entity.lob ? <li>L.O.B.: {entity.lob}</li> : null}
-              {entity.stage ? <li>Stage: {entity.stage}</li> : null}
-              {entity.partnershipType ? <li>partnershipType: {entity.partnershipType}</li> : null}
-              <li>User: {entity.entityUser}</li>
-              <li>Email: {entity.email}</li>
+            <div className="row">
+              <div className="three columns">
+                <img src={entity.logo} className="u-max-full-width" />
+              </div>
+              <div className="nine columns">
+                <span className="goal">{entity.goal}</span>
+                <p>{entity.desc}</p>
+              </div>
+            </div>
+            <ul className="entity-details">
+              <li>Added:<br /> <strong>{entity.createdAt.toDateString()}</strong></li>
+              <li>Type:<br /> <strong>{entity.bucketType}</strong></li>
+              {entity.lob ? <li>L.O.B.:<br /> <strong>{entity.lob}</strong></li> : null}
+              {entity.stage ? <li>Stage:<br /> <strong>{entity.stage}</strong></li> : null}
+              {entity.partnershipType ? <li>partnershipType:<br /> <strong>{entity.partnershipType}</strong></li> : null}
             </ul>
           </div>
           <div className="three columns">
-            <img src={Cloudinary._helpers.url("zfwyscszgge0f3ynnfez", {}) } />
-            <img src={entity.logo} className="u-max-full-width" />
+            <ul className="entity-contact-info">
+              <li><strong>User</strong><br /> {entity.entityUser}</li>
+              <li><strong>Email</strong><br /> {entity.email}</li>
+              <li><strong>Phone</strong><br /> {entity.phone}</li>
+              <li><strong>Address</strong><br /> {entity.address}</li>
+              <li><strong>Web</strong><br/> {entity.web}</li>
+            </ul>
           </div>
         </div>
 
@@ -142,8 +150,10 @@ export default class EntityDetails extends React.Component {
           <div className="nine columns">
             {this._showUpdatesControls()}
             <h3>Updates</h3>
-            {this.state.showAddUpdatesForm ? <AddEntityUpdateForm entityID={this.props.entityID} /> : ""}
-            {updateListing}
+            <div className="well dark-bg">
+              {this.state.showAddUpdatesForm ? <AddEntityUpdateForm entityID={this.props.entityID} /> : ""}
+              {updateListing}
+            </div>
           </div>
           <div className="three columns">
             <h3>Customers</h3>
