@@ -4,6 +4,29 @@ import { Accounts } from 'meteor/accounts-base';
 Meteor.methods({
   // TODO:
   //  edit user
+  EditUser(userID, data, accountType) {
+    Meteor.users.update(userID, {$set: data});
+    return true;
+    /*if(accountType == "admin") {
+      Roles.addUsersToRoles(userId, ['admin']);
+      Meteor.users.update(userID, {$set: {roles: 'admin'}})
+      }
+
+    if(accountType == "exec")
+      Roles.removeUsersFromRoles(userId, ['admin']);
+      Meteor.users.update(userID, {$set: {roles: 'exec'}})*/
+  },
+
+  RoleTitle(userId) {
+    if(Roles.userIsInRole(userId, 'admin'))
+      return 'Admin'
+    else if(Roles.userIsInRole(userId, 'exec'))
+      return 'Exec'
+    else if(Roles.userIsInRole(userId, 'entity-member'))
+      return 'Entity Member'
+    else
+      return 'No Roles'
+  },
 
   //  delete user
   DeleteUser(userId) {

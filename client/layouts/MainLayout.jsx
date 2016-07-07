@@ -11,7 +11,7 @@ export const MainLayout = ({content}) => (
   <div className="main-layout">
     <Nav />
     <div className="main-layout-container">
-      <div class="banner">
+      <div className="banner">
         <span className="lnr lnr-book" /> Captain McGiblet's Book of Nautical Secrets
       </div>
       {content}
