@@ -3,15 +3,18 @@ import React from 'react';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 import AddAdminExecForm from './components/forms/AddAdminExecForm.jsx';
+import EditAdminExecForm from './components/forms/EditAdminExecForm.jsx';
 
 export default class ManageUsers extends React.Component {
   constructor() {
     super();
     this.state = {
       subscription: {
-        adminAndExecUsers: Meteor.subscribe('adminAndExecUsers'),
-      }
-    }
+        adminAndExecUsers: Meteor.subscribe('adminAndExecUsers')
+      },
+      isEdit: false,
+      editId: ''
+    };
     console.log("Admin: ", Roles.userIsInRole(Meteor.userId(), ['admin']))
   }
 
@@ -23,8 +26,30 @@ export default class ManageUsers extends React.Component {
     return Meteor.users.find({});
   }
 
-  _editUser() {
-    console.log("Editing user...")
+  _getRoleTitle(id) {
+    Meteor.call('RoleTitle', id, (err, res)=>{
+        if(err) throw new Meteor.Error("Error Getting Role Title", err);
+      });
+  }
+
+  _dataFromId(id) {
+    let user = Meteor.users.findOne({_id: id});
+    console.log(user);
+    console.log(user.emails[0].address);
+    let data = {
+      username: user.username,
+      email: user.emails[0].address
+    };
+    console.log(data);
+    return data;
+  }
+
+  _editUser(id) {
+    this.setState({isEdit: true, editId: id});
+  }
+
+  _closeEdit() {
+    this.setState({isEdit: false, editId: ''})
   }
 
   _deleteUser(userData) {
@@ -51,12 +76,12 @@ export default class ManageUsers extends React.Component {
           <div className="nine columns">
             <h3>{user.username}</h3>
 
-            {user.roles.map((role) => { return role; })}
+            {Meteor.call('RoleTitle', user)}
 
             {user.emails[0].address}
           </div>
           <div className="three columns">
-            <button onClick={this._editUser}>
+            <button onClick={this._editUser.bind(this, user._id)}>
               <span className="lnr lnr-pencil"></span>
             </button>
             <button onClick={this._deleteUser.bind(this, {id: user._id, username: user.username})}
@@ -78,7 +103,9 @@ export default class ManageUsers extends React.Component {
               </div>
             </div>
             <div className="four columns">
-              <AddAdminExecForm />
+              {
+                this.state.isEdit ? <EditAdminExecForm userId={this.state.editId} userData={this._dataFromId(this.state.editId)} closeEdit={this._closeEdit.bind(this)}/> : <AddAdminExecForm />
+              }
               <p># of users: {adminAndExecUsers.count()}</p>
             </div>
         </div>
