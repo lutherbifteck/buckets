@@ -9,17 +9,17 @@ export default class ManageUsers extends React.Component {
     super();
     this.state = {
       subscription: {
-        allUsers: Meteor.subscribe('allUsers'),
+        adminAndExecUsers: Meteor.subscribe('adminAndExecUsers'),
       }
     }
     console.log("Admin: ", Roles.userIsInRole(Meteor.userId(), ['admin']))
   }
 
   componentWillUnmount(){
-    this.state.subscription.allUsers.stop();
+    this.state.subscription.adminAndExecUsers.stop();
   }
 
-  _getAllUsers() {
+  _getadminAndExecUsers() {
     return Meteor.users.find({});
   }
 
@@ -27,14 +27,25 @@ export default class ManageUsers extends React.Component {
     console.log("Editing user...")
   }
 
-  _deleteUser() {
-    console.log("Deleting user...")
+  _deleteUser(userData) {
+    let confirmation = confirm("Are you sure you want to delete " + userData.username + "?");
+
+    if(confirmation) {
+      Meteor.call('DeleteUser', userData.id, (err, res)=>{
+        if(err) throw new Meteor.Error("Error Deleting User", err);
+        Bert.alert({
+          title: userData.username + ' Deleted!',
+          type: 'success',
+          style: 'growl-top-right'
+        });
+      });
+    }
   }
 
   render() {
-    let allUsers = this._getAllUsers();
+    let adminAndExecUsers = this._getadminAndExecUsers();
 
-    let userList = allUsers.map((user)=>{
+    let userList = adminAndExecUsers.map((user)=>{
       return (
         <div key={user._id} className="row">
           <div className="nine columns">
@@ -48,7 +59,7 @@ export default class ManageUsers extends React.Component {
             <button onClick={this._editUser}>
               <span className="lnr lnr-pencil"></span>
             </button>
-            <button onClick={this._deleteUser}
+            <button onClick={this._deleteUser.bind(this, {id: user._id, username: user.username})}
                     className="button-danger-o">
               <span className="lnr lnr-cross"></span>
             </button>
@@ -68,7 +79,7 @@ export default class ManageUsers extends React.Component {
             </div>
             <div className="four columns">
               <AddAdminExecForm />
-              <p># of users: {allUsers.count()}</p>
+              <p># of users: {adminAndExecUsers.count()}</p>
             </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ Meteor.publish('roles', function (){
 });
 
 //For editing accounts
-Meteor.publish('allUsers', function () {
+Meteor.publish('adminAndExecUsers', function () {
   return Meteor.users.find({});
 });
 

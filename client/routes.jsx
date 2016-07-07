@@ -14,15 +14,15 @@ import { MainLayout } from './layouts/MainLayout.jsx';
 import PastInteractions from './components/PastInteractions.jsx';
 
 FlowRouter.triggers.enter([function(context, redirect){
-  // if (!Meteor.userId()) { FlowRouter.go('home'); }
+  if (!Meteor.userId()) { FlowRouter.go('home'); }
 }]);
 
 Accounts.onLogin(function() {
-  // if(Meteor.userId() && Roles.userIsInRole(Meteor.userId(), ['admin', 'exec'])) {
-  //   FlowRouter.go('dashboard');
-  // } else {
-  //   FlowRouter.go('crmEntry');
-  // }
+  if(Meteor.userId() && Roles.userIsInRole(Meteor.userId(), ['admin', 'exec'])) {
+    FlowRouter.go('dashboard');
+  } else {
+    FlowRouter.go('crmEntry');
+  }
 });
 
 Accounts.onLogout(function() {
@@ -32,6 +32,16 @@ Accounts.onLogout(function() {
 FlowRouter.route('/', {
   name: 'home',
   action() {
+
+    Meteor.setTimeout(function(){
+      if(Roles.userIsInRole(Meteor.userId(), ["admin", "exec"])) {
+        FlowRouter.go('dashboard');
+      }
+      if (Roles.userIsInRole(Meteor.userId(), ["entity-member"])) {
+        FlowRouter.go('crmEntry');
+      }
+    }, 500);
+
     mount(MainLayout, {
       content: (<AccountsUIWrapper />)
     })
@@ -105,8 +115,8 @@ FlowRouter.notFound = {
     mount(MainLayout, {
       content: (
         <div>
-          <h1>CONGRATS! <span className="lnr lnr-poop"></span></h1>
-          <p>You've found the secret page nobody was supposed to find if all the routes worked properly...</p>
+          <h1>What's that Smell? <span className="lnr lnr-poop"></span></h1>
+          <p>You've found the secret page nobody was supposed to find <em>if</em> all the routes worked properly... tell them to fix it!</p>
         </div>
       )
     })

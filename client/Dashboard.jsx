@@ -163,16 +163,16 @@ export default class Dashboard extends React.Component {
 
         <div className="row doughnutchart-row">
           <div className="one-third column">
+            <h5>Startups <small>({this.countStartups()})</small></h5>
             <TestDonutChart chartData="test" />
-            <h3>Startups <small>({this.countStartups()})</small></h3>
           </div>
           <div className="one-third column">
+            <h5>Universities <small>({this.countUniversities()})</small></h5>
             <TestDonutChart chartData="test" />
-            <h3>Universities <small>({this.countUniversities()})</small></h3>
           </div>
           <div className="one-third column">
+            <h5>Providers <small>({this.countProviders()})</small></h5>
             <TestDonutChart chartData={proData} />
-            <h3>Providers <small>({this.countProviders()})</small></h3>
           </div>
         </div>
 

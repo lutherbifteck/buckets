@@ -2,6 +2,14 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
 Meteor.methods({
+  // TODO:
+  //  edit user
+
+  //  delete user
+  DeleteUser(userId) {
+    Meteor.users.remove({_id: userId});
+  },
+
   AddEntity(entityData, newUserData) {
     // add more properties to entityData
     entityData.logo = 'http://placehold.it/250';

@@ -2,6 +2,11 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
 Meteor.methods({
+
+  // TODO
+  // Entity-members can edit their own account info
+
+
  AddInteraction(dateOfInteraction, myEntID, customer, type, details) {
    var entityName = Entities.findOne(myEntID).title;
 
