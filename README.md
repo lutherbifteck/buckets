@@ -28,16 +28,12 @@ $ meteor
 ### GENERAL
 * fully integrate Cloudinary (Save IDs of uploaded images in collection)
 * Implement checks(https://docs.meteor.com/api/check.html) and Roles permissions in Meteor.methods (server)
-* improve page layouts
 
 ### crmEntry not working correctly (Form does not show newly added customer after submission)
 
 ### Dashboard
 * populate DoughnutChart with Startup, Uni, and Provider data (chart.js)
 * create filters
-
-### ManageUsers
-* Admins can C.R.U.D. other Admins, Execs. Can change Roles too
 
 ## ToDos for a later date
 * page transitions https://leveluptutorials.com/tutorials/meteor-react-for-everyone/page-transitions
