@@ -79,6 +79,14 @@ export default class EntityDetails extends React.Component {
     }
   }
 
+  _renderEntLogo(entLogo) {
+    if (entLogo !== '') {
+      return Cloudinary._helpers.url(entLogo, {});
+    } else {
+      return "/images/default-logo.jpg";
+    }
+  }
+
   _showUpdatesControls() {
     if(Roles.userIsInRole(Meteor.userId(), 'admin')) {
       return (
@@ -118,16 +126,16 @@ export default class EntityDetails extends React.Component {
           <div className="nine columns">
             <div className="row">
               <div className="three columns">
-                <img src={entity.logo} className="u-max-full-width" />
+                <img src={this._renderEntLogo(entity.logo)} className="u-max-full-width" />
               </div>
               <div className="nine columns">
-                <span className="goal">{entity.goal}</span>
+                <span className={"goal " + entity.bucketType + "-color-inverse"}>{entity.goal}</span>
                 <p>{entity.desc}</p>
               </div>
             </div>
             <ul className="entity-details">
               <li>Added:<br /> <strong>{entity.createdAt.toDateString()}</strong></li>
-              <li>Type:<br /> <strong>{entity.bucketType}</strong></li>
+              <li>Type:<br /> <strong className={entity.bucketType + "-color"}>{entity.bucketType}</strong></li>
               {entity.lob ? <li>L.O.B.:<br /> <strong>{entity.lob}</strong></li> : null}
               {entity.stage ? <li>Stage:<br /> <strong>{entity.stage}</strong></li> : null}
               {entity.partnershipType ? <li>partnershipType:<br /> <strong>{entity.partnershipType}</strong></li> : null}

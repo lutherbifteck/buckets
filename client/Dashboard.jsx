@@ -113,13 +113,11 @@ export default class Dashboard extends React.Component {
   _renderAdminCntrls() {
     if(Roles.userIsInRole(Meteor.userId(), 'admin')) {
       return (
-        <div className="row">
-          <button onClick={this.formDisplay.bind(this)}
-                  className="button pull-right"
-                  type="button">
-              {this.state.showEntityForm ? 'Hide form' : '+ Add Entity'}
-          </button>
-        </div>
+        <button onClick={this.formDisplay.bind(this)}
+                className="button pull-right"
+                type="button">
+            {this.state.showEntityForm ? 'Hide form' : '+ Add Entity'}
+        </button>
       );
     }
   }
@@ -130,6 +128,14 @@ export default class Dashboard extends React.Component {
 
   _changeListState() {
     this.setState({filterEntityList: this.refs.filterEntityList.value})
+  }
+
+  _renderEntLogo(entLogo) {
+    if (entLogo !== '') {
+      return Cloudinary._helpers.url(entLogo, {});
+    } else {
+      return "/images/default-logo.jpg";
+    }
   }
 
   render() {
@@ -158,9 +164,6 @@ export default class Dashboard extends React.Component {
 
     return (
       <div>
-        { this._renderAdminCntrls() }
-        {this.state.showEntityForm ? <AddEntityForm /> : null}
-
         <div className="row doughnutchart-row">
           <div className="one-third column">
             <h5>Startups <small>({this.countStartups()})</small></h5>
@@ -179,34 +182,32 @@ export default class Dashboard extends React.Component {
         <div className="entity-list">
           <hr />
 
+          { this._renderAdminCntrls() }
+          <h2>Entities</h2>
+
+          {this.state.showEntityForm ? <AddEntityForm /> : null}
+
           <select ref="filterEntityList"
-                  onChange={this._changeListState.bind(this)}
-                  className="pull-right">
+                  onChange={this._changeListState.bind(this)} >
             <option value="showall">All</option>
             <option value="startups">Startups</option>
             <option value="universities">Universities</option>
             <option value="providers">Providers</option>
           </select>
 
-          <h2>Entities</h2>
-
           <ul>
             {filterResult.map((ent) => {
               return (
                 <a key={ent._id} href={ent._id}>
                   <li>
-                    <div className="row">
-                      <div className="three columns">
-                        <img src={ent.logo} className="u-max-full-width" />
-                      </div>
-                      <div className="nine columns">
-                        <h3>{ent.title}</h3>
-                        {ent.bucketType}
-                      </div>
-                    </div>
-                  </li>
+                    <img src={this._renderEntLogo(ent.logo)} className="u-max-full-width" />
+
+                    <h3 className={ ent.bucketType+"-color" }>{ent.title}</h3>
+
+                    <span className={"bucket-type " + ent.bucketType + "-color-inverse" }>{ent.bucketType}</span>
+                </li>
                 </a>
-              )
+              );
             })}
           </ul>
         </div>

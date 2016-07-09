@@ -47,7 +47,6 @@ Meteor.methods({
 
   AddEntity(entityData, newUserData) {
     // add more properties to entityData
-    entityData.logo = 'http://placehold.it/250';
     entityData.customers = [];
     entityData.createdAt = new Date();
 

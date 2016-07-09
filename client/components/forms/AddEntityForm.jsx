@@ -5,7 +5,7 @@ export default class AddEntityForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      entTitle: 'Bob Belcher',
+      entTitle: '',
       bucketType: 'startups'
     }
   }
@@ -20,6 +20,7 @@ export default class AddEntityForm extends React.Component {
 
   _addEntity(event) {
     event.preventDefault();
+    var self = this;
     var entityData = {},
         newUserData = {};
     var title = this.refs.entityTitle.value.trim();
@@ -32,6 +33,7 @@ export default class AddEntityForm extends React.Component {
     var newMemberName = title;
     var newMemberEmail = this.refs.newMemberEmail.value.trim();
     var newMemberPassword = this.refs.newMemberPassword.value.trim();
+    var files = this.refs.logo.files;
 
     entityData = {
       title: title,
@@ -42,9 +44,10 @@ export default class AddEntityForm extends React.Component {
       address: address,
       web: web,
       email: newMemberEmail,
-      createdBy: Meteor.userId()
+      createdBy: Meteor.userId(),
     }
     // add the dynamic values to entityData
+
     if (this.refs.lob) {
       entityData.lob = this.refs.lob.value
     }
@@ -61,29 +64,43 @@ export default class AddEntityForm extends React.Component {
         password: newMemberPassword,
     };
 
-    console.log(entityData, newUserData)
+    // needed to wrap AddEntity Method call in function so it could be called after getting a result from Cloudinary or not
+    function makeTheCall() {
+      Meteor.call('AddEntity',
+                  entityData,
+                  newUserData,
+                  (err) => {
+        if (err) throw new Meteor.Error('cannot-add-entity', err.reason);
 
-    Meteor.call('AddEntity',
-                entityData,
-                newUserData,
-                (err) => {
-      if (err) throw new Meteor.Error('cannot-add-entity', err.reason);
+        Bert.alert({
+          title: 'Entity Added to ' + bucketType + "!",
+          type: 'success',
+          style: 'growl-top-right',
+          icon: 'fa-thumbs-up'
+        });
 
-      Bert.alert({
-        title: 'Entity Added to ' + bucketType + "!",
-        type: 'success',
-        style: 'growl-top-right',
-        icon: 'fa-thumbs-up'
+        self.refs.entityTitle.value = '';
+        self.refs.entityDesc.value = '';
+        self.refs.newMemberEmail.value = '';
+        self.refs.newMemberPassword.value ='';
+        self.refs.entTel.value ='';
+        self.refs.entAddress.value ='';
+        self.refs.entWeb.value ='';
+        self.refs.logo.value = '';
       });
+    }
 
-      this.refs.entityTitle.value = '';
-      this.refs.entityDesc.value = '';
-      this.refs.newMemberEmail.value = '';
-      this.refs.newMemberPassword.value ='';
-      this.refs.entTel.value ='';
-      this.refs.entAddress.value ='';
-      this.refs.entWeb.value ='';
-    });
+    if( this.refs.logo.files.length > 0) {
+      Cloudinary.upload(files, {}, (err, res) => {
+        if (err) throw new Meteor.Error("Could-not-upload-logo", err.reason);
+        entityData.logo = res.public_id;
+        makeTheCall();
+      });
+    } else {
+      entityData.logo = '';
+      makeTheCall();
+    }
+
   }
 
   _updateNewEntityTitle() {
@@ -237,7 +254,6 @@ export default class AddEntityForm extends React.Component {
     }
   }
 
-
   render() {
     return (
       <div>
@@ -286,8 +302,11 @@ export default class AddEntityForm extends React.Component {
               <label>Website</label>
               <input type="url"
                      ref="entWeb"
-                     className="u-full-width"
-                     placeholder="http://bobsburgers.com"/>
+                     className="u-full-width" />
+
+              <label>Logo</label>
+              <input ref="logo"
+                     type="file" />
 
             </div>
             <div className="four columns">

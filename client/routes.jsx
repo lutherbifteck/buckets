@@ -7,6 +7,7 @@ import AccountsUIWrapper from './components/forms/AccountsUIWrapper.jsx';
 import CRMEntryForm from './components/forms/CRMEntryForm.jsx';
 import Dashboard from './Dashboard.jsx';
 import EntityDetails from './EntityDetails.jsx';
+import FourOFour from './components/FourOFour.jsx';
 import CRMEntryDataContainer from './containers/CRMEntryDataContainer.jsx';
 import IncubatorCRM from './IncubatorCRM.jsx';
 import ManageUsers from './ManageUsers.jsx'
@@ -113,12 +114,7 @@ FlowRouter.route('/:entityID', {
 FlowRouter.notFound = {
   action() {
     mount(MainLayout, {
-      content: (
-        <div>
-          <h1>What's that Smell? <span className="lnr lnr-poop"></span></h1>
-          <p>You've found the secret page nobody was supposed to find <em>if</em> all the routes worked properly... tell them to fix it!</p>
-        </div>
-      )
+      content: (<FourOFour />)
     })
   }
 };

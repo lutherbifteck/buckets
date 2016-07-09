@@ -8,12 +8,39 @@ $yellow: #E5D046;
 $grey: #d1d1d1;
 $lightGrey: lighten($grey, 14%);
 
+$startupsColor: $green;
+$universitiesColor: $orange;
+$providersColor: $purple;
+
 html, body {
   width: 100%;
   height: 100%;
 }
 
 .at-input input {width: 100%;}
+
+//colors
+.startups-color {
+  color: $startupsColor;
+}
+.startups-color-inverse {
+  background-color: $startupsColor;
+  color: #fff;
+}
+.universities-color {
+    color: $universitiesColor;
+}
+.universities-color-inverse {
+  background-color: $universitiesColor;
+  color: #fff;
+}
+.providers-color {
+  color: $providersColor;
+}
+.providers-color-inverse {
+  background-color: $providersColor;
+  color: #fff;
+}
 
 /* MainLayout
  ************************************/
@@ -151,15 +178,51 @@ html, body {
 }
 
 .entity-list {
-  img { border-radius: 100%; }
+
+  img {
+    display:block;
+    border-radius: 100%;
+    max-width: 160px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  a {
+    text-decoration: none;
+  }
 
   ul {
     list-style: none;
-    border: 1px solid $grey;
+
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+
+    flex-direction: row;
+
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+
+    justify-content: space-between;
+    align-items: flex-start;
 
     li {
-      padding: 25px;
-      border-bottom: 1px solid $grey;
+      padding: 10px 10px 0;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      // width: 50%;
+      border: 1px solid $grey;
+      flex: 1;
+      width: 170px;
+      box-shadow: 0px 1px 3px rgba(0,0,0,.2);
+
+      span.bucket-type {
+
+      }
     }
   }
 }
@@ -168,7 +231,6 @@ html, body {
  ************************************/
 .entity-details-template {
   .goal {
-    background: $green;
     display: inline-block;
     padding: 5px 10px;
     margin-bottom: 12px;
