@@ -1,9 +1,14 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default class FourOFour extends React.Component {
   render() {
     return (
-      <div className="row">
+      <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}
+        transitionAppear={true} >
+
+      <div className="row" key="FourOFourAnimationKey">
         <div className="three columns">
           <img src="/images/the-captain.jpg" width="100%" alt="Captain McGibblets" />
         </div>
@@ -14,6 +19,7 @@ export default class FourOFour extends React.Component {
           <a href="/" className="button button-success">Hightail it home</a>
         </div>
       </div>
+    </ReactCSSTransitionGroup>
     );
   }
 }

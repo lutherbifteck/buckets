@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default class CRMEntryForm extends React.Component {
   constructor(props) {
@@ -89,7 +90,13 @@ export default class CRMEntryForm extends React.Component {
     let myEntID = this.props.currentUser ? this.props.currentUser.profile.entity : '';
 
     return (
-      <div>
+
+      <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}
+        transitionAppear={true} >
+
+
+      <div key="crmEntryAnimationKey">
         <h3>Add an Interaction</h3>
         <p><strong>User:</strong> {myUserId}</p>
         <p><strong>User Entity:</strong> {myEntID}</p>
@@ -120,6 +127,8 @@ export default class CRMEntryForm extends React.Component {
           <input className="button-success u-full-width" type="submit" value="Submit" />
         </form>
       </div>
+
+    </ReactCSSTransitionGroup>
     );
   }
 }

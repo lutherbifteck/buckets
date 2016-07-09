@@ -4,6 +4,8 @@ import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 import AddAdminExecForm from './components/forms/AddAdminExecForm.jsx';
 import EditAdminExecForm from './components/forms/EditAdminExecForm.jsx';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 
 export default class ManageUsers extends React.Component {
   constructor() {
@@ -96,7 +98,11 @@ export default class ManageUsers extends React.Component {
     });
 
     return (
-      <div className="manage-users">
+      <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}
+        transitionAppear={true} >
+
+      <div className="manage-users" key="MngUsersAnimationKey">
         <h1>Manage Users</h1>
         <div className="row">
             <div className="eight columns">
@@ -112,6 +118,7 @@ export default class ManageUsers extends React.Component {
             </div>
         </div>
       </div>
+    </ReactCSSTransitionGroup>
     )
   }
 } ReactMixin(ManageUsers.prototype, TrackerReactMixin);

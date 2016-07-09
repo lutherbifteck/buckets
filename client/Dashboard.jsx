@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import AddEntityForm from './components/forms/AddEntityForm.jsx';
 import Spinner from './components/Spinner.jsx';
 var DoughnutChart = require("react-chartjs").Doughnut;
@@ -164,10 +165,14 @@ export default class Dashboard extends React.Component {
     }
 
 
-    if (allEntities.length < 1) return <Spinner/>;
+//    if (allEntities.length < 1) return <Spinner/>;
 
     return (
-      <div>
+      <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}
+        transitionAppear={true} >
+
+      <div key="dashAnimationKey">
         <div className="row doughnutchart-row">
           <div className="one-third column">
             <h5>Startups <small>({this.countStartups()})</small></h5>
@@ -200,22 +205,23 @@ export default class Dashboard extends React.Component {
           </select>
 
           <ul>
-            {filterResult.map((ent) => {
-              return (
-                <a key={ent._id} href={ent._id}>
-                  <li>
-                    <img src={this._renderEntLogo(ent.logo)} className="u-max-full-width" />
+              {filterResult.map((ent) => {
+                return (
+                  <a key={ent._id} href={ent._id}>
+                    <li>
+                      <img src={this._renderEntLogo(ent.logo)} className="u-max-full-width" />
 
-                    <h3 className={ ent.bucketType+"-color" }>{ent.title}</h3>
+                      <h3 className={ ent.bucketType+"-color" }>{ent.title}</h3>
 
-                    <span className={"bucket-type " + ent.bucketType + "-color-inverse" }>{ent.bucketType}</span>
-                </li>
-                </a>
-              );
-            })}
+                      <span className={"bucket-type " + ent.bucketType + "-color-inverse" }>{ent.bucketType}</span>
+                  </li>
+                  </a>
+                );
+              })}
           </ul>
         </div>
       </div>
+    </ ReactCSSTransitionGroup>
     )
   }
 }

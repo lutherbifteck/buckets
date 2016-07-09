@@ -5,6 +5,8 @@ import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 import EditEntityForm from './components/forms/EditEntityForm.jsx';
 import AddEntityUpdateForm from './components/forms/AddEntityUpdateForm.jsx';
 
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 // import 'sweetalert/dist/sweetalert.css';
 // import sweetalert from 'sweetalert';
 
@@ -116,7 +118,11 @@ export default class EntityDetails extends React.Component {
     )})}</ul> : <p>No Updates yet...</p>;
 
     return (
-      <div className="entity-details-template">
+      <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}
+        transitionAppear={true} >
+
+      <div className="entity-details-template" key="entityAnimationKey">
 
         { this._showEntityEditControls() }
 
@@ -169,6 +175,7 @@ export default class EntityDetails extends React.Component {
           </div>
         </div>
       </div>
+    </ReactCSSTransitionGroup>
     )
   }
 }
