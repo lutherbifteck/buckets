@@ -10,10 +10,10 @@ EntityUpdates = new Mongo.Collection('entityUpdates');
 export const MainLayout = ({content}) => (
   <div className="main-layout">
     <Nav />
+    <div className="banner">
+      <h5><span className="lnr lnr-book" /> Captain McGiblet's Book of Nautical Secrets</h5>
+    </div>
     <div className="main-layout-container">
-      <div className="banner">
-        <span className="lnr lnr-book" /> Captain McGiblet's Book of Nautical Secrets
-      </div>
       {content}
     </div>
   </div>

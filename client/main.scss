@@ -15,13 +15,20 @@ html, body {
 
 .at-input input {width: 100%;}
 
-
 /* MainLayout
  ************************************/
 .main-layout-container {
   padding: 25px 50px 50px 150px;
 }
 
+.banner {
+  background: $lightGrey;
+  padding: 4px 15px 4px 150px;
+  text-align: center;
+  h5 {
+    margin-bottom: 0;
+  }
+}
 
 .navbar {
   overflow: hidden;
@@ -63,6 +70,11 @@ html, body {
   .main-layout-container {
     padding: 50px 25px 120px;
   }
+
+  .banner {
+    padding: 5px 25px;
+  }
+
   .navbar {
     bottom: 0;
     width: 100%;
@@ -227,7 +239,13 @@ html, body {
 /* ManageUsers */
 .userlist {
   .row {
-    margin-bottom: 50px;
+    padding: 25px;
+    border-top: 1px solid $grey;
+    margin-bottom: 25px;
+
+    &:last-child {
+      border-bottom: 1px solid $grey;
+    }
   }
 }
 

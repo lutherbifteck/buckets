@@ -23,7 +23,8 @@ export default class ManageUsers extends React.Component {
   }
 
   _getadminAndExecUsers() {
-    return Meteor.users.find({});
+    return Meteor.users.find({'roles': {$ne: 'entity-member'} }); // find all users that are not entity-member
+    // return Meteor.users.find({});
   }
 
   _getRoleTitle(id) {
@@ -75,10 +76,11 @@ export default class ManageUsers extends React.Component {
         <div key={user._id} className="row">
           <div className="nine columns">
             <h3>{user.username}</h3>
-
-            {Meteor.call('RoleTitle', user)}
-
-            {user.emails[0].address}
+            <p>
+              {user.roles[0]}<br />
+              {user.emails[0].address}
+            </p>
+            {/*Meteor.call('RoleTitle', user)*/}
           </div>
           <div className="three columns">
             <button onClick={this._editUser.bind(this, user._id)}>
@@ -98,6 +100,7 @@ export default class ManageUsers extends React.Component {
         <h1>Manage Users</h1>
         <div className="row">
             <div className="eight columns">
+              <p># of users: {adminAndExecUsers.count()}</p>
               <div className="userlist">
                 { userList }
               </div>
@@ -106,7 +109,6 @@ export default class ManageUsers extends React.Component {
               {
                 this.state.isEdit ? <EditAdminExecForm userId={this.state.editId} userData={this._dataFromId(this.state.editId)} closeEdit={this._closeEdit.bind(this)}/> : <AddAdminExecForm />
               }
-              <p># of users: {adminAndExecUsers.count()}</p>
             </div>
         </div>
       </div>

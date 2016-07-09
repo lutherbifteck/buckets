@@ -26,12 +26,9 @@ $ meteor
 # ToDo:
 
 ### GENERAL
-* fully integrate Cloudinary (Save IDs of uploaded images in collection, we need to find out what the final hosting situation will be.)
+* fully integrate Cloudinary (Save IDs of uploaded images in collection)
 * Implement checks(https://docs.meteor.com/api/check.html) and Roles permissions in Meteor.methods (server)
 * improve page layouts
-
-### EntityDetails
-* Edit entity user
 
 ### crmEntry not working correctly (Form does not show newly added customer after submission)
 

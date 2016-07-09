@@ -13,7 +13,7 @@ export default class EditAdminExecForm extends React.Component {
     let userData = {
       username: name,
       emails: [
-        {address: email}]
+        {address: email}],
     };
 
     Meteor.call('EditUser', this.props.userId, userData, accountType, (err) => {

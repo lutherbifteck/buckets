@@ -11,7 +11,7 @@ Meteor.publish('roles', function (){
 
 //For editing accounts
 Meteor.publish('adminAndExecUsers', function () {
-  return Meteor.users.find({});
+  return Meteor.users.find({'roles': {$ne: 'entity-member'} }); // find all users that are not entity-member
 });
 
 // used in HomeLayoutDataWrap

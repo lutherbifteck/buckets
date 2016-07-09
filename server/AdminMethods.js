@@ -3,18 +3,30 @@ import { Accounts } from 'meteor/accounts-base';
 
 Meteor.methods({
   // TODO:
+
   //  edit user
   EditUser(userID, data, accountType) {
+    let currentRole = Meteor.users.findOne(userID).roles[0];
+
     Meteor.users.update(userID, {$set: data});
-    return true;
-    /*if(accountType == "admin") {
-      Roles.addUsersToRoles(userId, ['admin']);
-      Meteor.users.update(userID, {$set: {roles: 'admin'}})
+
+    if (accountType === 'default' || currentRole === accountType) {
+      return true;
+    }
+
+    if(accountType === "admin") {
+      Roles.removeUsersFromRoles(userID, ['exec']);
+      Roles.addUsersToRoles(userID, ['admin']);
+//      Meteor.users.update(userID, {$set: {roles: 'admin'}})
       }
 
-    if(accountType == "exec")
-      Roles.removeUsersFromRoles(userId, ['admin']);
-      Meteor.users.update(userID, {$set: {roles: 'exec'}})*/
+    if(accountType === "exec") {
+      Roles.removeUsersFromRoles(userID, ['admin']);
+      Roles.addUsersToRoles(userID, ['exec']);
+      //      Meteor.users.update(userID, {$set: {roles: 'exec'}})
+    }
+
+    return true;
   },
 
   RoleTitle(userId) {
