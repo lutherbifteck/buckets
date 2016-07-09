@@ -215,13 +215,13 @@ html, body {
       flex-direction: column;
       text-align: center;
       // width: 50%;
-      border: 1px solid $grey;
+      // border: 1px solid $grey;
       flex: 1;
       width: 170px;
-      box-shadow: 0px 1px 3px rgba(0,0,0,.2);
+      box-shadow: 0px 1px 4px rgba(0,0,0,.3);
 
       span.bucket-type {
-
+        margin: auto -10px;
       }
     }
   }
@@ -230,6 +230,13 @@ html, body {
 /*  EntityDetails
  ************************************/
 .entity-details-template {
+
+  .entity-edit-controls {
+    button {
+      margin-left: 5px;
+    }
+  }
+
   .goal {
     display: inline-block;
     padding: 5px 10px;

@@ -62,17 +62,17 @@ export default class EntityDetails extends React.Component {
   _showEntityEditControls() {
     if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
       return (
-        <span>
-          <div className="row">
-            <button onClick={this._deleteEntity.bind(this)}
-                    className="pull-right button-danger-o">
-              <span className="lnr lnr-cross"></span> Delete
-            </button>
-            <button onClick={this._editEntity.bind(this)}
-                    className="pull-right">
-              <span className="lnr lnr-pencil"></span> Edit
-            </button>
-          </div>
+        <span className="entity-edit-controls">
+          <button onClick={this._deleteEntity.bind(this)}
+                  className="pull-right button-danger-o">
+            <span className="lnr lnr-cross"></span> Delete
+          </button>
+
+          <button onClick={this._editEntity.bind(this)}
+                  className="pull-right">
+            <span className="lnr lnr-pencil"></span> Edit
+          </button>
+
           {this.state.showEditEntityForm ? <EditEntityForm entityInfo={this.getEntityInfo()} /> : ""}
         </span>
       )
@@ -129,7 +129,7 @@ export default class EntityDetails extends React.Component {
                 <img src={this._renderEntLogo(entity.logo)} className="u-max-full-width" />
               </div>
               <div className="nine columns">
-                <span className={"goal " + entity.bucketType + "-color-inverse"}>{entity.goal}</span>
+                <span className={"goal " + entity.bucketType + "-color-inverse"}>Goal: <strong>{entity.goal}</strong></span>
                 <p>{entity.desc}</p>
               </div>
             </div>

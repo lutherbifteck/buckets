@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 import AddEntityForm from './components/forms/AddEntityForm.jsx';
+import Spinner from './components/Spinner.jsx';
 var DoughnutChart = require("react-chartjs").Doughnut;
 
 var TestDonutChart = React.createClass({
@@ -161,6 +162,9 @@ export default class Dashboard extends React.Component {
         default:
             filterResult = allEntities;
     }
+
+
+    if (allEntities.length < 1) return <Spinner/>;
 
     return (
       <div>
