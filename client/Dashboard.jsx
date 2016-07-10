@@ -6,6 +6,10 @@ import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import AddEntityForm from './components/forms/AddEntityForm.jsx';
 import Spinner from './components/Spinner.jsx';
+import getCategories from '../both/getCategories.js';
+import DonutChart from './components/DonutChart';
+
+
 var DoughnutChart = require("react-chartjs").Doughnut;
 
 var TestDonutChart = React.createClass({
@@ -60,7 +64,8 @@ var TestDonutChart = React.createClass({
         <DoughnutChart data={chartData} options={chartOptions}/>
         <select>
           <option value="goal">Goal</option>
-          <option value="partnershipType">Partnership Type</option>
+          <option value="lob">LOB</option>
+          <option value="stage">Stage</option>
         </select>
       </div>
     )
@@ -165,7 +170,7 @@ export default class Dashboard extends React.Component {
     }
 
 
-//    if (allEntities.length < 1) return <Spinner/>;
+
 
     return (
       <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500}
@@ -176,15 +181,15 @@ export default class Dashboard extends React.Component {
         <div className="row doughnutchart-row">
           <div className="one-third column">
             <h5>Startups <small>({this.countStartups()})</small></h5>
-            <TestDonutChart chartData="test" />
+            <DonutChart bucket="startup" ents={startupData}/>
           </div>
           <div className="one-third column">
             <h5>Universities <small>({this.countUniversities()})</small></h5>
-            <TestDonutChart chartData="test" />
+            <DonutChart bucket="university" ents={uniData}/>
           </div>
           <div className="one-third column">
             <h5>Providers <small>({this.countProviders()})</small></h5>
-            <TestDonutChart chartData={proData} />
+            <DonutChart bucket="provider" ents={proData}/>
           </div>
         </div>
 
