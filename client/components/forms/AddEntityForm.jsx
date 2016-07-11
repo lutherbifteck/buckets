@@ -55,7 +55,7 @@ export default class AddEntityForm extends React.Component {
       entityData.stage = this.refs.stage.value;
     }
     if (this.refs.partnershiptype) {
-      entityData.partnershipType = this.refs.partnershiptype.value;
+      entityData.partnershiptype = this.refs.partnershiptype.value;
     }
 
     newUserData = {
