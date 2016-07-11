@@ -48,7 +48,7 @@ export default class EditEntityForm extends React.Component {
       newData.stage = this.refs.stage.value;
     }
     if (this.refs.partnershiptype) {
-      newData.partnershipType = this.refs.partnershiptype.value;
+      newData.partnershiptype = this.refs.partnershiptype.value;
     }
 
     Meteor.call('EditEntity',

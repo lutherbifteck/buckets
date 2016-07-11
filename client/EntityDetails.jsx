@@ -144,7 +144,7 @@ export default class EntityDetails extends React.Component {
               <li>Type:<br /> <strong className={entity.bucketType + "-color"}>{entity.bucketType}</strong></li>
               {entity.lob ? <li>L.O.B.:<br /> <strong>{entity.lob}</strong></li> : null}
               {entity.stage ? <li>Stage:<br /> <strong>{entity.stage}</strong></li> : null}
-              {entity.partnershipType ? <li>partnershipType:<br /> <strong>{entity.partnershipType}</strong></li> : null}
+              {entity.partnershiptype ? <li>Partnership Type:<br /> <strong>{entity.partnershiptype}</strong></li> : null}
             </ul>
           </div>
           <div className="three columns">
