@@ -35,7 +35,7 @@ var startupCategories = {
 };
 
 var universityCategories = {
-	"partnership": [
+	"partnershiptype": [
 		"Co-Develop",
 		"Test Solutions",
 		"In-Kind Services",
@@ -59,7 +59,7 @@ var universityCategories = {
 };
 
 var providerCategories = {
-    "partnership": [
+    "partnershiptype": [
 		"Co-Develop",
 		"Test Solutions",
 		"In-Kind Services",
