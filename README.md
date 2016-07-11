@@ -18,25 +18,17 @@ $ npm install
 $ meteor
 </code>
 
-##### Note: How to use cloudinary in react
-`<img src={Cloudinary._helpers.url(public_id, {}) } />`
-
 ---
 
 # ToDo:
 
 ### GENERAL
-* fully integrate Cloudinary (Save IDs of uploaded images in collection)
+* fully integrate Cloudinary (Save IDs of uploaded images in collection, be able to upload files)
 * Implement checks(https://docs.meteor.com/api/check.html) and Roles permissions in Meteor.methods (server)
 
 ### crmEntry not working correctly (Form does not show newly added customer after submission)
 
-### Dashboard
-* populate DoughnutChart with Startup, Uni, and Provider data (chart.js)
-* create filters
-
 ## ToDos for a later date
-* page transitions https://leveluptutorials.com/tutorials/meteor-react-for-everyone/page-transitions
 * make a line chart (using chartjs) that tracks # of interactions over time
 * Figure out how to do Android/iOS builds and how to distribute
 * Push Notifications

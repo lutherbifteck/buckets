@@ -2,31 +2,47 @@ import React from 'react';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import Spinner from '../Spinner.jsx';
 
 export default class CRMEntryForm extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       showNewCustField: false,
+      customers: [],
+      subscription: {
+        entityDate: Meteor.subscribe('myEntityData')
+      }
     };
   }
 
-  componentWillReceiveProps() {
-    var conditionsPass = this.props.currentUser && Roles.userIsInRole(Meteor.userId(), 'entity-member') && this.props.loadingEntityData && this.props.currentUser && this.props.currentUser.profile && this.props.currentUser.profile.entity;
-
-    if( conditionsPass ) {
-        let data = this._getEntData();
-        if (data[0].customers && data[0].customers.length > 0) {
-          this.setState({customers: data[0].customers})
-        } else {
-          this.setState({customers: false})
-          this.setState({showNewCustField: true})
-        };
-    }
+  componentWillUnmount() {
+    this.state.subscription.entityDate.stop();
   }
 
-  _getEntData() {
-    return Entities.find({_id: this.props.currentUser.profile.entity}).fetch();
+  // componentWillReceiveProps() {
+  //   var conditionsPass = this.props.currentUser && Roles.userIsInRole(Meteor.userId(), 'entity-member') && this.props.loadingEntityData && this.props.currentUser && this.props.currentUser.profile && this.props.currentUser.profile.entity;
+  //
+  //   if( conditionsPass ) {
+  //     let data = this._getEntData();
+  //     if (data.customers.length > 0) {
+  //       this.setState({customers: data.customers})
+  //     }
+  //   }
+  // }
+
+//  shouldComponentUpdate(nextProps, nextState) {
+
+//    console.log(this.state.customers.length, nextState.customers.length)
+
+//    if # of customers have changed, rerender component
+
+//    return this.state.customers.length !== nextState.customers.length;
+//  }
+
+  _getEntData(entityId) {
+    return Entities.findOne(entityId);
   }
 
   _toggleNewCustField() {
@@ -75,26 +91,29 @@ export default class CRMEntryForm extends React.Component {
     );
   }
 
-  _renderCustomers() {
-    if(this.state.customers) {
-      return this.state.customers.map((cust)=>{
-        return (
-          <option key={cust} value={cust}>{cust}</option>
-        );
-      });
-    }
+  _renderCustomers(customers) {
+    return customers.map((cust)=>{
+      return (
+        <option key={cust} value={cust}>{cust}</option>
+      );
+    });
   }
 
   render() {
     let myUserId = this.props.currentUser ? this.props.currentUser.username : '';
     let myEntID = this.props.currentUser ? this.props.currentUser.profile.entity : '';
+    if( myUserId===undefined || myEntID===undefined) return <Spinner/>;
+
+    let entityData= this._getEntData(myEntID);
+    if(entityData == undefined) return <Spinner/>;
 
     return (
-
-      <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500}
+      <ReactCSSTransitionGroup
+        transitionName="example"
+        transitionEnterTimeout={500}
         transitionLeaveTimeout={300}
-        transitionAppear={true} >
-
+        transitionAppear={true}
+        transitionAppearTimeout={300} >
 
       <div key="crmEntryAnimationKey">
         <h3>Add an Interaction</h3>
@@ -108,13 +127,13 @@ export default class CRMEntryForm extends React.Component {
           <label>Customer</label>
           <select ref="customer"
                 className="u-full-width"
-                onChange={this._toggleNewCustField.bind(this)}
-                value = "">
-            { this._renderCustomers() }
-            <option onClick={this._toggleNewCustField} value="other">Other</option>
+                onChange={this._toggleNewCustField.bind(this)} >
+            <option defaultValue="selected">Choose Customer</option>
+            { this._renderCustomers(entityData.customers) }
+            <option value="other">Other</option>
           </select>
 
-          {this.state.showNewCustField || this.state.customers && this.state.customers.length < 0 ? <div><label>Add New Customer</label><input type="text" ref="newCustomer" className="u-full-width" placeholder="New Customer..." /></div> : null}
+          {this.state.showNewCustField == true ? <div><label>Add New Customer</label><input type="text" ref="newCustomer" className="u-full-width" placeholder="New Customer..." /></div> : null}
 
           <label>Interaction Type</label>
           <select ref="interactionType" className="u-full-width" >

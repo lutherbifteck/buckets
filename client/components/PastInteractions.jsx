@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default class PastInteractions extends React.Component {
   componentWillMount() {
@@ -44,10 +45,17 @@ export default class PastInteractions extends React.Component {
     </div>;
 
     return (
-      <div>
-        <h1>My Past Interactions</h1>
-        {pastInts}
-      </div>
+      <ReactCSSTransitionGroup
+        transitionName="example"
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}
+        transitionAppear={true}
+        transitionAppearTimeout={300} >
+        <div>
+          <h1>My Past Interactions</h1>
+          {pastInts}
+        </div>
+      </ReactCSSTransitionGroup>
     );
   }
 }

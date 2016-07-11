@@ -165,12 +165,14 @@ export default class Dashboard extends React.Component {
     }
 
 
-//    if (allEntities.length < 1) return <Spinner/>;
+   if (allEntities.length < 1) return <Spinner/>;
 
     return (
-      <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500}
+      <ReactCSSTransitionGroup transitionName="example"
+        transitionEnterTimeout={500}
         transitionLeaveTimeout={300}
-        transitionAppear={true} >
+        transitionAppear={true}
+        transitionAppearTimeout={300} >
 
       <div key="dashAnimationKey">
         <div className="row doughnutchart-row">

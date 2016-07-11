@@ -98,27 +98,30 @@ export default class ManageUsers extends React.Component {
     });
 
     return (
-      <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500}
+      <ReactCSSTransitionGroup
+        transitionName="example"
+        transitionEnterTimeout={500}
         transitionLeaveTimeout={300}
-        transitionAppear={true} >
+        transitionAppear={true}
+        transitionAppearTimeout={300} >
 
-      <div className="manage-users" key="MngUsersAnimationKey">
-        <h1>Manage Users</h1>
-        <div className="row">
-            <div className="eight columns">
-              <p># of users: {adminAndExecUsers.count()}</p>
-              <div className="userlist">
-                { userList }
+        <div className="manage-users" key="MngUsersAnimationKey">
+          <h1>Manage Users</h1>
+          <div className="row">
+              <div className="eight columns">
+                <p># of users: {adminAndExecUsers.count()}</p>
+                <div className="userlist">
+                  { userList }
+                </div>
               </div>
-            </div>
-            <div className="four columns">
-              {
-                this.state.isEdit ? <EditAdminExecForm userId={this.state.editId} userData={this._dataFromId(this.state.editId)} closeEdit={this._closeEdit.bind(this)}/> : <AddAdminExecForm />
-              }
-            </div>
+              <div className="four columns">
+                {
+                  this.state.isEdit ? <EditAdminExecForm userId={this.state.editId} userData={this._dataFromId(this.state.editId)} closeEdit={this._closeEdit.bind(this)}/> : <AddAdminExecForm />
+                }
+              </div>
+          </div>
         </div>
-      </div>
-    </ReactCSSTransitionGroup>
+      </ReactCSSTransitionGroup>
     )
   }
 } ReactMixin(ManageUsers.prototype, TrackerReactMixin);

@@ -5,7 +5,6 @@ import {TrackerReactMixin} from 'meteor/ultimatejs:tracker-react';
 import Reactable from 'reactable';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-
 const styles = {
 	active: {
 		display: 'inherit'
@@ -137,19 +136,22 @@ export default class IncubatorCRM extends React.Component {
 		var interactionList = this.getInteractions();
 
 		return (
-			<ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500}
+			<ReactCSSTransitionGroup
+				transitionName="example"
+				transitionEnterTimeout={500}
 				transitionLeaveTimeout={300}
-				transitionAppear={true} >
+				transitionAppear={true}
+				transitionAppearTimeout={300} >
 
-			<div className="incubator-crm" key="incubatorAnimationKey">
-		        <h2>Incubator CRM</h2>
-		        <div className="row">
-		          <div className="twelve columns">
-		            <IncubatorCRMList list={interactionList} />
-		          </div>
-		        </div>
-			</div>
-		</ReactCSSTransitionGroup>
+				<div className="incubator-crm" key="incubatorAnimationKey">
+			        <h2>Incubator CRM</h2>
+			        <div className="row">
+			          <div className="twelve columns">
+			            <IncubatorCRMList list={interactionList} />
+			          </div>
+			        </div>
+				</div>
+			</ReactCSSTransitionGroup>
 		)
 	}
 }

@@ -118,64 +118,67 @@ export default class EntityDetails extends React.Component {
     )})}</ul> : <p>No Updates yet...</p>;
 
     return (
-      <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500}
+      <ReactCSSTransitionGroup
+        transitionName="example"
+        transitionEnterTimeout={500}
         transitionLeaveTimeout={300}
-        transitionAppear={true} >
+        transitionAppear={true}
+        transitionAppearTimeout={300} >
 
-      <div className="entity-details-template" key="entityAnimationKey">
+        <div className="entity-details-template" key="entityAnimationKey">
 
-        { this._showEntityEditControls() }
+          { this._showEntityEditControls() }
 
-        <h1>{entity.title}</h1>
+          <h1>{entity.title}</h1>
 
-        <div className="row">
-          <div className="nine columns">
-            <div className="row">
-              <div className="three columns">
-                <img src={this._renderEntLogo(entity.logo)} className="u-max-full-width" />
+          <div className="row">
+            <div className="nine columns">
+              <div className="row">
+                <div className="three columns">
+                  <img src={this._renderEntLogo(entity.logo)} className="u-max-full-width" />
+                </div>
+                <div className="nine columns">
+                  <span className={"goal " + entity.bucketType + "-color-inverse"}>Goal: <strong>{entity.goal}</strong></span>
+                  <p>{entity.desc}</p>
+                </div>
               </div>
-              <div className="nine columns">
-                <span className={"goal " + entity.bucketType + "-color-inverse"}>Goal: <strong>{entity.goal}</strong></span>
-                <p>{entity.desc}</p>
-              </div>
+              <ul className="entity-details">
+                <li>Added:<br /> <strong>{entity.createdAt.toDateString()}</strong></li>
+                <li>Type:<br /> <strong className={entity.bucketType + "-color"}>{entity.bucketType}</strong></li>
+                {entity.lob ? <li>L.O.B.:<br /> <strong>{entity.lob}</strong></li> : null}
+                {entity.stage ? <li>Stage:<br /> <strong>{entity.stage}</strong></li> : null}
+                {entity.partnershipType ? <li>partnershipType:<br /> <strong>{entity.partnershipType}</strong></li> : null}
+              </ul>
             </div>
-            <ul className="entity-details">
-              <li>Added:<br /> <strong>{entity.createdAt.toDateString()}</strong></li>
-              <li>Type:<br /> <strong className={entity.bucketType + "-color"}>{entity.bucketType}</strong></li>
-              {entity.lob ? <li>L.O.B.:<br /> <strong>{entity.lob}</strong></li> : null}
-              {entity.stage ? <li>Stage:<br /> <strong>{entity.stage}</strong></li> : null}
-              {entity.partnershipType ? <li>partnershipType:<br /> <strong>{entity.partnershipType}</strong></li> : null}
-            </ul>
-          </div>
-          <div className="three columns">
-            <ul className="entity-contact-info">
-              <li><strong>User</strong><br /> {entity.entityUser}</li>
-              <li><strong>Email</strong><br /> {entity.email}</li>
-              <li><strong>Phone</strong><br /> {entity.phone}</li>
-              <li><strong>Address</strong><br /> {entity.address}</li>
-              <li><strong>Web</strong><br/> {entity.web}</li>
-            </ul>
-          </div>
-        </div>
-
-        <hr />
-
-        <div className="row">
-          <div className="nine columns">
-            {this._showUpdatesControls()}
-            <h3>Updates</h3>
-            <div className="well dark-bg">
-              {this.state.showAddUpdatesForm ? <AddEntityUpdateForm entityID={this.props.entityID} /> : ""}
-              {updateListing}
+            <div className="three columns">
+              <ul className="entity-contact-info">
+                <li><strong>User</strong><br /> {entity.entityUser}</li>
+                <li><strong>Email</strong><br /> {entity.email}</li>
+                <li><strong>Phone</strong><br /> {entity.phone}</li>
+                <li><strong>Address</strong><br /> {entity.address}</li>
+                <li><strong>Web</strong><br/> {entity.web}</li>
+              </ul>
             </div>
           </div>
-          <div className="three columns">
-            <h3>Customers</h3>
-            { customerList }
+
+          <hr />
+
+          <div className="row">
+            <div className="nine columns">
+              {this._showUpdatesControls()}
+              <h3>Updates</h3>
+              <div className="well dark-bg">
+                {this.state.showAddUpdatesForm ? <AddEntityUpdateForm entityID={this.props.entityID} /> : ""}
+                {updateListing}
+              </div>
+            </div>
+            <div className="three columns">
+              <h3>Customers</h3>
+              { customerList }
+            </div>
           </div>
         </div>
-      </div>
-    </ReactCSSTransitionGroup>
+      </ReactCSSTransitionGroup>
     )
   }
 }

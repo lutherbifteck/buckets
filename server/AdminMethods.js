@@ -55,6 +55,7 @@ Meteor.methods({
 
     // associate the entity with a user
     Entities.update(newEntityId, {$set: {entityUser: newUserId}});
+
     // associate the new user with its entity
     Meteor.users.update(newUserId, {$set: {profile: {entity: newEntityId} }});
     Roles.addUsersToRoles(newUserId, ['entity-member'] );
