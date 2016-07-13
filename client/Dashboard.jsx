@@ -217,7 +217,7 @@ export default class Dashboard extends React.Component {
                     <li>
                       <img src={this._renderEntLogo(ent.logo)} className="u-max-full-width" />
 
-                      <h3 className={ ent.bucketType+"-color" }>{ent.title}</h3>
+                      <h5 className={ ent.bucketType+"-color" }>{ent.title}</h5>
 
                       <span className={"bucket-type " + ent.bucketType + "-color-inverse" }>{ent.bucketType}</span>
                   </li>

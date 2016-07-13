@@ -142,13 +142,6 @@ export default class EntityDetails extends React.Component {
                   <p>{entity.desc}</p>
                 </div>
               </div>
-              <ul className="entity-details">
-                <li>Added:<br /> <strong>{entity.createdAt.toDateString()}</strong></li>
-                <li>Type:<br /> <strong className={entity.bucketType + "-color"}>{entity.bucketType}</strong></li>
-                {entity.lob ? <li>L.O.B.:<br /> <strong>{entity.lob}</strong></li> : null}
-                {entity.stage ? <li>Stage:<br /> <strong>{entity.stage}</strong></li> : null}
-                {entity.partnershipType ? <li>partnershipType:<br /> <strong>{entity.partnershipType}</strong></li> : null}
-              </ul>
             </div>
             <div className="three columns">
               <ul className="entity-contact-info">
@@ -161,7 +154,13 @@ export default class EntityDetails extends React.Component {
             </div>
           </div>
 
-          <hr />
+          <ul className="entity-details">
+            <li>Added:<br /> <strong>{entity.createdAt.toDateString()}</strong></li>
+            <li>Type:<br /> <strong className={entity.bucketType + "-color"}>{entity.bucketType}</strong></li>
+            {entity.lob ? <li>L.O.B.:<br /> <strong>{entity.lob}</strong></li> : null}
+            {entity.stage ? <li>Stage:<br /> <strong>{entity.stage}</strong></li> : null}
+            {entity.partnershipType ? <li>partnershipType:<br /> <strong>{entity.partnershipType}</strong></li> : null}
+          </ul>
 
           <div className="row">
             <div className="nine columns">

@@ -178,7 +178,6 @@ html, body {
 }
 
 .entity-list {
-
   img {
     display:block;
     border-radius: 100%;
@@ -193,37 +192,44 @@ html, body {
 
   ul {
     list-style: none;
-
     display: flex;
     display: -webkit-flex;
     display: -ms-flexbox;
 
-    flex-direction: row;
+    item-align: stretch;
 
     flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
 
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: space-around;
+    // align-items: flex-start;
+    // align-content: flex-start;
+
+    // a {
+    // }
 
     li {
-      padding: 10px 10px 0;
+      display: block;
+      // width: 170px;
+      // width: 20%;
+      flex: 1;
+      margin: 10px;
+
       display: -webkit-flex;
       display: -ms-flexbox;
       display: flex;
       flex-direction: column;
+
+      padding: 10px 10px 0;
       text-align: center;
-      // width: 50%;
-      // border: 1px solid $grey;
-      flex: 1;
-      width: 170px;
       box-shadow: 0px 1px 4px rgba(0,0,0,.3);
 
       span.bucket-type {
         margin: auto -10px;
       }
     }
+
   }
 }
 
