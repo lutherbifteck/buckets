@@ -23,8 +23,11 @@ $ meteor
 # ToDo:
 
 ### GENERAL
-* fully integrate Cloudinary (Save IDs of uploaded images in collection, be able to upload files)
+* fix donut chart bug (providers)
+* make CRM responsive
 * Implement checks(https://docs.meteor.com/api/check.html) and Roles permissions in Meteor.methods (server)
+* Ability to edit entity member data on ENtityDetails.jsx
+* Reactable bug in CRM list
 
 ## ToDos for a later date
 * Figure out how to do Android/iOS builds and how to distribute

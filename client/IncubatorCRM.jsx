@@ -98,7 +98,7 @@ class IncubatorCRMList extends React.Component {
 			console.log(data2);
 
 			return (
-				<Table className="table" sortable={true}>
+				<Table sortable={true}>
 					{this.props.list.map((int)=>{
 						return (
 							<Tr key={int._id} data={this._intToRow(int)}></Tr>

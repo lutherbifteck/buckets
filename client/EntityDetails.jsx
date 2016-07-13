@@ -101,6 +101,16 @@ export default class EntityDetails extends React.Component {
     }
   }
 
+
+  _renderAttachment(attachment) {
+    if(attachment !== '') {
+      return <a href={Cloudinary._helpers.url(attachment, {})} download>
+        <span className="lnr lnr-cloud-download"></span></a>
+    } else {
+      return '';
+    }
+  }
+
   render() {
     let entity = this.getEntityInfo();
     let updateList = this._getEntityUpdates();
@@ -114,7 +124,7 @@ export default class EntityDetails extends React.Component {
 
     //the update listing
     const updateListing = updateList.length > 0 ? <ul className="update-listing">{updateList.map((update)=>{ return (
-      <li key={update._id}><h5>{update.title}</h5>{update.createdAt.toDateString()}<br />{update.desc}</li>
+      <li key={update._id}>{this._renderAttachment(update.attachment)}<h5>{update.title}</h5>{update.createdAt.toDateString()}<p>{update.desc}</p></li>
     )})}</ul> : <p>No Updates yet...</p>;
 
     return (

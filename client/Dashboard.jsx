@@ -12,66 +12,6 @@ import DonutChart from './components/DonutChart';
 
 var DoughnutChart = require("react-chartjs").Doughnut;
 
-var TestDonutChart = React.createClass({
-  render: function() {
-
-  function rand(min, max, num) {
-     var rtn = [];
-     while (rtn.length < num) {
-       rtn.push((Math.random() * (max - min)) + min);
-     }
-     return rtn;
-   }
-
-    var chartData = [
-    {
-        value: rand(25, 300, 1)[0],
-        color:"#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red"
-    },
-    {
-        value: rand(25, 300, 1)[0],
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Green"
-    },
-    {
-        value: rand(25, 300, 1)[0],
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Yellow"
-    },
-    {
-        value: rand(25, 300, 1)[0],
-        color: "#949FB1",
-        highlight: "#A8B3C5",
-        label: "Grey"
-    },
-    {
-        value: rand(25, 300, 1)[0],
-        color: "#4D5360",
-        highlight: "#616774",
-        label: "Dark Grey"
-    }
-    ];
-    var chartOptions = {
-        animation: true,
-        responsive: true
-    };
-    return (
-      <div>
-        <DoughnutChart data={chartData} options={chartOptions}/>
-        <select>
-          <option value="goal">Goal</option>
-          <option value="lob">LOB</option>
-          <option value="stage">Stage</option>
-        </select>
-      </div>
-    )
-  }
-});
-
 export default class Dashboard extends React.Component {
   constructor() {
     super();

@@ -180,8 +180,8 @@ html, body {
 .entity-list {
   img {
     display:block;
-    border-radius: 100%;
     max-width: 160px;
+    max-height: 200px;
     height: auto;
     margin: 0 auto;
   }
@@ -291,22 +291,32 @@ html, body {
 
   .update-listing {
     list-style: none;
+
     a {
       text-decoration: none;
     }
+
     li {
       background: #fff;
       margin-bottom: 0;
       padding: 25px 15px;
       border: 1px solid $grey;
-      border-top: none;
-    }
-    &:first-child {
-      border-top: 1px solid $grey;
-      border-radius: 4px 4px 0 0;
-    }
-    &:last-child {
-      border-radius: 0 0 4px 4px;
+      border-bottom: 0;
+
+      .lnr-cloud-download {
+        float: right;
+        font-size: 2.4em;
+      }
+
+      &:first-child {
+        border-top: 1px solid $grey;
+        border-radius: 4px 4px 0 0;
+      }
+
+      &:last-child {
+        border-bottom: 1px solid $grey;
+        border-radius: 0 0 4px 4px;
+      }
     }
   }
 }

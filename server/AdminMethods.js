@@ -72,14 +72,10 @@ Meteor.methods({
     EntityUpdates.remove({ownerEntity: entityID});
   },
 
-  AddEntityUpdate(title, desc, entityID) {
-    EntityUpdates.insert({
-      title: title,
-      desc: desc,
-      ownerEntity: entityID,
-      createdAt: new Date(),
-      createdBy: this.userId
-    });
+  AddEntityUpdate(updateData) {
+    updateData.createdAt = new Date()
+    updateData.createdBy = this.userId;
+    EntityUpdates.insert(updateData);
   },
 
   addAdminOrExec(newUserData, accountType) {

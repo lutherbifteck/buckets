@@ -46,7 +46,6 @@ export default class AddEntityForm extends React.Component {
       email: newMemberEmail,
       createdBy: Meteor.userId(),
     }
-    // add the dynamic values to entityData
 
     if (this.refs.lob) {
       entityData.lob = this.refs.lob.value
@@ -92,7 +91,7 @@ export default class AddEntityForm extends React.Component {
 
     if( this.refs.logo.files.length > 0) {
       Cloudinary.upload(files, {}, (err, res) => {
-        if (err) throw new Meteor.Error("Could-not-upload-logo", err.reason);
+        if (err) throw new Meteor.Error("could-not-upload-logo", err.reason);
         entityData.logo = res.public_id;
         makeTheCall();
       });
