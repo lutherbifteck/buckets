@@ -44,14 +44,23 @@ export default class EntityDetails extends React.Component {
     let entity = this.getEntityInfo();
     let entityName = entity.title;
     let confirmation = confirm("Are you sure you want to delete " + entityName + "?");
+    let logo = entity.logo;
+
     if(confirmation) {
       Meteor.call('deleteEntity', this.props.entityID, (err, res)=>{
         if(err) throw new Meteor.Error("Error Deleting Entity", err);
+
         FlowRouter.go("/admin");
+
         Bert.alert({
           title: entityName + ' Deleted!',
           type: 'success',
           style: 'growl-top-right'
+        });
+
+        Cloudinary["delete"](logo, function(err, res) {
+          console.log("Upload Error: " + err);
+          return console.log("Upload Result: " + res);
         });
       });
     }
@@ -114,8 +123,6 @@ export default class EntityDetails extends React.Component {
   render() {
     let entity = this.getEntityInfo();
     let updateList = this._getEntityUpdates();
-
-    console.log(updateList)
 
     if (!entity) { return (<span>Entity does not exist</span>); }
 

@@ -44,7 +44,7 @@ export default class DonutChart extends React.Component {
         responsive: true
     }
 
-    console.log(ents);
+//    console.log(ents);
 
     var colors = labels.map(() => {return _randomColor()});
 
@@ -64,7 +64,7 @@ export default class DonutChart extends React.Component {
 
     chartData = labels.map((lab) => {return labToSlice(lab)});
 
-    console.log(chartData);
+//    console.log(chartData);
 
     if(ents.length) {
       if(bucket == 'startup') {
@@ -83,7 +83,7 @@ export default class DonutChart extends React.Component {
         return (
           <div>
             <DoughnutChart data={chartData} options={chartOptions}/>
-
+            
             <select ref="category" onChange={this.changeCat.bind(this)}>
               <option value="goal">Goal</option>
               <option value="partnershiptype">Partnership Type</option>

@@ -17,7 +17,6 @@ export default class ManageUsers extends React.Component {
       isEdit: false,
       editId: ''
     };
-    console.log("Admin: ", Roles.userIsInRole(Meteor.userId(), ['admin']))
   }
 
   componentWillUnmount(){

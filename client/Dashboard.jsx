@@ -109,7 +109,7 @@ export default class Dashboard extends React.Component {
             filterResult = allEntities;
     }
 
-   if (allEntities.length < 1) return <Spinner/>;
+  //  if (allEntities.length < 1) return <Spinner/>;
 
     return (
       <ReactCSSTransitionGroup transitionName="example"
